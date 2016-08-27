@@ -7,8 +7,14 @@ using Valve.VR;
 
 public class HMDController : Singleton<HMDController>
 {
-    [SerializeField]
+    [Header("Parameter"), SerializeField]
     private float m_gridFadeInTime = 0.5f;
+
+    [LargeHeader("Tracked Object"), SerializeField]
+    private SteamVR_TrackedObject m_leftControllerObject = null;
+
+    [SerializeField]
+    private SteamVR_TrackedObject m_rightControllerObject = null;
 
     //====================================================================================================================
 
@@ -18,13 +24,10 @@ public class HMDController : Singleton<HMDController>
         Right
     }
 
-    public enum ControllerButton : ulong
+    public enum ControllerButton
     { 
-        Dashboard               = 0,
-        ApplicationMenu         = 1,
-        Grip                    = 2,
-        Trigger                 = 33,
-        Touchpad                = 32,
+        ApplicationMenu,
+        Trigger,
     }
 
     public class Controller
@@ -47,45 +50,57 @@ public class HMDController : Singleton<HMDController>
     }
 
     //------------------------------------------------------------------------------
-    public Vector3 HeadsetLocation
+    public Vector3 HeadsetPosition
     {
         get { return InputTracking.GetLocalPosition(VRNode.Head); }
     }
 
     //------------------------------------------------------------------------------
-    public Quaternion ControllerRotation(ControllerIndex index)
+    public Quaternion GetControllerGlobalRotation(ControllerIndex index)
     {
-        return m_controllers[index].transform.rot;
+        return m_controllers[index].transform.rotation;
     }
 
     //------------------------------------------------------------------------------
-    public Vector3 ControllerLocation(ControllerIndex index)
+    public Quaternion GetControllerLocalRotation(ControllerIndex index)
     {
-        return m_controllers[index].transform.pos;
+        return m_controllers[index].transform.localRotation;
+    }
+
+    //------------------------------------------------------------------------------
+    public Vector3 ControllerGlobalPosition(ControllerIndex index)
+    {
+        return m_controllers[index].transform.position;
+    }
+
+    //------------------------------------------------------------------------------
+    public Vector3 ControllerLocalPosition(ControllerIndex index)
+    {
+        return m_controllers[index].transform.localPosition;
     }
 
     //------------------------------------------------------------------------------
     public bool GetButton(ControllerIndex index, ControllerButton button)
     {
-        return m_controllers[index].GetPressDown((ulong)button);
+        return GetDevice(index).GetPress(ControllerButtonToButtonMask(button));
     }
 
     //------------------------------------------------------------------------------
     public bool GetButtonDown(ControllerIndex index, ControllerButton button)
     {
-        return m_controllers[index].GetPress((ulong) button);
+        return GetDevice(index).GetPressDown(ControllerButtonToButtonMask(button));
     }
 
     //------------------------------------------------------------------------------
     public bool GetButtonUp(ControllerIndex index, ControllerButton button)
     {
-        return m_controllers[index].GetPressUp((ulong)button);
+        return GetDevice(index).GetPressUp(ControllerButtonToButtonMask(button));
     }
 
     //------------------------------------------------------------------------------
     public void TriggerHapticPulse(ControllerIndex index, ushort durationMicroSecond = 500)
     {
-        m_controllers[index].TriggerHapticPulse(durationMicroSecond);
+        GetDevice(index).TriggerHapticPulse(durationMicroSecond);
     }
 
     //====================================================================================================================
@@ -93,7 +108,7 @@ public class HMDController : Singleton<HMDController>
     private bool m_vrRoomEnterRequested = false;
     private bool m_vrRoomExitRequested = false;
     private bool m_isInVrRoom = false;
-    private Dictionary<ControllerIndex, SteamVR_Controller.Device> m_controllers = new Dictionary<ControllerIndex, SteamVR_Controller.Device>();
+    private Dictionary<ControllerIndex, SteamVR_TrackedObject> m_controllers = new Dictionary<ControllerIndex, SteamVR_TrackedObject>();
     private CVRCompositor m_compositor = null;
 
     //====================================================================================================================
@@ -101,24 +116,15 @@ public class HMDController : Singleton<HMDController>
     [UsedImplicitly]
     private void Awake()
     {
-        m_controllers.Add
-        (
-            ControllerIndex.Left, 
-            SteamVR_Controller.Input(SteamVR_Controller.GetDeviceIndex(SteamVR_Controller.DeviceRelation.Leftmost
-        )));
-
-        m_controllers.Add
-       (
-           ControllerIndex.Right,
-           SteamVR_Controller.Input(SteamVR_Controller.GetDeviceIndex(SteamVR_Controller.DeviceRelation.Rightmost
-       )));
+        m_compositor = OpenVR.Compositor;
+        m_controllers.Add(ControllerIndex.Left, m_leftControllerObject);
+        m_controllers.Add(ControllerIndex.Right, m_rightControllerObject);
     }
 
     //------------------------------------------------------------------------------
     [UsedImplicitly]
     private void Update()
     {
-        m_compositor = OpenVR.Compositor;
         SteamVR_Controller.Update();
 
         if (m_vrRoomEnterRequested && !m_isInVrRoom)
@@ -164,6 +170,38 @@ public class HMDController : Singleton<HMDController>
         if (OnVrRoomExit != null)
         {
             OnVrRoomExit();
+        }
+    }
+
+    //------------------------------------------------------------------------------
+    private SteamVR_Controller.Device GetDevice(ControllerIndex index)
+    {
+        return SteamVR_Controller.Input((int) m_controllers[index].index);
+    }
+
+    //------------------------------------------------------------------------------
+    private ulong ControllerButtonToButtonMask(ControllerButton button)
+    {
+        switch (button)
+        {
+             case ControllerButton.ApplicationMenu:
+                return SteamVR_Controller.ButtonMask.ApplicationMenu;
+
+            //case ControllerButton.Dashboard:
+            //    return SteamVR_Controller.ButtonMask.System;
+
+            //case ControllerButton.Grip:
+            //    return SteamVR_Controller.ButtonMask.Grip;
+
+            //case ControllerButton.Touchpad:
+            //    return SteamVR_Controller.ButtonMask.Touchpad;
+
+            case ControllerButton.Trigger:
+                return SteamVR_Controller.ButtonMask.Trigger;
+
+            default:
+                Debug.LogErrorFormat("The button {0} wasn't mapped in the converter ControllerButtonToButtonMask. Using fallback system.", button.ToString());
+                return SteamVR_Controller.ButtonMask.System;
         }
     }
 }
