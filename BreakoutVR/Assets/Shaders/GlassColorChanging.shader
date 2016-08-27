@@ -38,7 +38,6 @@ Shader "GlassColorChanging" {
 				o.Albedo[0] += sin(posModifiedX*posModifiedY) * _PositionColorImpact;
 				o.Albedo[1] += sin(posModifiedY*posModifiedZ) * _PositionColorImpact;
 				o.Albedo[2] += sin(posModifiedZ*posModifiedX) * _PositionColorImpact;
-
 			}
 		ENDCG
 	}
