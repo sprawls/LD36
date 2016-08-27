@@ -12,6 +12,7 @@ public class Paddle : BreakoutPhysicObject {
     private void OnModelLoaded(params object[] args) {
         gameObject.SetActive(true);
         SetKinematic(false);
+        gameObject.layer = 9; //Paddles
     }
 
     void Update() {
