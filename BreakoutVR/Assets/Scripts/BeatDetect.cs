@@ -28,23 +28,20 @@ public class BeatDetect : MonoBehaviour, AudioProcessor.AudioCallbacks
     public float dropTime = 0.2f;
 
     Vector3 initialScale;
-    
-    void Start()
-    {
+
+    protected void Awake() {
+        StartCoroutine(InitializeBeatDetector());
+    }
+
+
+    private void SetupBeat(params object[] args) {
+        initialScale = transform.localScale;
+        float scale = Random.Range(0.01f, 0.04f);
+        beatScale = new Vector3(scale, scale, scale);
         //Select the instance of AudioProcessor and pass a reference
         //to this object
         processor = FindObjectOfType<AudioProcessor>();
         processor.addAudioCallback(this);
-
-        initialScale = transform.localScale;
-        float scale = Random.Range(0.01f, 0.04f);
-        beatScale = new Vector3(scale, scale, scale);
-    }
-
-    
-    void Update()
-    {
-        
     }
 
     //this event will be called every time a beat is detected.
@@ -82,6 +79,17 @@ public class BeatDetect : MonoBehaviour, AudioProcessor.AudioCallbacks
 
     void OnDestroy()
     {
-        processor.removeAudioCallback(this);
+        if(processor != null) processor.removeAudioCallback(this);
+    }
+
+    IEnumerator InitializeBeatDetector() {
+        while (true) {
+            Debug.Log(AudioProcessor.initialized);
+            if (AudioProcessor.initialized == false) yield return new WaitForSeconds(0.5f);
+            else {
+                SetupBeat();
+                break;
+            }
+        }
     }
 }
