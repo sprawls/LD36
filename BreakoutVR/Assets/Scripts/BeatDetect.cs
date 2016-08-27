@@ -36,8 +36,8 @@ public class BeatDetect : MonoBehaviour, AudioProcessor.AudioCallbacks
 
     private void SetupBeat(params object[] args) {
         initialScale = transform.localScale;
-        float scale = Random.Range(0.01f, 0.04f);
-        beatScale = new Vector3(scale, scale, scale);
+        float scaleRatio = Random.Range(0.05f, 0.25f);
+        beatScale = new Vector3(initialScale.x * scaleRatio, initialScale.y * scaleRatio, initialScale.z * scaleRatio);
         //Select the instance of AudioProcessor and pass a reference
         //to this object
         processor = FindObjectOfType<AudioProcessor>();
