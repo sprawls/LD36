@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000012969558214}
   - 33: {fileID: 33000013941923406}
   - 23: {fileID: 23000010761420620}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,8 @@ GameObject:
   - 114: {fileID: 114000010716783840}
   - 54: {fileID: 54000010857407730}
   - 135: {fileID: 135000011825302792}
-  m_Layer: 0
+  - 114: {fileID: 114000011460549786}
+  m_Layer: 8
   m_Name: Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,8 +54,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012369135270}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0011201762, y: 1.77, z: -1.607079}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.0011201762, y: 0.77, z: 1.085}
+  m_LocalScale: {x: 0.16, y: 0.16, z: 0.16}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000012969558214}
@@ -121,7 +122,7 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 1
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 2
 --- !u!114 &114000010716783840
@@ -136,7 +137,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bouncinessFactor: 1
-  startVelocity: {x: 3, y: 6, z: 5}
+  startDirection: {x: 2, y: -3, z: 2}
+  startSpeed: 2.5
+  x: 0
+--- !u!114 &114000011460549786
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012369135270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27b14cb20d0314f40a32bcb79a5f7909, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropTime: 0.2
 --- !u!135 &135000011825302792
 SphereCollider:
   m_ObjectHideFlags: 1
