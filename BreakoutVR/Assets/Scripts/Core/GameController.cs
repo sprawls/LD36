@@ -2,9 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using GamejamToolset.Configs;
 using UnityEngine.SceneManagement;
 using GamejamToolset.Saving;
 using GamejamToolset.LevelLoading;
+using JetBrains.Annotations;
 using UnityEditor;
 
 public class GameController : Singleton<GameController>
@@ -26,9 +28,26 @@ public class GameController : Singleton<GameController>
     public bool IsGamePaused { get { return m_isPause; } }
 	public bool IsGameQuitting { get; private set; }
 
+    public bool IsInPlayLevel
+    {
+        get { return ConfigHelper.OverrideAlwaysPlayLevel || IsLevelPlayLevel(LevelManager.Instance.CurrentLevel); }
+    }
+
+    public bool IsInLevelTransition { get { return LevelManager.Instance.IsInTransition; } }
+
 	private bool m_isPause = false;
 
     //=============================================================================================
+    //---------------------------------------------------------------------------------------------
+    [UsedImplicitly]
+    private void Awake()
+    {
+        if (!BootController.WasBooted)
+        {
+            Config.Init();
+        }
+    }
+
     //---------------------------------------------------------------------------------------------
     protected override void RegisterCallbacks()
     {
@@ -52,6 +71,14 @@ public class GameController : Singleton<GameController>
     }
 
     #region Level
+    //---------------------------------------------------------------------------------------------
+    public bool IsLevelPlayLevel(LevelName level)
+    {
+        return level != LevelName.Menu
+            && level != LevelName.Null
+            && !IsInLevelTransition;
+    }
+
     //---------------------------------------------------------------------------------------------
     private void Callback_OnLevelPreStarted(LevelLoadCallbackInfo info)
     {

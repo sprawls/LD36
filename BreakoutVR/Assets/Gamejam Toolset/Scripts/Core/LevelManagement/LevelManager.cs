@@ -30,8 +30,11 @@ namespace GamejamToolset.LevelLoading
 
 		public List<Level_Data> Levels { get { return m_scenesData.LevelsList; } }
 		public Levels_Data RawLevelsData { get { return m_scenesData; } }
+        public LevelName CurrentLevel { get {return m_currentLevel; } }
+        public bool IsInTransition { get { return m_isInTransition; } }
 
 		private LevelName m_currentLevel = LevelName.Null;
+	    private bool m_isInTransition = false;
 
 		//==========================================================================================
 
@@ -86,6 +89,7 @@ namespace GamejamToolset.LevelLoading
 		//------------------------------------------------------------------------------------
 		private void LoadLevel(LevelName name)
 		{
+		    m_isInTransition = true;
 			LevelLoadCallbackInfo info = new LevelLoadCallbackInfo(m_currentLevel, name);
 			StopAllCoroutines();
 			UnloadLevel(m_currentLevel, info);
@@ -116,6 +120,8 @@ namespace GamejamToolset.LevelLoading
 			CustomLogger.LevelLog(string.Format("Switching to level |{0}| - State: ended", name.ToString()));
 			if (OnLevelStart != null)
 				OnLevelStart(info);
+
+		    m_isInTransition = false;
 		}
 
 		//------------------------------------------------------------------------------------s

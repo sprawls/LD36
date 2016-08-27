@@ -22,7 +22,12 @@ public class ConfigHelper
 	[DefaultValue(false)]
 	public static bool BootSkipIntro = false;
 
-	[Config("DebugStartingLevel", ConfigCategory.Level, SupportedConfigType.String)]
+    [Config("OverrideAlwaysPlayLevel", ConfigCategory.Level, SupportedConfigType.Bool)]
+    [Description("Override the game to always be in play level")]
+    [DefaultValue(false)]
+    public static bool OverrideAlwaysPlayLevel = false;
+
+    [Config("DebugStartingLevel", ConfigCategory.Level, SupportedConfigType.String)]
 	[Description("Go directly to a level after boot")]
 	[DefaultValue("Menu")]
 	public static string StartingLevel = "Menu";

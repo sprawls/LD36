@@ -56,6 +56,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_uiList:
   - {fileID: 184826, guid: b114916e9c35f634ca9cb8741dea2913, type: 2}
+  - {fileID: 1000014077621454, guid: 00139c638179e7346bcfb8379b1ba7c6, type: 2}
 --- !u!225 &22548912
 CanvasGroup:
   m_ObjectHideFlags: 1
