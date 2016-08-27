@@ -25,7 +25,6 @@ public class Ball : BreakoutPhysicObject {
         _currentVelocity = Vector3.Reflect(_currentVelocity, collision.contacts[0].normal) * bounceFactor;
 
         //Send Hit Message
-        Debug.Log(collision.collider.gameObject.name);
         collision.collider.gameObject.SendMessageUpwards("OnHit", 1, SendMessageOptions.DontRequireReceiver);
     }
 
