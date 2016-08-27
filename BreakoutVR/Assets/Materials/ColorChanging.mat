@@ -90,7 +90,7 @@ Material:
     m_Floats:
     - first:
         name: _AlphaValue
-      second: 0.6
+      second: 0.8
     - first:
         name: _BaseValue
       second: 0.2
@@ -156,10 +156,10 @@ Material:
       second: 0.5
     - first:
         name: _RepeatLength
-      second: 3
+      second: 1
     - first:
         name: _Shininess
-      second: 0.5
+      second: 0.3
     - first:
         name: _SmoothnessTextureChannel
       second: 0

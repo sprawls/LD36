@@ -16,14 +16,16 @@ public class BrickGenerator : MonoBehaviour {
 	void SpawnBricks () {
         Vector3 brickPosition = transform.position;
         for (int row = 0; row < rowsToSpawn; ++row) {
+            brickPosition += transform.up * brickScale * row;
             for (int brick = 0; brick < bricksPerRows; ++brick) {
-                GameObject spawnedBrick = (GameObject)Instantiate(BrickGameObject, brickPosition, Quaternion.identity);
+                GameObject spawnedBrick = (GameObject)Instantiate(BrickGameObject, brickPosition, Quaternion.identity); 
+                spawnedBrick.transform.localScale = new Vector3(brickScale, brickScale, brickScale);
+                spawnedBrick.transform.rotation = transform.rotation;
+                brickPosition += transform.right * brickScale * 2f;
                 spawnedBrick.transform.parent = transform;
-                spawnedBrick.transform.localScale = new Vector3(brickScale, brickScale, brickScale);            
-                brickPosition.x += brickScale * 2f;
             }
-            brickPosition.y += brickScale;
-            brickPosition.x = transform.position.x;
+            brickPosition = transform.position;
+           
         }
 	}
 }
