@@ -7,11 +7,15 @@ public class Ball : BreakoutPhysicObject {
     public Vector3 startDirection;
     public float startSpeed;
 
-    private Vector3 _currentVelocity;
+    private Vector3 _currentDirection;
+    private float _currentSpeed;
 
     //Hit Conditions
     private float hitCooldown = 0.05f;
     private bool canHit = true;
+
+    [Header("Ball Stretch :")]
+    public float x;
 
 
     override protected void Awake() {
@@ -19,7 +23,8 @@ public class Ball : BreakoutPhysicObject {
     }
 
     void Start() {
-        _currentVelocity = startDirection.normalized * startSpeed;
+        _currentDirection = startDirection.normalized;
+        _currentSpeed = startSpeed;
     }
 
     void Update() {
@@ -30,7 +35,8 @@ public class Ball : BreakoutPhysicObject {
         StartCoroutine(OnHitCooldown());
 
         float bounceFactor = GetBouncinessFactor(collision.collider);
-        _currentVelocity = Vector3.Reflect(_currentVelocity, collision.contacts[0].normal) * bounceFactor;
+        _currentDirection = Vector3.Reflect(_currentDirection, collision.contacts[0].normal);
+        _currentSpeed *= bounceFactor;
         MoveBall(); //To prevent ball being stuck because of collision
 
         //Send Hit Message
@@ -55,7 +61,7 @@ public class Ball : BreakoutPhysicObject {
     }
 
     private void MoveBall() {
-        _transform.position += _currentVelocity * Time.deltaTime;
+        _transform.position += _currentDirection * _currentSpeed * Time.deltaTime;
     }
 
     private void DestroyBall() {
