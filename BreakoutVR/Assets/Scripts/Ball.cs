@@ -4,7 +4,8 @@ using System.Collections;
 public class Ball : BreakoutPhysicObject {
 
     [Header("Ball Properties :")]
-    public Vector3 startVelocity;
+    public Vector3 startDirection;
+    public float startSpeed;
 
     private Vector3 _currentVelocity;
 
@@ -13,16 +14,17 @@ public class Ball : BreakoutPhysicObject {
     }
 
     void Start() {
-        _currentVelocity = startVelocity;
+        _currentVelocity = startDirection.normalized * startSpeed;
     }
 
-    void FixedUpdate() {
-        _transform.position += _currentVelocity * Time.fixedDeltaTime;
+    void Update() {
+        MoveBall();
     }
 
     void OnCollisionEnter(Collision collision) {
         float bounceFactor = GetBouncinessFactor(collision.collider);
         _currentVelocity = Vector3.Reflect(_currentVelocity, collision.contacts[0].normal) * bounceFactor;
+        MoveBall(); //To prevent ball being stuck because of collision
 
         //Send Hit Message
         collision.collider.gameObject.SendMessageUpwards("OnHit", 1, SendMessageOptions.DontRequireReceiver);
@@ -34,6 +36,10 @@ public class Ball : BreakoutPhysicObject {
             return bho.bouncinessFactor;
         }
         else return 1;
+    }
+
+    private void MoveBall() {
+        _transform.position += _currentVelocity * Time.deltaTime;
     }
 
 }
