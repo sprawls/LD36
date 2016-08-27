@@ -46,6 +46,12 @@ MonoBehaviour:
     - levelName: Menu
       scenes:
       - m_scene: {fileID: 102900000, guid: ae1420f96aa3cf14789750f93800e591, type: 3}
+        m_loadState: 1
+    - levelName: Gym
+      scenes:
+      - m_scene: {fileID: 102900000, guid: ed5e49fc35b5144408332b82955c8697, type: 3}
+        m_loadState: 0
+      - m_scene: {fileID: 102900000, guid: fc95c8636ac09f2429020431ddad8cbc, type: 3}
         m_loadState: 0
 --- !u!1001 &100100000
 Prefab:
