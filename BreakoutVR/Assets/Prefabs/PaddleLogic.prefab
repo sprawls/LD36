@@ -21,9 +21,9 @@ GameObject:
   - 4: {fileID: 4000011566374020}
   - 54: {fileID: 54000011966636438}
   - 114: {fileID: 114000013190486122}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PaddleLogic
-  m_TagString: Untagged
+  m_TagString: Paddle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39,9 +39,9 @@ GameObject:
   - 65: {fileID: 65000012401306456}
   - 23: {fileID: 23000010485278128}
   - 33: {fileID: 33000011103419948}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PaddleCollider
-  m_TagString: Untagged
+  m_TagString: Paddle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

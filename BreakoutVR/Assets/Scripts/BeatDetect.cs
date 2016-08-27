@@ -84,7 +84,6 @@ public class BeatDetect : MonoBehaviour, AudioProcessor.AudioCallbacks
 
     IEnumerator InitializeBeatDetector() {
         while (true) {
-            Debug.Log(AudioProcessor.initialized);
             if (AudioProcessor.initialized == false) yield return new WaitForSeconds(0.5f);
             else {
                 SetupBeat();

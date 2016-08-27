@@ -21,6 +21,7 @@ GameObject:
   - 4: {fileID: 4000012969558214}
   - 33: {fileID: 33000013941923406}
   - 23: {fileID: 23000010761420620}
+  - 114: {fileID: 114000012675919078}
   m_Layer: 8
   m_Name: Model
   m_TagString: Untagged
@@ -39,7 +40,6 @@ GameObject:
   - 114: {fileID: 114000010716783840}
   - 54: {fileID: 54000010857407730}
   - 135: {fileID: 135000011825302792}
-  - 114: {fileID: 114000011460549786}
   m_Layer: 8
   m_Name: Ball
   m_TagString: Untagged
@@ -54,7 +54,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012369135270}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0011201762, y: 0.77, z: 1.085}
+  m_LocalPosition: {x: -0.077, y: 0.77, z: 1.085}
   m_LocalScale: {x: 0.16, y: 0.16, z: 0.16}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -137,15 +137,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bouncinessFactor: 1
-  startDirection: {x: 2, y: -3, z: 2}
+  startDirection: {x: 1, y: 0, z: 0}
   startSpeed: 2.5
-  x: 0
---- !u!114 &114000011460549786
+  minSpeed: 1
+  maxSpeed: 3
+  clampSpeedRatio: 0.02
+  speedForMaxStretch: 6
+  maxXYStretchRatio: 0.6
+  maxZStretchRatio: 1.3
+--- !u!114 &114000012675919078
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012369135270}
+  m_GameObject: {fileID: 1000012135523112}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 27b14cb20d0314f40a32bcb79a5f7909, type: 3}
