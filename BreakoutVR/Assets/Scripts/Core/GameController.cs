@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine.SceneManagement;
 using GamejamToolset.Saving;
+using GamejamToolset.LevelLoading;
 using UnityEditor;
 
 public class GameController : Singleton<GameController>
@@ -15,22 +16,74 @@ public class GameController : Singleton<GameController>
 	public static event Action OnGameResume;
 	public static event Action OnGameQuit;
 
-	//=============================================================================================
+    public static event Action<LevelName> OnLevelPreStarted;
+    public static event Action<LevelName> OnLevelStarted;
+    public static event Action<LevelName> OnLevelPreEnded;
+    public static event Action<LevelName> OnLevelEnded;
 
-	public bool IsGamePaused { get { return m_isPause; } }
+    //=============================================================================================
+
+    public bool IsGamePaused { get { return m_isPause; } }
 	public bool IsGameQuitting { get; private set; }
 
 	private bool m_isPause = false;
 
-	//=============================================================================================
+    //=============================================================================================
+    //---------------------------------------------------------------------------------------------
+    protected override void RegisterCallbacks()
+    {
+        base.RegisterCallbacks();
 
-	void Awake()
-	{
-	}
+        LevelManager.OnLevelPreStart += Callback_OnLevelPreStarted;
+        LevelManager.OnLevelStart += Callback_OnLevelStarted;
+        LevelManager.OnLevelPreEnd += Callback_OnLevelPreEnded;
+        LevelManager.OnLevelEnd += Callback_OnLevelEnded;
+    }
 
-	#region Quitting
-	//---------------------------------------------------------------------------------------------
-	public void RequestQuitGame()
+    //---------------------------------------------------------------------------------------------
+    protected override void UnregisterCallbacks()
+    {
+        base.UnregisterCallbacks();
+
+        LevelManager.OnLevelPreStart -= Callback_OnLevelPreStarted;
+        LevelManager.OnLevelStart -= Callback_OnLevelStarted;
+        LevelManager.OnLevelPreEnd -= Callback_OnLevelPreEnded;
+        LevelManager.OnLevelEnd -= Callback_OnLevelEnded;
+    }
+
+    #region Level
+    //---------------------------------------------------------------------------------------------
+    private void Callback_OnLevelPreStarted(LevelLoadCallbackInfo info)
+    {
+        if (OnLevelPreStarted != null)
+            OnLevelPreStarted(info.Next);
+    }
+
+    //---------------------------------------------------------------------------------------------
+    private void Callback_OnLevelStarted(LevelLoadCallbackInfo info)
+    {
+        if (OnLevelStarted != null)
+            OnLevelStarted(info.Next);
+    }
+
+    //---------------------------------------------------------------------------------------------
+    private void Callback_OnLevelPreEnded(LevelLoadCallbackInfo info)
+    {
+        if (OnLevelPreEnded != null)
+            OnLevelPreEnded(info.Next);
+    }
+
+    //---------------------------------------------------------------------------------------------
+    private void Callback_OnLevelEnded(LevelLoadCallbackInfo info)
+    {
+        if (OnLevelEnded != null)
+            OnLevelEnded(info.Next);
+    }
+    #endregion
+
+    #region Quitting
+    //---------------------------------------------------------------------------------------------
+    public void RequestQuitGame()
 	{
 		if (!Application.isPlaying)
 			return;
