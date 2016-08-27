@@ -6,11 +6,13 @@ public static class TextUtils
     public static string FillInsideCounter(this string stringRef, int counterLength)
     {
         string result = "";
-        for (int i = counterLength - 1; i >= 0; --i)
+        int numberOfZero = counterLength - stringRef.Length;
+
+        for (int i = 0; i < counterLength; ++i)
         {
-            if (i < stringRef.Length)
+            if (i >= numberOfZero)
             {
-                result += stringRef[i];
+                result += stringRef[i - numberOfZero];
             }
             else
             {

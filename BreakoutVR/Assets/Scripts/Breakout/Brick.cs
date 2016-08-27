@@ -3,11 +3,16 @@ using System.Collections;
 
 public class Brick : BreakoutPhysicObject {
 
-    [Header("Brick Properties :")]
+    [LargeHeader("Brick Properties :")]
     public int startingHP = 1;
+
+    [SerializeField]
+    private int m_pointsGiven = 1000;
 
     public int Health {get; private set;}
 
+    protected virtual void Internal_OnHit() {}
+    protected virtual void Internal_OnDestroy() {}
 
     override protected void Awake() {
         base.Awake();
@@ -21,6 +26,7 @@ public class Brick : BreakoutPhysicObject {
         if (damage <= 0) Debug.LogWarning("Warning : negative damage number !");
         ModifyHealth(-damage);
         //FX HERE
+        Internal_OnHit();
     }
 
     private void ModifyHealth(int change) {
@@ -32,6 +38,8 @@ public class Brick : BreakoutPhysicObject {
 
     private IEnumerator DestroyBrick() {
         //FX HERE
+        Internal_OnDestroy();
+        ScoreController.Instance.AddRawScore(m_pointsGiven, transform);
         Destroy(gameObject);
         yield return null;
     }
