@@ -225,7 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30ce4826b0b60c744af4d4fe3b1a78ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BrickGameObject: {fileID: 1000012373527322, guid: cfdbffef275f548449d52e1755d6cc2d,
+  BrickGameObject: {fileID: 1000013749850938, guid: 09b833c5630fce84d8e0a5ba79063f3e,
     type: 2}
   rowsToSpawn: 5
   bricksPerRows: 7
@@ -1113,7 +1113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30ce4826b0b60c744af4d4fe3b1a78ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BrickGameObject: {fileID: 1000012373527322, guid: cfdbffef275f548449d52e1755d6cc2d,
+  BrickGameObject: {fileID: 1000013749850938, guid: 09b833c5630fce84d8e0a5ba79063f3e,
     type: 2}
   rowsToSpawn: 5
   bricksPerRows: 7
