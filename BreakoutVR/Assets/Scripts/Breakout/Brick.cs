@@ -18,7 +18,6 @@ public class Brick : BreakoutPhysicObject {
 	}
 
     public void OnHit(int damage) {
-        Debug.Log("OnHit");
         if (damage <= 0) Debug.LogWarning("Warning : negative damage number !");
         ModifyHealth(-damage);
         //FX HERE
