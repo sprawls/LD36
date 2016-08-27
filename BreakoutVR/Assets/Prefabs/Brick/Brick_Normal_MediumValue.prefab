@@ -23,7 +23,7 @@ GameObject:
   - 65: {fileID: 65000012168727312}
   - 23: {fileID: 23000013313222024}
   - 114: {fileID: 114000014006724766}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - 4: {fileID: 4000013708796462}
   - 114: {fileID: 114000014236760888}
   - 54: {fileID: 54000012722077200}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Brick_Normal_MediumValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
