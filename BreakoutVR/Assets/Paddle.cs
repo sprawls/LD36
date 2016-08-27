@@ -4,7 +4,11 @@ using Valve.VR;
 
 public class Paddle : BreakoutPhysicObject {
 
+    public float currentVelocity;
+    private Vector3 prevPosition;
+
     override protected void Awake() {
+        Debug.Log("gf");
         SteamVR_Utils.Event.Listen("render_model_loaded", OnModelLoaded);
         base.Awake();
     }
@@ -16,7 +20,14 @@ public class Paddle : BreakoutPhysicObject {
     }
 
     void Update() {
-        transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.identity;
+        _transform.localPosition = Vector3.zero;
+        _transform.localRotation = Quaternion.identity;
+
+        currentVelocity = (_transform.position - prevPosition).magnitude/Time.deltaTime;
+        prevPosition = _transform.position;
+    }
+
+    public float GetCurrentVelocity() {
+        return currentVelocity;
     }
 }
