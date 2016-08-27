@@ -8,6 +8,8 @@ public class BootController : MonoBehaviour
 	public const string PERSISTENT_SCENE_PATH = "Assets/Leblond Gamejam Toolset/{0}.unity";
 	public const string BOOT_SCENE_NAME = "Boot Scene";
 
+    public static bool WasBooted = false;
+
 	[Header("Persistent"), SerializeField]
 	private PersistentObjectsManager persistentSpawnerObject;
 
@@ -70,6 +72,8 @@ public class BootController : MonoBehaviour
 			CustomLogger.BootLogError("The persistent Object spawner prefab reference in BootController is null");
 			return;
 		}
+
+	    WasBooted = true;
 
 #if !SUBMISSION_BUILD
 		Access_LevelManager.RequestLoadLevel(ConfigHelper.StartingLevel);

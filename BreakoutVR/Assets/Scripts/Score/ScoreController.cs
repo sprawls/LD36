@@ -56,10 +56,7 @@ public class ScoreController : Singleton<ScoreController>
     //----------------------------------------------------------------------------------------
     private void Callback_OnLevelPreStart(LevelName levelName)
     {
-        if (levelName != LevelName.Menu)
-        {
-            ResetData();
-        }
+        ResetScore();
     }
 
     //==============================================================================================================

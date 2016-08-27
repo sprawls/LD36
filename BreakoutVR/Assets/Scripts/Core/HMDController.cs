@@ -123,7 +123,7 @@ public class HMDController : Singleton<HMDController>
 
     //------------------------------------------------------------------------------
     [UsedImplicitly]
-    private void Update()
+    private void LateUpdate()
     {
         SteamVR_Controller.Update();
 
@@ -203,5 +203,12 @@ public class HMDController : Singleton<HMDController>
                 Debug.LogErrorFormat("The button {0} wasn't mapped in the converter ControllerButtonToButtonMask. Using fallback system.", button.ToString());
                 return SteamVR_Controller.ButtonMask.System;
         }
+    }
+
+    //------------------------------------------------------------------------------
+    public void AddObjectToController(ControllerIndex index, Transform obj, Vector3 offset = default(Vector3))
+    {
+        obj.SetParent(m_controllers[index].transform);
+        obj.transform.localPosition = offset;
     }
 }
