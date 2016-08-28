@@ -3,8 +3,10 @@ using System.Collections;
 
 public class AudioManager : Singleton<AudioManager>
 {
-    [SerializeField] private AudioClip paddleSmashSound;
     [SerializeField] private AudioClip brickStompSound;
+    [SerializeField] private AudioClip generalBallHitSound;
+    [SerializeField] private AudioClip paddleHitSound;
+    [SerializeField] private AudioClip paddleHitLouderSound;
 
     private float timeBetweenBrickHitBonus = 2.0f;
     private float pitch = 1.0f;
@@ -26,14 +28,18 @@ public class AudioManager : Singleton<AudioManager>
     void Start () {
 	
 	}
-	
-    public AudioClip getPaddleSmashSound() { return paddleSmashSound; }
+
+    public AudioClip getGeneralBallHitSound() { return generalBallHitSound; }
+
+    public AudioClip getPaddleHitSound() { return paddleHitSound; }
+
+    public AudioClip getPaddleHitLouderSound() { return paddleHitLouderSound; }
 
     public AudioClipWithPitch getBrickStompSound() {
         float pitchToSend = pitch;
         pitch += pitchDiff;
         if (pitch >= pitchMax) pitch = pitchMax;
-        //Debug.Log(pitchToSend);
+
         StopCoroutine(resetPitchIfTimeOut(timeBetweenBrickHitBonus));
         StartCoroutine(resetPitchIfTimeOut(timeBetweenBrickHitBonus));
         return new AudioClipWithPitch(brickStompSound, pitchToSend);

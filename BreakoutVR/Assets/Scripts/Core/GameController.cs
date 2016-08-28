@@ -11,10 +11,24 @@ using UnityEditor;
 
 public class GameController : Singleton<GameController>
 {
+    public const int LIVES_COUNT = 3;
 
-	//=============================================================================================
+    [Serializable]
+    public class PlayLevelData
+    {
+        [Range(1, 20)]
+        public int ballCount = 5;
+        public float delayBetweenSpawn = 4f;
+    }
 
-	public static event Action OnGamePause;
+    //=============================================================================================
+
+    [SerializeField]
+    private List<PlayLevelData> m_playLevelsData = new List<PlayLevelData>();
+
+    //=============================================================================================
+
+    public static event Action OnGamePause;
 	public static event Action OnGameResume;
 	public static event Action OnGameQuit;
 
@@ -36,20 +50,55 @@ public class GameController : Singleton<GameController>
         get { return ConfigHelper.OverrideAlwaysPlayLevel || IsLevelPlayLevel(LevelManager.Instance.CurrentLevel); }
     }
 
+    public PlayLevelData CurrentPlayLevelData
+    {
+        get
+        {
+            if (!IsInPlayLevel || m_currentPlayLevelIndex < 0)
+                return null;
+
+            return m_playLevelsData[m_currentPlayLevelIndex];
+        }
+    }
+
     public bool IsInLevelTransition { get { return LevelManager.Instance.IsInTransition; } }
 
 	private bool m_isPause = false;
     private bool m_isPlayingLevel = false;
+    private int m_currentPlayLevelIndex = -1;
 
     //=============================================================================================
     //---------------------------------------------------------------------------------------------
     [UsedImplicitly]
     private void Awake()
     {
+#if UNITY_EDITOR
         if (!BootController.WasBooted)
         {
             Config.Init();
+
+            StartCoroutine(DebugStart());
         }
+#endif
+    }
+
+    //---------------------------------------------------------------------------------------------
+    private IEnumerator DebugStart()
+    {
+        m_currentPlayLevelIndex = 0;
+
+        if (OnLevelPreStarted != null)
+            OnLevelPreStarted(LevelName.Level1);
+
+        yield return null;
+
+        if (OnLevelStarted != null)
+            OnLevelStarted(LevelName.Level1);
+
+        yield return null;
+
+        if (OnPlayStarted != null)
+            OnPlayStarted();
     }
 
     //---------------------------------------------------------------------------------------------
@@ -103,20 +152,40 @@ public class GameController : Singleton<GameController>
 
     #region Level
     //---------------------------------------------------------------------------------------------
+    public void RequestNextPlayLevelLoad()
+    {
+        
+    }
+
+    //---------------------------------------------------------------------------------------------
     public void RequestMenuLoad()
     {
+        m_currentPlayLevelIndex = -1;
         LevelManager.Instance.RequestLoadLevel(LevelName.Menu);
     }
 
     //---------------------------------------------------------------------------------------------
     public void RequestPlayLevelLoad(uint index)
     {
+        if (index >= m_playLevelsData.Count)
+        {
+            Debug.LogError("Trying to load outside the range of the PlayLevelsData array");
+            return;
+        }
+
+        LevelName levelToLoad = LevelName.Null;
         switch (index)
         {
+            case 0:
+                levelToLoad = LevelName.Level1;
+                break;
+
             default:
                 Debug.LogErrorFormat("Trying to load a level with index {0}. This play level doesn't exist");
-                break;
+                return;
         }
+
+        LevelManager.Instance.RequestLoadLevel(levelToLoad);
     }
 
     //---------------------------------------------------------------------------------------------

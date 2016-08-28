@@ -9,30 +9,30 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1000013615671236}
+  m_RootGameObject: {fileID: 1000012636728720}
   m_IsPrefabParent: 1
---- !u!1 &1000013615671236
+--- !u!1 &1000012636728720
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 4000012239703682}
-  - 114: {fileID: 114000013471987660}
+  - 4: {fileID: 4000010501574526}
+  - 114: {fileID: 114000013581470738}
   m_Layer: 0
-  m_Name: AudioManager
-  m_TagString: Untagged
+  m_Name: BallSpawner
+  m_TagString: Spawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4000012239703682
+--- !u!4 &4000010501574526
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013615671236}
+  m_GameObject: {fileID: 1000012636728720}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,19 +40,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &114000013471987660
+--- !u!114 &114000013581470738
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013615671236}
+  m_GameObject: {fileID: 1000012636728720}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4dd0b179907beaf4d8d8aab94fd803ff, type: 3}
+  m_Script: {fileID: 11500000, guid: a893277100eb70b4da9abf8c6cddca5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brickStompSound: {fileID: 8300000, guid: c663f1cba232a2544b0980de6ceb15ec, type: 3}
-  generalBallHitSound: {fileID: 8300000, guid: 5d97e1e51e33d374fa0db56d903f7bfd, type: 3}
-  paddleHitSound: {fileID: 8300000, guid: 8831c66a233f6824eb00e537e7e9d379, type: 3}
-  paddleHitLouderSound: {fileID: 8300000, guid: f372dd90a3be9b04da641124de98f1b4,
-    type: 3}
+  m_objectToSpawn: {fileID: 1000012369135270, guid: 4081c1c69110deb4999a73f9f9fc9639,
+    type: 2}
+  m_spawnType: 0

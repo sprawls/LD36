@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using DG.Tweening;
 
@@ -49,8 +50,17 @@ public class Ball : BreakoutPhysicObject {
     private float currentXYScale;
     private float currentZScale;
 
+
+    [Header("Ball Sound :")]
+    private AudioSource audioSource;
+    private AudioClip generalBallHitSound;
+    private AudioClip paddleHitSound;
+
+    public event Action OnDestroy;
+
     override protected void Awake() {
         isDestroyed = false;
+        audioSource = gameObject.GetComponentInChildren<AudioSource>();
         base.Awake();
     }
 
@@ -125,6 +135,10 @@ public class Ball : BreakoutPhysicObject {
         _rigidBody.MovePosition(_transform.position + (_currentDirection * _currentSpeed * Time.fixedDeltaTime));
     }
 
+    protected virtual void Internal_OnHit()
+    {
+    }
+
     void OnCollisionEnter(Collision collision) {
         //Check death
         if (collision.collider.tag == "KillZone") {
@@ -132,6 +146,8 @@ public class Ball : BreakoutPhysicObject {
         }
         else if (canHit == true) {
             StartCoroutine(OnHitCooldown(collision.collider));
+            Internal_OnHit();
+
             StopCoroutine("OnHitModelScale");
             StartCoroutine("OnHitModelScale");
 
@@ -147,11 +163,17 @@ public class Ball : BreakoutPhysicObject {
             Sequence colorSequence = DOTween.Sequence();
             colorSequence.Append(_material.DOColor(ColorManager.GetCurrentColor(), 0.2f));
             colorSequence.Append(_material.DOColor(Color.white, 0.1f));
+
+            // play collision sounds 
+            playCollisionSound(collision.collider);
         }
 
     }
 
     public void OnKill() {
+        if (OnDestroy != null)
+            OnDestroy();
+
         isDestroyed = true;
         RemoveBeatDetectsChildren();
         RemovePhysicsComponents();
@@ -245,6 +267,35 @@ public class Ball : BreakoutPhysicObject {
             yield return null;
         }
         _collisionScaleFactor = 1f;
+    }
+
+    private void playCollisionSound(Collider collider)
+    {
+        if (collider.tag == "Paddle")
+        {
+            Paddle paddle = collider.GetComponentInParent<Paddle>();
+            float paddleVelocity = paddle.GetCurrentVelocityMagnitude();
+            // if paddle swung fast, bigger smashing sound
+            if (paddleVelocity >= 2.0f)
+            {
+                AudioClip paddleHitLouderSound = AudioManager.Instance.getPaddleHitLouderSound();
+                audioSource.PlayOneShot(paddleHitLouderSound);
+            }
+            else
+            {
+                // change pitch and volume of hit sound according to paddle velocity
+                AudioClip paddleHitSound = AudioManager.Instance.getPaddleHitSound();
+                audioSource.pitch = 1.0f + paddleVelocity  * 0.15f;
+                audioSource.volume = 1.0f + paddleVelocity * 0.8f;
+                audioSource.PlayOneShot(paddleHitSound);
+            }
+            
+        }
+        else
+        {
+            AudioClip generalBallHitSound = AudioManager.Instance.getGeneralBallHitSound();
+            audioSource.PlayOneShot(generalBallHitSound);
+        }
     }
 
 }

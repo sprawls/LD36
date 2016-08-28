@@ -28,9 +28,11 @@ public class BootController : MonoBehaviour
 	void Start()
 	{
 		CustomLogger.BootLog("Loading Configs");
-		Config.Init();
+#if !SUBMISSION_BUILD
+        Config.Init();
+#endif
 
-		CustomLogger.BootLog("Starting Bootstrap");
+        CustomLogger.BootLog("Starting Bootstrap");
 		if (SceneManager.sceneCount > 0)
 		{
 			for (int i = SceneManager.sceneCount - 1; i >= 0; --i)
