@@ -49,10 +49,15 @@ public class Ball : BreakoutPhysicObject {
     private float currentXYScale;
     private float currentZScale;
 
+
+    [Header("Ball Sound :")]
+    private AudioSource audioSource;
+    private AudioClip generalBallHitSound;
     public event Action OnDestroy;
 
     override protected void Awake() {
         isDestroyed = false;
+        audioSource = gameObject.GetComponentInChildren<AudioSource>();
         base.Awake();
     }
 
@@ -146,6 +151,9 @@ public class Ball : BreakoutPhysicObject {
             Sequence colorSequence = DOTween.Sequence();
             colorSequence.Append(_material.DOColor(ColorManager.GetCurrentColor(), 0.2f));
             colorSequence.Append(_material.DOColor(Color.white, 0.1f));
+
+            // play collision sounds 
+            playCollisionSound(collision.collider);
         }
 
     }
@@ -218,6 +226,19 @@ public class Ball : BreakoutPhysicObject {
             yield return null;
         }
         _collisionScaleFactor = 1f;
+    }
+
+    private void playCollisionSound(Collider collider)
+    {
+        if (collider.tag == "paddle")
+        {
+            //play paddle collision sound
+        }
+        else
+        {
+            AudioClip generalBallHitSound = AudioManager.Instance.getGeneralBallHitSound();
+            audioSource.PlayOneShot(generalBallHitSound);
+        }
     }
 
 }
