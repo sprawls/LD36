@@ -5,6 +5,7 @@ public class AudioManager : Singleton<AudioManager>
 {
     [SerializeField] private AudioClip paddleSmashSound;
     [SerializeField] private AudioClip brickStompSound;
+    [SerializeField] private AudioClip generalBallHitSound;
 
     private float timeBetweenBrickHitBonus = 2.0f;
     private float pitch = 1.0f;
@@ -28,6 +29,8 @@ public class AudioManager : Singleton<AudioManager>
 	}
 	
     public AudioClip getPaddleSmashSound() { return paddleSmashSound; }
+
+    public AudioClip getGeneralBallHitSound() { return generalBallHitSound; }
 
     public AudioClipWithPitch getBrickStompSound() {
         float pitchToSend = pitch;
