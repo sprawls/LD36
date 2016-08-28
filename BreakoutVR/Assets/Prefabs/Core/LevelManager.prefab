@@ -53,6 +53,10 @@ MonoBehaviour:
         m_loadState: 0
       - m_scene: {fileID: 102900000, guid: fc95c8636ac09f2429020431ddad8cbc, type: 3}
         m_loadState: 0
+      - m_scene: {fileID: 102900000, guid: 10cabfe465883b34ab73ca2bb618c5bb, type: 3}
+        m_loadState: 0
+      - m_scene: {fileID: 102900000, guid: 59404cde92c72ae4489592c83262aa7b, type: 3}
+        m_loadState: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
