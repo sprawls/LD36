@@ -20,4 +20,29 @@ public static class GameObjectUtils
 
 		return objects.ToArray();
 	}
+
+    public static T GetClosest<T>(List<T> list, Component closestTo) where T : Component
+    {
+        if (list.Count == 0)
+            return null;
+
+        if (list.Count == 1)
+            return list[0];
+
+        Vector3 closestToPos = closestTo.transform.position;
+        T closest = list[0];
+        float closestDistance = Vector3.Distance(closestToPos, list[0].transform.position);
+
+        for (int i = 1; i < list.Count; ++i)
+        {
+            float distance = Vector3.Distance(closestToPos, list[i].transform.position);
+            if (distance < closestDistance)
+            {
+                closest = list[i];
+                closestDistance = distance;
+            }
+        }
+
+        return closest;
+    }
 }
