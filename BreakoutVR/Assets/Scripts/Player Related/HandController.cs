@@ -16,7 +16,7 @@ public class HandController : ExtendedMonoBehaviour
 
     //================================================================================================
 
-    [SerializeField]
+    [SerializeField] 
     private HMDController.ControllerIndex m_controller;
 
     [SerializeField]
