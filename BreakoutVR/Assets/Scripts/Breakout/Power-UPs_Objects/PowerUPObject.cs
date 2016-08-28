@@ -10,8 +10,9 @@ public class PowerUPObject : MonoBehaviour {
     [SerializeField]
     private Vector3 m_direction= -Vector3.forward;
 
-    void OnCollisionEnter(Collision col)
+    void onTriggerEnter(Collider col)
     {
+        Debug.Log("CollisionEnter");
         HandController hController = col.gameObject.GetComponentInChildren<HandController>();
          if(hController)
          {
