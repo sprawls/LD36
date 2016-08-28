@@ -7,7 +7,7 @@ public class EventBall : Ball
 {
     [Header("Event Ball Parameter"), SerializeField] private float m_eventAfterTime = 0f;
     [SerializeField] private float m_hoverMultiplier = 0.05f;
-    [SerializeField, Range(10, 50)] private float m_hoverDifference = 20f;
+    [SerializeField, Range(0, 1)] private float m_hoverDifference = 0.5f;
     [SerializeField] private AnimationCurve y_curve;
     [SerializeField] private AnimationCurve xz_curve;
     [SerializeField] private UnityEvent m_events;

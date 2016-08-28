@@ -254,6 +254,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 0
   m_pointsGiven: 5000
+  m_powerChanceUpPercent: 0.3
 --- !u!114 &114000013501095996
 MonoBehaviour:
   m_ObjectHideFlags: 1
