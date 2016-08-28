@@ -144,6 +144,11 @@ public class Ball : BreakoutPhysicObject {
         if (collider.tag == "Paddle") {
             Paddle paddleScript = collider.GetComponentInParent<Paddle>();
             reflectedDirection = collision.contacts[0].normal;
+            float DotProduct = Vector3.Dot(reflectedDirection, paddleScript.transform.up);
+            if (!(DotProduct < 0.1f && DotProduct > -0.1f)) {
+                reflectedDirection = paddleScript.transform.up * Mathf.Sign(DotProduct);
+            }
+
             reflectedDirection += paddleScript.GetCurrentVelocity().normalized * paddleDirectionInfluenceFromPaddleSpeed;
         } else {
             reflectedDirection = Vector3.Reflect(_currentDirection, collision.contacts[0].normal);
