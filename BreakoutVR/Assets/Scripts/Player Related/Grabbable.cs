@@ -33,13 +33,13 @@ public class Grabbable : MonoBehaviour
 
     public virtual void OnGrab(HMDController.ControllerIndex controller)
     {
-        m_rigidbody.useGravity = true;
+        //m_rigidbody.useGravity = true;
         IsGrabbed = true;
     }
 
     public virtual void OnRelease()
     {
-        m_rigidbody.useGravity = true;
+        //m_rigidbody.useGravity = true;
         IsGrabbed = false;
     }
 }

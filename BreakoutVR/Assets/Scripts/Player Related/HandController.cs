@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
-[RequireComponent(typeof(SphereCollider))]
 public class HandController : MonoBehaviour
 {
     [SerializeField]
@@ -12,6 +11,9 @@ public class HandController : MonoBehaviour
     [SerializeField]
     private Transform m_anchor;
 
+    
+
+#if false
     //=============================================================================================
 
     private List<Grabbable> m_grabbableInRange = new List<Grabbable>();
@@ -19,6 +21,48 @@ public class HandController : MonoBehaviour
     private Grabbable m_grabbed = null;
 
     //=============================================================================================
+
+    //------------------------------------------------------------------
+    private void RequestThrow()
+    {
+        
+    }
+
+    //------------------------------------------------------------------
+    private void RequestRelease()
+    {
+        if (m_grabbed != null)
+        {
+            m_grabbed.transform.SetParent(m_grabbed.OriginalParent);
+            m_grabbed.OnRelease();
+            m_grabbableInRange.Remove(m_grabbed);
+            m_grabbed = null;
+        }
+    }
+
+
+    //------------------------------------------------------------------
+    [UsedImplicitly]
+    void OnTriggerEnter(Collider other)
+    {
+        Grabbable grabbable = other.GetComponent<Grabbable>();
+        if (grabbable != null && !grabbable.IsGrabbed && grabbable != m_grabbed)
+        {
+            m_grabbableInRange.Add(grabbable);
+        }
+    }
+
+    //------------------------------------------------------------------
+    [UsedImplicitly]
+    void OnTriggerExit(Collider other)
+    {
+        Grabbable grabbable = other.GetComponent<Grabbable>();
+        if (grabbable != null)
+        {
+            m_grabbableInRange.Remove(grabbable);
+        }
+    }
+
     //------------------------------------------------------------------
     [UsedImplicitly]
     private void LateUpdate()
@@ -60,7 +104,7 @@ public class HandController : MonoBehaviour
     //------------------------------------------------------------------
     private void RequestGrab()
     {
-        if (m_currentClosest != null && m_grabbed == null)
+        if (m_currentClosest != null && m_grabbed == null && !m_currentClosest.IsGrabbed)
         {
             m_grabbed = m_currentClosest;
             m_grabbed.OnHoverEnd(m_controller);
@@ -72,37 +116,5 @@ public class HandController : MonoBehaviour
             m_grabbed.OnGrab(m_controller);
         }
     }
-
-    //------------------------------------------------------------------
-    private void RequestRelease()
-    {
-        if (m_grabbed != null)
-        {
-            m_grabbed.transform.SetParent(m_grabbed.OriginalParent);
-            m_grabbed.OnRelease();
-            m_grabbed = null;
-        }
-    }
-
-    //------------------------------------------------------------------
-    [UsedImplicitly]
-    void OnTriggerEnter(Collider other)
-    {
-        Grabbable grabbable = other.GetComponent<Grabbable>();
-        if (grabbable != null && !grabbable.IsGrabbed && grabbable != m_grabbed)
-        {
-            m_grabbableInRange.Add(grabbable);
-        }
-    }
-
-    //------------------------------------------------------------------
-    [UsedImplicitly]
-    void OnTriggerExit(Collider other)
-    {
-        Grabbable grabbable = other.GetComponent<Grabbable>();
-        if (grabbable != null)
-        {
-            m_grabbableInRange.Remove(grabbable);
-        }
-    }
+#endif
 }
