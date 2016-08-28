@@ -9,6 +9,10 @@ public class Brick : BreakoutPhysicObject {
     [SerializeField]
     private int m_pointsGiven = 1000;
 
+    private AudioSource audioSource;
+    private AudioClip brickStompSound;
+    
+
     public int Health {get; private set;}
 
     protected virtual void Internal_OnHit() {}
@@ -19,6 +23,8 @@ public class Brick : BreakoutPhysicObject {
     }
 
 	void Start () {
+        audioSource = gameObject.GetComponentInChildren<AudioSource>();
+        brickStompSound = AudioManager.Instance.getBrickStompSound();
         Health = startingHP;
 	}
 
@@ -26,6 +32,7 @@ public class Brick : BreakoutPhysicObject {
         if (damage <= 0) Debug.LogWarning("Warning : negative damage number !");
         ModifyHealth(-damage);
         //FX HERE
+        audioSource.PlayOneShot(brickStompSound);
         Internal_OnHit();
     }
 
@@ -40,8 +47,8 @@ public class Brick : BreakoutPhysicObject {
         //FX HERE
         Internal_OnDestroy();
         ScoreController.Instance.AddRawScore(m_pointsGiven, transform);
+        yield return new WaitForSeconds(1f);
         Destroy(gameObject);
-        yield return null;
     }
 
 

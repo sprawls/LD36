@@ -12,7 +12,6 @@ public class EyeFollowPlayer : MonoBehaviour {
     // Use this for initialization
     void Start () {
         baseRotation = transform.eulerAngles;
-        Debug.Log(baseRotation);
     }
 	
 	// Update is called once per frame
