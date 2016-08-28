@@ -226,6 +226,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bouncinessFactor: 1
   startingHP: 1
+  deathAnimTime: 0.5
+  deathAnimAnimCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 0.12531213
+      value: 2.0008602
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 0.4064892
+      value: 0.5614393
+      inSlope: -2.5449643
+      outSlope: -2.5449643
+      tangentMode: 0
+    - time: 1.0142884
+      value: 0.0010707378
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
   m_pointsGiven: 1000
 --- !u!114 &114000010955652382
 MonoBehaviour:

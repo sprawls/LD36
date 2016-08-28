@@ -746,10 +746,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013276630196}
-  m_LocalRotation: {x: -0, y: -0.7071068, z: -0.7071068, w: 0}
-  m_LocalPosition: {x: -0.667, y: 0.592, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: -90, y: -180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000013322406326}
   m_Father: {fileID: 0}
@@ -1455,6 +1455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 099007b78a444d540b9b23c233b33eb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
   paddle: {fileID: 1000012816311628}
 --- !u!114 &114000012086179384
 MonoBehaviour:
@@ -1468,7 +1469,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bouncinessFactor: 1
-  currentVelocity: 0
+  currentVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &114000013084132692
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1491,6 +1492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 099007b78a444d540b9b23c233b33eb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
   paddle: {fileID: 1000012816311628}
 --- !u!135 &135000010223826948
 SphereCollider:

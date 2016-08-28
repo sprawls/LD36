@@ -17,7 +17,6 @@ public class Ball : BreakoutPhysicObject {
     [Header("Ball Death")]
     public float deathAnimTime = 1f;
     public AnimationCurve deathAnimAnimCurve;
-    public bool isDead { get; private set; }
 
     //Hit Conditions
     [Header("Ball Collision :")]
@@ -50,7 +49,7 @@ public class Ball : BreakoutPhysicObject {
     private float currentZScale;
 
     override protected void Awake() {
-        isDead = false;
+        isDestroyed = false;
         base.Awake();
     }
 
@@ -78,7 +77,7 @@ public class Ball : BreakoutPhysicObject {
     }
 
     private bool CanPlay() {
-        if (!isDead) return true;
+        if (!isDestroyed) return true;
         else return false;
     }
 
@@ -144,7 +143,14 @@ public class Ball : BreakoutPhysicObject {
     }
 
     public void OnKill() {
-        StartCoroutine(DestroyBall());
+        isDestroyed = true;
+        RemoveBeatDetectsChildren();
+        RemovePhysicsComponents();
+
+        DontGoThroughThings dgtt = (DontGoThroughThings) GetComponentInChildren<DontGoThroughThings>();
+        if (dgtt != null) Destroy(dgtt);
+
+        StartCoroutine(DestroyBall()); //anim fx
     }
 
     private float GetBouncinessFactor(Collider coll) {
@@ -179,10 +185,6 @@ public class Ball : BreakoutPhysicObject {
     }
 
     private IEnumerator DestroyBall() {
-        isDead = true;
-        BeatDetect[] beatDetects = GetComponentsInChildren<BeatDetect>();
-        foreach (BeatDetect b in beatDetects) Destroy(b);
-
         _material.DOColor(Color.black, 0.2f);
 
         for (float i = 0; i < 1f; i += Time.deltaTime / deathAnimTime) {

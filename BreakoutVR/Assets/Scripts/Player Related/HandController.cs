@@ -34,6 +34,14 @@ public class HandController : ExtendedMonoBehaviour
 
     //================================================================================================
     //-------------------------------------------------------------------------
+    private void Awake()
+    {
+#if UNITY_EDITOR && true
+        Callback_OnPlayStart();
+#endif
+    }
+
+    //-------------------------------------------------------------------------
     protected override void RegisterCallbacks()
     {
         base.RegisterCallbacks();
