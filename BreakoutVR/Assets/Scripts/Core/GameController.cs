@@ -152,6 +152,12 @@ public class GameController : Singleton<GameController>
 
     #region Level
     //---------------------------------------------------------------------------------------------
+    public void RequestNextPlayLevelLoad()
+    {
+        
+    }
+
+    //---------------------------------------------------------------------------------------------
     public void RequestMenuLoad()
     {
         m_currentPlayLevelIndex = -1;
