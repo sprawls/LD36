@@ -14,4 +14,10 @@ public class PowerupController : Singleton<PowerupController>
 
     [SerializeField, InspectorReadOnly]
     private PowerupType m_leftHandPowerup;
+
+    public HandController GetHandController(HMDController.ControllerIndex cIndex)
+    {
+        if (cIndex == HMDController.ControllerIndex.Left) return m_leftHandController;
+        else return m_rightHandController;
+    }
 }
