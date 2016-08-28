@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using DG.Tweening;
 
@@ -13,6 +14,7 @@ public class Ball : BreakoutPhysicObject {
     private float _currentSpeed;
     private Transform _ModelSpeedScaler;
     private Material _material;
+    private Collider _ballCollider;
 
     [Header("Ball Death")]
     public float deathAnimTime = 1f;
@@ -48,8 +50,17 @@ public class Ball : BreakoutPhysicObject {
     private float currentXYScale;
     private float currentZScale;
 
+
+    [Header("Ball Sound :")]
+    private AudioSource audioSource;
+    private AudioClip generalBallHitSound;
+    private AudioClip paddleHitSound;
+
+    public event Action OnDestroy;
+
     override protected void Awake() {
         isDestroyed = false;
+        audioSource = gameObject.GetComponentInChildren<AudioSource>();
         base.Awake();
     }
 
@@ -58,6 +69,7 @@ public class Ball : BreakoutPhysicObject {
         _currentSpeed = startSpeed;
         _ModelSpeedScaler = _transform.Find("ModelSpeedScaler");
         _material = GetComponentInChildren<MeshRenderer>().material;
+        _ballCollider = GetComponent<Collider>();
 
         startXYScale = _ModelSpeedScaler.localScale.x;
         startZScale = _ModelSpeedScaler.localScale.z;
@@ -69,9 +81,14 @@ public class Ball : BreakoutPhysicObject {
         if (CanPlay()) {
             ApplyVelocityModification();
             CheckBallSpeed();
-            OrientModel();
             StretchBall();
-            RezizeModel();
+            RezizeModel();          
+        }
+    }
+
+    void FixedUpdate() {
+        if (CanPlay()) {
+            OrientModel();
             MoveBall();
         }
     }
@@ -97,7 +114,8 @@ public class Ball : BreakoutPhysicObject {
     }
 
     private void OrientModel() {
-        _transform.rotation = Quaternion.LookRotation(_currentDirection);
+        //_transform.rotation = Quaternion.LookRotation(_currentDirection);
+        _rigidBody.MoveRotation(Quaternion.LookRotation(_currentDirection));
     }
 
     private void RezizeModel() {
@@ -113,7 +131,12 @@ public class Ball : BreakoutPhysicObject {
     }
 
     private void MoveBall() {
-        _transform.position += _currentDirection * _currentSpeed * Time.deltaTime;
+        //_transform.position += _currentDirection * _currentSpeed * Time.deltaTime;
+        _rigidBody.MovePosition(_transform.position + (_currentDirection * _currentSpeed * Time.fixedDeltaTime));
+    }
+
+    protected virtual void Internal_OnHit()
+    {
     }
 
     void OnCollisionEnter(Collision collision) {
@@ -122,7 +145,9 @@ public class Ball : BreakoutPhysicObject {
             OnKill();
         }
         else if (canHit == true) {
-            StartCoroutine(OnHitCooldown());
+            StartCoroutine(OnHitCooldown(collision.collider));
+            Internal_OnHit();
+
             StopCoroutine("OnHitModelScale");
             StartCoroutine("OnHitModelScale");
 
@@ -138,11 +163,17 @@ public class Ball : BreakoutPhysicObject {
             Sequence colorSequence = DOTween.Sequence();
             colorSequence.Append(_material.DOColor(ColorManager.GetCurrentColor(), 0.2f));
             colorSequence.Append(_material.DOColor(Color.white, 0.1f));
+
+            // play collision sounds 
+            playCollisionSound(collision.collider);
         }
 
     }
 
     public void OnKill() {
+        if (OnDestroy != null)
+            OnDestroy();
+
         isDestroyed = true;
         RemoveBeatDetectsChildren();
         RemovePhysicsComponents();
@@ -171,14 +202,34 @@ public class Ball : BreakoutPhysicObject {
         Collider collider = collision.collider;
         if (collider.tag == "Paddle") {
             Paddle paddleScript = collider.GetComponentInParent<Paddle>();
-            reflectedDirection = collision.contacts[0].normal;
-            float DotProduct = Vector3.Dot(reflectedDirection, paddleScript.transform.up);
-            if (!(DotProduct < 0.1f && DotProduct > -0.1f)) {
+            float DotProduct = -100;
+
+            //If paddle is fast enough, use the paddle's orientation instead of the normal since the paddle could have gone through the ball.
+            if (paddleScript.GetCurrentVelocityMagnitude() > 1f) {
+                reflectedDirection = paddleScript.GetCurrentVelocity();
+                DotProduct = Vector3.Dot(reflectedDirection, paddleScript.transform.up);
                 reflectedDirection = paddleScript.transform.up * Mathf.Sign(DotProduct);
+                reflectedDirection = (reflectedDirection.normalized + paddleScript.currentVelocity.normalized).normalized;
+            } else {
+                reflectedDirection = collision.contacts[0].normal;
+                DotProduct = Vector3.Dot(reflectedDirection, paddleScript.transform.up);
+                if (!(DotProduct < 0.1f && DotProduct > -0.1f)) {
+                    reflectedDirection = paddleScript.transform.up * Mathf.Sign(DotProduct);
+                }
+                reflectedDirection += paddleScript.GetCurrentVelocity().normalized * paddleDirectionInfluenceFromPaddleSpeed;
             }
 
-            reflectedDirection += paddleScript.GetCurrentVelocity().normalized * paddleDirectionInfluenceFromPaddleSpeed;
+
+            /*
+            Vector3 sPos = collision.contacts[0].point;
+            Debug.DrawLine(sPos, sPos + (collision.contacts[0].normal).normalized, Color.yellow, 10f);
+            Debug.DrawLine(sPos, sPos + (paddleScript.transform.up).normalized, Color.blue, 10f);
+            Debug.DrawLine(sPos, sPos + (reflectedDirection).normalized, Color.red, 10f);
+            */
+            Debug.Log("reflected: " + collision.contacts[0].normal + "    Dot Product: " + DotProduct + "       PaddleSpeed: " + reflectedDirection);        
+
         } else {
+            Debug.Log("not paddle collision");
             reflectedDirection = Vector3.Reflect(_currentDirection, collision.contacts[0].normal);
         }
         return reflectedDirection;
@@ -195,10 +246,19 @@ public class Ball : BreakoutPhysicObject {
         Destroy(gameObject);
     }
 
-    IEnumerator OnHitCooldown() {
+    IEnumerator OnHitCooldown(Collider otherCollider) {
+        Physics.IgnoreCollision(_ballCollider, otherCollider, true);
+        yield return new WaitForSeconds(hitCooldown);
+        // Check if null or destroyed
+        if (otherCollider != null && !otherCollider.Equals(null)) {
+            Physics.IgnoreCollision(_ballCollider, otherCollider, false);
+        }
+
+        /*
         canHit = false;
         yield return new WaitForSeconds(hitCooldown);
         canHit = true;
+        */
     }
 
     IEnumerator OnHitModelScale() {
@@ -207,6 +267,35 @@ public class Ball : BreakoutPhysicObject {
             yield return null;
         }
         _collisionScaleFactor = 1f;
+    }
+
+    private void playCollisionSound(Collider collider)
+    {
+        if (collider.tag == "Paddle")
+        {
+            Paddle paddle = collider.GetComponentInParent<Paddle>();
+            float paddleVelocity = paddle.GetCurrentVelocityMagnitude();
+            // if paddle swung fast, bigger smashing sound
+            if (paddleVelocity >= 2.0f)
+            {
+                AudioClip paddleHitLouderSound = AudioManager.Instance.getPaddleHitLouderSound();
+                audioSource.PlayOneShot(paddleHitLouderSound);
+            }
+            else
+            {
+                // change pitch and volume of hit sound according to paddle velocity
+                AudioClip paddleHitSound = AudioManager.Instance.getPaddleHitSound();
+                audioSource.pitch = 1.0f + paddleVelocity  * 0.15f;
+                audioSource.volume = 1.0f + paddleVelocity * 0.8f;
+                audioSource.PlayOneShot(paddleHitSound);
+            }
+            
+        }
+        else
+        {
+            AudioClip generalBallHitSound = AudioManager.Instance.getGeneralBallHitSound();
+            audioSource.PlayOneShot(generalBallHitSound);
+        }
     }
 
 }
