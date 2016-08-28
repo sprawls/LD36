@@ -20,8 +20,8 @@ public class EyeFollowPlayer : MonoBehaviour {
         headPosition = HMDController.Instance.HeadsetPosition;
         
 
-        //transform.LookAt(headPosition, Vector3.up);
-        transform.LookAt(target.transform.position, Vector3.up);
+        transform.LookAt(headPosition, Vector3.up);
+        //transform.LookAt(target.transform.position, Vector3.up);
 
     }
 }

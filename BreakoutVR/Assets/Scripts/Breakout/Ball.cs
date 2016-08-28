@@ -101,7 +101,7 @@ public class Ball : BreakoutPhysicObject {
         StartCoroutine("OnHitModelScale");
 
         float bounceFactor = GetBouncinessFactor(collision.collider);
-        _currentDirection = Vector3.Reflect(_currentDirection, collision.contacts[0].normal);
+        _currentDirection = GetDirection(collision);
         _currentSpeed *= bounceFactor;
         MoveBall(); //To prevent ball being stuck because of collision
 
@@ -122,13 +122,23 @@ public class Ball : BreakoutPhysicObject {
         if (coll.tag == "Paddle") {
             Paddle paddleScript = coll.GetComponentInParent<Paddle>();
             //Debug.Log("Paddle Speed "  + paddleScript.GetCurrentVelocity());
-            return (Mathf.Max(paddleScript.GetCurrentVelocity() * paddleSpeedBounceFactor, 1f));
+            return (Mathf.Max(paddleScript.GetCurrentVelocityMagnitude() * paddleSpeedBounceFactor, 1f));
         } else {
             BreakoutPhysicObject bho = coll.GetComponent<BreakoutPhysicObject>();
             if (bho != null) {
                 return bho.bouncinessFactor;
             } else return 1;
         }
+    }
+
+    private Vector3 GetDirection(Collision collision) {
+        Vector3 reflectedDirection = Vector3.Reflect(_currentDirection, collision.contacts[0].normal);
+        Collider collider = collision.collider;
+        if (collider.tag == "Paddle") {
+            Paddle paddleScript = collider.GetComponentInParent<Paddle>();
+            reflectedDirection += paddleScript.GetCurrentVelocity();
+        } 
+        return reflectedDirection;
     }
 
     private void DestroyBall() {
