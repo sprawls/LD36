@@ -21,6 +21,7 @@ GameObject:
   - 4: {fileID: 4000012198547996}
   - 114: {fileID: 114000013979461088}
   - 114: {fileID: 114000014202968658}
+  - 114: {fileID: 114000010772899890}
   m_Layer: 0
   m_Name: Controller (left)
   m_TagString: Untagged
@@ -53,6 +54,7 @@ GameObject:
   - 4: {fileID: 4000010395231142}
   - 114: {fileID: 114000012671065018}
   - 114: {fileID: 114000013380307354}
+  - 114: {fileID: 114000011706399284}
   m_Layer: 0
   m_Name: Controller (right)
   m_TagString: Untagged
@@ -590,6 +592,27 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011957357986}
   m_Enabled: 1
+--- !u!114 &114000010772899890
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010056518002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1aff54f1f7709e4b9676c70bfbf2ad2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_angleDiff: 45
+  m_animTime: 0.5
+  m_powerupTime: 10
+  m_floatBlinkTimeSlow: 0.75
+  m_floatBlinkTimeFast: 0.25
+  m_floatBlinkTimeVeryFast: 0.1
+  m_offsetLeftPaddle: {x: -0.05, y: -0.02, z: -0.028}
+  m_offsetRightPaddle: {x: 0.05, y: -0.02, z: -0.023}
+  m_padObjectPrefab: {fileID: 1000013276630196, guid: bec9986ad99565b4eb922d7ad83448b5,
+    type: 2}
 --- !u!114 &114000011087043770
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -644,6 +667,27 @@ MonoBehaviour:
   _head: {fileID: 4000010273071416}
   _ears: {fileID: 4000013305863190}
   wireframe: 0
+--- !u!114 &114000011706399284
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011542705284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1aff54f1f7709e4b9676c70bfbf2ad2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_angleDiff: 45
+  m_animTime: 0.5
+  m_powerupTime: 10
+  m_floatBlinkTimeSlow: 0.75
+  m_floatBlinkTimeFast: 0.25
+  m_floatBlinkTimeVeryFast: 0.1
+  m_offsetLeftPaddle: {x: -0.05, y: -0.02, z: -0.028}
+  m_offsetRightPaddle: {x: 0.05, y: -0.02, z: -0.023}
+  m_padObjectPrefab: {fileID: 1000013276630196, guid: bec9986ad99565b4eb922d7ad83448b5,
+    type: 2}
 --- !u!114 &114000011744400602
 MonoBehaviour:
   m_ObjectHideFlags: 1
