@@ -27,28 +27,28 @@ public class DontGoThroughThings : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        //have we moved more than our minimum extent? 
-        Vector3 movementThisStep = myRigidbody.position - previousPosition;
-        float movementSqrMagnitude = movementThisStep.sqrMagnitude;
+            //have we moved more than our minimum extent? 
+            Vector3 movementThisStep = myRigidbody.position - previousPosition;
+            float movementSqrMagnitude = movementThisStep.sqrMagnitude;
 
-        if (movementSqrMagnitude > sqrMinimumExtent) {
-            float movementMagnitude = Mathf.Sqrt(movementSqrMagnitude);
-            RaycastHit hitInfo;
+            if (movementSqrMagnitude > sqrMinimumExtent) {
+                float movementMagnitude = Mathf.Sqrt(movementSqrMagnitude);
+                RaycastHit hitInfo;
 
-            //check for obstructions we might have missed 
-            if (Physics.Raycast(previousPosition, movementThisStep, out hitInfo, movementMagnitude, layerMask.value)) {
-                if (!hitInfo.collider)
-                    return;
+                //check for obstructions we might have missed 
+                if (Physics.Raycast(previousPosition, movementThisStep, out hitInfo, movementMagnitude, layerMask.value)) {
+                    if (!hitInfo.collider)
+                        return;
 
-                if (hitInfo.collider.isTrigger)
-                    hitInfo.collider.SendMessage("OnTriggerEnter", myCollider);
+                    if (hitInfo.collider.isTrigger)
+                        hitInfo.collider.SendMessage("OnTriggerEnter", myCollider);
 
-                if (!hitInfo.collider.isTrigger)
-                    //myRigidbody.position = hitInfo.point - (movementThisStep / movementMagnitude) * partialExtent;
-                    myRigidbody.position = hitInfo.point;
+                    if (!hitInfo.collider.isTrigger)
+                        //myRigidbody.position = hitInfo.point - (movementThisStep / movementMagnitude) * partialExtent;
+                        myRigidbody.position = hitInfo.point;
 
+                }
             }
-        }
 
         previousPosition = myRigidbody.position;
     }
