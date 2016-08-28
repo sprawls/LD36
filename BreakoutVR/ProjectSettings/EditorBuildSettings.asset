@@ -8,6 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Gamejam Toolset/Scenes/Boot Scene.unity
   - enabled: 1
-    path: Assets/Gamejam Toolset/BuildScenes/Gym.unity
+    path: Assets/Gamejam Toolset/BuildScenes/Intro.unity
   - enabled: 1
     path: Assets/Gamejam Toolset/BuildScenes/Level1.unity

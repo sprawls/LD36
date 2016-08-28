@@ -23,6 +23,9 @@ public class HandController : ExtendedMonoBehaviour
     private Transform m_anchor;
 
     [SerializeField]
+    private float m_paddleCooldown = 5.0f;
+
+    [SerializeField]
     private GameObject m_paddlePrefab;
 
     //================================================================================================
@@ -30,23 +33,16 @@ public class HandController : ExtendedMonoBehaviour
     private bool m_paddlePresent = false;
     private Paddle m_paddle = null;
     private PaddleState m_paddleState = PaddleState.Idle;
+    private bool m_paddleInCooldown = false;
 
     //================================================================================================
-    //-------------------------------------------------------------------------
-    private void Awake()
-    {
-#if UNITY_EDITOR && true
-        Callback_OnPlayStart();
-#endif
-    }
-
     //-------------------------------------------------------------------------
     protected override void RegisterCallbacks()
     {
         base.RegisterCallbacks();
 
-        GameController.OnPlayStarted += Callback_OnPlayStart;
-        GameController.OnPlayEnded += Callback_OnPlayEnded;
+        GameController.OnLevelStarted += Callback_OnLevelStart;
+        GameController.OnLevelPreEnded += Callback_OnLevelPreEnded;
     }
 
     //-------------------------------------------------------------------------
@@ -54,25 +50,41 @@ public class HandController : ExtendedMonoBehaviour
     {
         base.UnregisterCallbacks();
 
-        GameController.OnPlayStarted -= Callback_OnPlayStart;
-        GameController.OnPlayEnded -= Callback_OnPlayEnded;
+        GameController.OnLevelStarted -= Callback_OnLevelStart;
+        GameController.OnLevelPreEnded -= Callback_OnLevelPreEnded;
     }
 
     //-------------------------------------------------------------------------
-    private void Callback_OnPlayStart()
+    private void Callback_OnLevelStart(LevelName level)
     {
-        SpawnPaddle();
+        //SpawnPaddle();
     }
 
     //-------------------------------------------------------------------------
-    private void Callback_OnPlayEnded()
+    private void Callback_OnLevelPreEnded(LevelName level)
     {
-        DespawnPaddle();
+        //DespawnPaddle();
+    }
+
+    //-------------------------------------------------------------------------
+    [UsedImplicitly]
+    private void Update()
+    {
+        if (HMDController.Instance.GetButtonDown(m_controller, HMDController.ControllerButton.Trigger))
+        {
+            SpawnPaddle();
+        }
     }
 
     //-------------------------------------------------------------------------
     private void SpawnPaddle()
     {
+        if (m_paddle != null)
+            return;
+
+        if (m_paddleInCooldown)
+            return;
+
         m_paddle = (Instantiate(m_paddlePrefab, m_anchor, false) as GameObject).GetComponentInChildren<Paddle>();
         m_paddle.transform.localPosition = Vector3.zero;
         m_paddle.transform.localRotation = Quaternion.identity;
@@ -85,6 +97,9 @@ public class HandController : ExtendedMonoBehaviour
     //-------------------------------------------------------------------------
     private void DespawnPaddle()
     {
+        if (m_paddle == null)
+            return;
+
         m_paddle.transform.DOScale(Vector3.zero, 1f);
         Destroy(m_paddle.gameObject, 1.1f);
         m_paddle = null;
@@ -100,8 +115,8 @@ public class HandController : ExtendedMonoBehaviour
     //-------------------------------------------------------------------------
     private IEnumerator Coroutine_RespawnHandler()
     {
-        //TODO
-        yield return null;
+        yield return new WaitForSeconds(m_paddleCooldown);
+        m_paddleInCooldown = false;
     }
 
 #if false

@@ -341,7 +341,8 @@ PlayerSettings:
   psp2UseDebugIl2cppLibs: 0
   psmSplashimage: {fileID: 0}
   spritePackerPolicy: 
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    1: SUBMISSION_BUILD
   metroPackageName: BreakoutVR
   metroPackageVersion: 
   metroCertificatePath: 

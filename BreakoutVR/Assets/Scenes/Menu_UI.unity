@@ -164,11 +164,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1353584212}
     m_Modifications:
-    - target: {fileID: 114000011359353168, guid: 6e8c396844c5f08459d7d55626f5a8ca,
-        type: 2}
-      propertyPath: m_events.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4000010882585368, guid: 6e8c396844c5f08459d7d55626f5a8ca, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0.8
@@ -201,57 +196,19 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 1000012664274812, guid: 6e8c396844c5f08459d7d55626f5a8ca, type: 2}
-      propertyPath: m_Name
-      value: EventBall_Quit
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000010882585368, guid: 6e8c396844c5f08459d7d55626f5a8ca, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000010882585368, guid: 6e8c396844c5f08459d7d55626f5a8ca, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000011176820346, guid: 6e8c396844c5f08459d7d55626f5a8ca,
-        type: 2}
-      propertyPath: m_Text
-      value: Quit
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000011359353168, guid: 6e8c396844c5f08459d7d55626f5a8ca,
-        type: 2}
-      propertyPath: m_events.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000011359353168, guid: 6e8c396844c5f08459d7d55626f5a8ca,
-        type: 2}
-      propertyPath: m_events.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000011359353168, guid: 6e8c396844c5f08459d7d55626f5a8ca,
-        type: 2}
-      propertyPath: m_events.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000011359353168, guid: 6e8c396844c5f08459d7d55626f5a8ca,
-        type: 2}
-      propertyPath: m_events.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 114000011359353168, guid: 6e8c396844c5f08459d7d55626f5a8ca,
         type: 2}
       propertyPath: m_events.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1353584213}
-    - target: {fileID: 114000011359353168, guid: 6e8c396844c5f08459d7d55626f5a8ca,
-        type: 2}
-      propertyPath: m_events.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnQuitEvent
+    - target: {fileID: 1000012664274812, guid: 6e8c396844c5f08459d7d55626f5a8ca, type: 2}
+      propertyPath: m_Name
+      value: EventBall_Quit
       objectReference: {fileID: 0}
     - target: {fileID: 114000011359353168, guid: 6e8c396844c5f08459d7d55626f5a8ca,
         type: 2}
-      propertyPath: m_events.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
+      propertyPath: m_hoverDifference
+      value: 0.31
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6e8c396844c5f08459d7d55626f5a8ca, type: 2}
@@ -279,7 +236,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1353584211}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -306,11 +263,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1353584212}
     m_Modifications:
-    - target: {fileID: 114000011359353168, guid: 6e8c396844c5f08459d7d55626f5a8ca,
-        type: 2}
-      propertyPath: m_events.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4000010882585368, guid: 6e8c396844c5f08459d7d55626f5a8ca, type: 2}
       propertyPath: m_LocalPosition.x
       value: -0.8
@@ -347,20 +299,6 @@ Prefab:
       propertyPath: m_Name
       value: EventBall_Start
       objectReference: {fileID: 0}
-    - target: {fileID: 4000010882585368, guid: 6e8c396844c5f08459d7d55626f5a8ca, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -30
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000011359353168, guid: 6e8c396844c5f08459d7d55626f5a8ca,
-        type: 2}
-      propertyPath: m_events.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000011359353168, guid: 6e8c396844c5f08459d7d55626f5a8ca,
-        type: 2}
-      propertyPath: m_events.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 114000011359353168, guid: 6e8c396844c5f08459d7d55626f5a8ca,
         type: 2}
       propertyPath: m_events.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -368,13 +306,13 @@ Prefab:
       objectReference: {fileID: 1353584213}
     - target: {fileID: 114000011359353168, guid: 6e8c396844c5f08459d7d55626f5a8ca,
         type: 2}
-      propertyPath: m_events.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnPlayEvent
+      propertyPath: m_hoverDifference
+      value: 0.898
       objectReference: {fileID: 0}
-    - target: {fileID: 114000011359353168, guid: 6e8c396844c5f08459d7d55626f5a8ca,
+    - target: {fileID: 114000011176820346, guid: 6e8c396844c5f08459d7d55626f5a8ca,
         type: 2}
-      propertyPath: m_events.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
+      propertyPath: m_Text
+      value: Play
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6e8c396844c5f08459d7d55626f5a8ca, type: 2}

@@ -107,7 +107,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 417990, guid: 6eb236d0b9619474eb51e4f33a96feee, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 417990, guid: 6eb236d0b9619474eb51e4f33a96feee, type: 2}
       propertyPath: m_LocalRotation.x
@@ -128,6 +128,50 @@ Prefab:
     - target: {fileID: 417990, guid: 6eb236d0b9619474eb51e4f33a96feee, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22358804, guid: 6eb236d0b9619474eb51e4f33a96feee, type: 2}
+      propertyPath: m_RenderMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 22461326, guid: 6eb236d0b9619474eb51e4f33a96feee, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 22461326, guid: 6eb236d0b9619474eb51e4f33a96feee, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 22461326, guid: 6eb236d0b9619474eb51e4f33a96feee, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 22461326, guid: 6eb236d0b9619474eb51e4f33a96feee, type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22461326, guid: 6eb236d0b9619474eb51e4f33a96feee, type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22461326, guid: 6eb236d0b9619474eb51e4f33a96feee, type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 22461326, guid: 6eb236d0b9619474eb51e4f33a96feee, type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 22461326, guid: 6eb236d0b9619474eb51e4f33a96feee, type: 2}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 22461326, guid: 6eb236d0b9619474eb51e4f33a96feee, type: 2}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 22461326, guid: 6eb236d0b9619474eb51e4f33a96feee, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 63.5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8214718, guid: 6eb236d0b9619474eb51e4f33a96feee, type: 2}

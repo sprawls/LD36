@@ -77,10 +77,10 @@ public class BootController : MonoBehaviour
 
 	    WasBooted = true;
 
-#if !SUBMISSION_BUILD
+#if !SUBMISSION_BUILD && false
 		Access_LevelManager.RequestLoadLevel(ConfigHelper.StartingLevel);
 #else
-		Access_LevelManager.RequestLoadMenu();
+		GameController.Instance.RequestIntroLoad();
 #endif
 	}
 }
