@@ -717,7 +717,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_controller: 1
   m_anchor: {fileID: 4000013072810614}
-  m_paddlePrefab: {fileID: 0}
+  m_paddlePrefab: {fileID: 1000013276630196, guid: bec9986ad99565b4eb922d7ad83448b5,
+    type: 2}
 --- !u!114 &114000013687538882
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -801,7 +802,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_controller: 0
   m_anchor: {fileID: 4000012329178986}
-  m_paddlePrefab: {fileID: 0}
+  m_paddlePrefab: {fileID: 1000013276630196, guid: bec9986ad99565b4eb922d7ad83448b5,
+    type: 2}
 --- !u!124 &124000013800404562
 Behaviour:
   m_ObjectHideFlags: 1
