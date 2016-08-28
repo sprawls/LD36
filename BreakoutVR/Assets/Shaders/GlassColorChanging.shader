@@ -8,6 +8,7 @@ Shader "GlassColorChanging" {
 	_RepeatLength ("Length for the colors to repeat", Range (1 , 100)) = 10
     _LineColor ("Line Color", Color) = (0,0,0,1)
     _LineWidth ("Line Width", float) = 0.075
+	_GlowAmount ("Glow Amount", float) = 0.5
   }
   SubShader
   {
@@ -258,9 +259,6 @@ Shader "GlassColorChanging" {
 		#define WorldNormalVector(data,normal) normal
 
 		// Original surface shader snippet:
-		#line 69 ""
-		#ifdef DUMMY_PREPROCESSOR_TO_WORK_AROUND_HLSL_COMPILER_LINE_HANDLING
-		#endif
 
 		half _Shininess;
 		half _PositionColorImpact;
@@ -372,6 +370,7 @@ Shader "GlassColorChanging" {
  
       uniform float4 _LineColor;
       uniform float _LineWidth;
+	  uniform float _GlowAmount;
  
       // vertex input: position, uv1, uv2
       struct appdata
@@ -387,7 +386,7 @@ Shader "GlassColorChanging" {
         float4 texcoord1 : TEXCOORD0;
         float4 color : COLOR;
       };
- 
+
       v2f vert (appdata v)
       {
         v2f o;
@@ -396,6 +395,25 @@ Shader "GlassColorChanging" {
         o.color = v.color;
         return o;
       }
+
+	  float ilerp(float a, float b, float c)
+	  {
+			return ((c-a)/(b-a));
+	  }
+
+	  float computeglowfactor(float texCoordAxis)
+	  {
+			float glowFactor=0.0;
+			if(texCoordAxis <= _LineWidth)
+			{
+				glowFactor = ilerp(_LineWidth,0.0,texCoordAxis);
+			}
+			else if(texCoordAxis >= 1.0  -_LineWidth)
+			{
+				glowFactor = ilerp(1-_LineWidth,1.0,texCoordAxis);
+			}
+			return glowFactor;
+	  }
  
       fixed4 frag(v2f i) : COLOR
       {
@@ -409,13 +427,80 @@ Shader "GlassColorChanging" {
         float hx = step(i.texcoord1.x, 1.0 - _LineWidth);
 		//return true if the current y texcoord pos is superior to 1-_LineWidth
         float hy = step(i.texcoord1.y, 1.0 - _LineWidth);
- 
+		
+
+		float glowFactorX = computeglowfactor(i.texcoord1.x);
+		float glowFactorY = computeglowfactor(i.texcoord1.y);
+		float finalGlowFactor = 0.0f;
+
         answer = lerp(_LineColor, float4(0,0,0,0), lx*ly*hx*hy);
- 
-        return answer;
+
+		if(lx == 1 && ly == 1)
+		{ 
+			if(glowFactorX>glowFactorY)
+			{
+				finalGlowFactor = glowFactorX;
+			}
+			else
+			{
+				finalGlowFactor = glowFactorY;
+			}
+		}
+		else if (lx == 1 && hy == 1)
+		{
+			if(glowFactorX>glowFactorY)
+			{
+				finalGlowFactor = glowFactorX;
+			}
+			else
+			{
+				finalGlowFactor = glowFactorY;
+			}
+		}
+		else if (lx == 1)
+		{
+			finalGlowFactor = glowFactorX;
+		}
+
+		else if(hx == 1 && ly == 1)
+		{
+			if(glowFactorX>glowFactorY)
+			{
+				finalGlowFactor = glowFactorX;
+			}
+			else
+			{
+				finalGlowFactor = glowFactorY;
+			}
+		}
+		else if(hx == 1 && hy == 1)
+		{
+			if(glowFactorX>glowFactorY)
+			{
+				finalGlowFactor = glowFactorX;
+			}
+			else
+			{
+				finalGlowFactor = glowFactorY;
+			}
+		}
+		else if(hx == 1)
+		{
+			finalGlowFactor = glowFactorX;
+		}
+		else if (ly == 1)
+		{
+			finalGlowFactor = glowFactorY;
+		}
+		else if (hy == 1)
+		{
+			finalGlowFactor = glowFactorY;
+		}
+
+
+        return answer * finalGlowFactor * _GlowAmount;
       }
       ENDCG
-     }
-  } 
-  FallBack "Transparent/VertexLit"
+  }
  }
+}
