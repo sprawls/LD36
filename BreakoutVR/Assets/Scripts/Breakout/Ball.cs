@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using DG.Tweening;
 
 public class Ball : BreakoutPhysicObject {
 
@@ -11,6 +12,11 @@ public class Ball : BreakoutPhysicObject {
     private Vector3 _currentDirection;
     private float _currentSpeed;
     private Transform _ModelSpeedScaler;
+    private Material _material;
+
+    [Header("Ball Death")]
+    public float deathAnimTime = 1f;
+    public AnimationCurve deathAnimAnimCurve;
 
     //Hit Conditions
     [Header("Ball Collision :")]
@@ -43,6 +49,7 @@ public class Ball : BreakoutPhysicObject {
     private float currentZScale;
 
     override protected void Awake() {
+        isDestroyed = false;
         base.Awake();
     }
 
@@ -50,6 +57,7 @@ public class Ball : BreakoutPhysicObject {
         _currentDirection = startDirection.normalized;
         _currentSpeed = startSpeed;
         _ModelSpeedScaler = _transform.Find("ModelSpeedScaler");
+        _material = GetComponentInChildren<MeshRenderer>().material;
 
         startXYScale = _ModelSpeedScaler.localScale.x;
         startZScale = _ModelSpeedScaler.localScale.z;
@@ -58,12 +66,19 @@ public class Ball : BreakoutPhysicObject {
     }
 
     void Update() {
-        ApplyVelocityModification();
-        CheckBallSpeed();
-        OrientModel();
-        StretchBall();
-        RezizeModel();
-        MoveBall();
+        if (CanPlay()) {
+            ApplyVelocityModification();
+            CheckBallSpeed();
+            OrientModel();
+            StretchBall();
+            RezizeModel();
+            MoveBall();
+        }
+    }
+
+    private bool CanPlay() {
+        if (!isDestroyed) return true;
+        else return false;
     }
 
     private void ApplyVelocityModification() {
@@ -102,27 +117,36 @@ public class Ball : BreakoutPhysicObject {
     }
 
     void OnCollisionEnter(Collision collision) {
-        if (canHit == false) return;
-        StartCoroutine(OnHitCooldown());
-        StopCoroutine("OnHitModelScale");
-        StartCoroutine("OnHitModelScale");
-
-        float bounceFactor = GetBouncinessFactor(collision.collider);
-        _currentDirection = GetDirection(collision);
-        _currentSpeed *= bounceFactor;
-        MoveBall(); //To prevent ball being stuck because of collision
-
-        //Send Hit Message
-        collision.collider.gameObject.SendMessageUpwards("OnHit", 1, SendMessageOptions.DontRequireReceiver);
-
         //Check death
         if (collision.collider.tag == "KillZone") {
             OnKill();
         }
+        else if (canHit == true) {
+            StartCoroutine(OnHitCooldown());
+            StopCoroutine("OnHitModelScale");
+            StartCoroutine("OnHitModelScale");
+
+            float bounceFactor = GetBouncinessFactor(collision.collider);
+            _currentDirection = GetDirection(collision);
+            _currentSpeed *= bounceFactor;
+            MoveBall(); //To prevent ball being stuck because of collision
+
+            //Send Hit Message
+            collision.collider.gameObject.SendMessageUpwards("OnHit", 1, SendMessageOptions.DontRequireReceiver);
+
+            //Change Color
+            Sequence colorSequence = DOTween.Sequence();
+            colorSequence.Append(_material.DOColor(ColorManager.GetCurrentColor(), 0.2f));
+            colorSequence.Append(_material.DOColor(Color.white, 0.1f));
+        }
+
     }
 
     public void OnKill() {
-        DestroyBall();
+        isDestroyed = true;
+        RemoveBeatDetectsChildren();
+        RemovePhysicsComponents();
+        StartCoroutine(DestroyBall()); //anim fx
     }
 
     private float GetBouncinessFactor(Collider coll) {
@@ -144,6 +168,11 @@ public class Ball : BreakoutPhysicObject {
         if (collider.tag == "Paddle") {
             Paddle paddleScript = collider.GetComponentInParent<Paddle>();
             reflectedDirection = collision.contacts[0].normal;
+            float DotProduct = Vector3.Dot(reflectedDirection, paddleScript.transform.up);
+            if (!(DotProduct < 0.1f && DotProduct > -0.1f)) {
+                reflectedDirection = paddleScript.transform.up * Mathf.Sign(DotProduct);
+            }
+
             reflectedDirection += paddleScript.GetCurrentVelocity().normalized * paddleDirectionInfluenceFromPaddleSpeed;
         } else {
             reflectedDirection = Vector3.Reflect(_currentDirection, collision.contacts[0].normal);
@@ -151,8 +180,14 @@ public class Ball : BreakoutPhysicObject {
         return reflectedDirection;
     }
 
-    private void DestroyBall() {
-        //FX
+    private IEnumerator DestroyBall() {
+        _material.DOColor(Color.black, 0.2f);
+
+        for (float i = 0; i < 1f; i += Time.deltaTime / deathAnimTime) {
+            _ModelSpeedScaler.localScale = Vector3.one * deathAnimAnimCurve.Evaluate(i) * startXYScale;
+            yield return null;
+        }
+        yield return new WaitForSeconds(2f);
         Destroy(gameObject);
     }
 

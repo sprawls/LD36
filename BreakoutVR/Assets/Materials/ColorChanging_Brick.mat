@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: ColorChangingTrail
+  m_Name: ColorChanging_Brick
   m_Shader: {fileID: 4800000, guid: 822f558166732ca46a0a68c1eb21bd4f, type: 3}
   m_ShaderKeywords: _EMISSION _METALLICGLOSSMAP
   m_LightmapFlags: 2
@@ -90,7 +90,7 @@ Material:
     m_Floats:
     - first:
         name: _AlphaValue
-      second: 0.5
+      second: 1
     - first:
         name: _BaseValue
       second: 0.2
@@ -129,13 +129,13 @@ Material:
       second: 1
     - first:
         name: _GlowAmount
-      second: 0.5
+      second: 1.06
     - first:
         name: _InvFade
       second: 1
     - first:
         name: _LineWidth
-      second: 0.075
+      second: 0.23
     - first:
         name: _Metalics
       second: 0.5
@@ -156,7 +156,7 @@ Material:
       second: 40.8
     - first:
         name: _PositionColorImpact
-      second: 0.856
+      second: 1
     - first:
         name: _Reflection
       second: 0.5
@@ -165,7 +165,7 @@ Material:
       second: 1
     - first:
         name: _Shininess
-      second: 0.01
+      second: 0.52
     - first:
         name: _SmoothnessTextureChannel
       second: 0
@@ -199,7 +199,7 @@ Material:
       second: {r: 0.022058845, g: 0.012164804, b: 0.012164804, a: 0.5}
     - first:
         name: _SpecColor
-      second: {r: 0.3529411, g: 0.2569203, b: 0.2569203, a: 0}
+      second: {r: 0.35294116, g: 0.2569204, b: 0.2569204, a: 1}
     - first:
         name: _TintColor
       second: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
