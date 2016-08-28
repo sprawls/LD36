@@ -29,7 +29,7 @@ public class HandController : ExtendedMonoBehaviour
 
     private bool m_paddlePresent = false;
     private Paddle m_paddle = null;
-    public Paddle paddle { get { return m_paddle} set{ m_paddle = value;} }
+    public Paddle paddle { get { return m_paddle; } set { m_paddle = value; } }
     private PaddleState m_paddleState = PaddleState.Idle;
 
     //================================================================================================
