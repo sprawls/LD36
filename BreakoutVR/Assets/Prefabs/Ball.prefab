@@ -56,6 +56,7 @@ GameObject:
   - 54: {fileID: 54000010857407730}
   - 135: {fileID: 135000011825302792}
   - 96: {fileID: 96000013685920768}
+  - 114: {fileID: 114000013516739528}
   m_Layer: 8
   m_Name: Ball
   m_TagString: Untagged
@@ -185,24 +186,24 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Time: 2
-  m_StartWidth: 0.2
+  m_StartWidth: 0.18
   m_EndWidth: 0
   m_Colors:
     m_Color[0]:
       serializedVersion: 2
-      rgba: 704643071
+      rgba: 4294967295
     m_Color[1]:
       serializedVersion: 2
-      rgba: 352321535
+      rgba: 4294967295
     m_Color[2]:
       serializedVersion: 2
-      rgba: 536870911
+      rgba: 4294967295
     m_Color[3]:
       serializedVersion: 2
-      rgba: 520093695
+      rgba: 4294967295
     m_Color[4]:
       serializedVersion: 2
-      rgba: 16777215
+      rgba: 4294967295
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
 --- !u!114 &114000010716783840
@@ -217,7 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bouncinessFactor: 1
-  startDirection: {x: 1, y: 0, z: 0}
+  startDirection: {x: 1, y: 0, z: -0.001}
   startSpeed: 2.5
   angularSpeed: 0
   paddleSpeedBounceFactor: 0.4
@@ -273,6 +274,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropTime: 0.2
+--- !u!114 &114000013516739528
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012369135270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 135619e7aa16f964393c1836036e5f94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sendTriggerMessage: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 5888
+  skinWidth: 0.1
 --- !u!135 &135000011825302792
 SphereCollider:
   m_ObjectHideFlags: 1
