@@ -20,7 +20,14 @@ public class DontGoThroughThings : MonoBehaviour {
     void Start() {
         myRigidbody = GetComponent<Rigidbody>();
         myCollider = GetComponent<Collider>();
+        if (myCollider == null) GetComponentInChildren<Collider>();
+        if (myCollider == null) {
+            Debug.Log("No collider found in " + gameObject.name);
+            Destroy(this);
+            return;
+        }
         previousPosition = myRigidbody.position;
+       
         minimumExtent = Mathf.Min(Mathf.Min(myCollider.bounds.extents.x, myCollider.bounds.extents.y), myCollider.bounds.extents.z);
         partialExtent = minimumExtent * (1.0f - skinWidth);
         sqrMinimumExtent = minimumExtent * minimumExtent;

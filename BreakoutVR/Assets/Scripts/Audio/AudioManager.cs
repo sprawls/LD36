@@ -33,7 +33,7 @@ public class AudioManager : Singleton<AudioManager>
         float pitchToSend = pitch;
         pitch += pitchDiff;
         if (pitch >= pitchMax) pitch = pitchMax;
-        Debug.Log(pitchToSend);
+        //Debug.Log(pitchToSend);
         StopCoroutine(resetPitchIfTimeOut(timeBetweenBrickHitBonus));
         StartCoroutine(resetPitchIfTimeOut(timeBetweenBrickHitBonus));
         return new AudioClipWithPitch(brickStompSound, pitchToSend);

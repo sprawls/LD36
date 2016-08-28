@@ -284,9 +284,9 @@ MonoBehaviour:
     m_RotationOrder: 0
   minSpeed: 2
   maxSpeedWithoutLinearReduction: 4
-  maxSpeedWithoutRatioReduction: 6
+  maxSpeedWithoutRatioReduction: 7
   linearReductionSpeed: 1
-  clampSpeedRatio: 0.2
+  clampSpeedRatio: 0.175
   speedForMaxStretch: 6
   maxXYStretchRatio: 0.6
   maxZStretchRatio: 1.3
@@ -302,7 +302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scaleRatioMin: 0.1
-  scaleRatioMax: 0.3
+  scaleRatioMax: 0.2
   dropTime: 0.2
 --- !u!114 &114000013516739528
 MonoBehaviour:
@@ -319,7 +319,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 5888
-  skinWidth: 0
+  skinWidth: 1
 --- !u!135 &135000011825302792
 SphereCollider:
   m_ObjectHideFlags: 1

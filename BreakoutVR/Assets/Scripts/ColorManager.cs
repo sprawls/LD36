@@ -4,7 +4,7 @@ using System.Collections;
 public class ColorManager : Singleton<ColorManager> {
 
     private Material _wallMaterial;
-    private float _emission = 2f;
+    private float _emission = 3f;
 
     public static Color GetCurrentColor() {
         float r = Mathf.Clamp(Mathf.Sin(Time.time / 4f), 0.3f, 0.8f);
