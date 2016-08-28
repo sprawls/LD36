@@ -276,7 +276,7 @@ public class Ball : BreakoutPhysicObject {
             Paddle paddle = collider.GetComponentInParent<Paddle>();
             float paddleVelocity = paddle.GetCurrentVelocityMagnitude();
             // if paddle swung fast, bigger smashing sound
-            if (paddleVelocity >= 2.0f)
+            if (paddleVelocity >= 6.0f)
             {
                 AudioClip paddleHitLouderSound = AudioManager.Instance.getPaddleHitLouderSound();
                 audioSource.PlayOneShot(paddleHitLouderSound);
