@@ -19,11 +19,16 @@ public class Paddle : BreakoutPhysicObject {
     }
 
     void Update() {
-        _transform.localPosition = Vector3.zero;
-        _transform.localRotation = Quaternion.identity;
+        //_transform.localPosition = Vector3.zero;
+        //_transform.localRotation = Quaternion.identity;
 
         currentVelocity = (_transform.position - prevPosition)/Time.deltaTime;
         prevPosition = _transform.position;
+    }
+
+    void FixedUpdate() {
+        _rigidBody.MovePosition(_transform.parent.position);
+        _rigidBody.MoveRotation(_transform.parent.rotation);
     }
 
     public float GetCurrentVelocityMagnitude() {
@@ -33,4 +38,5 @@ public class Paddle : BreakoutPhysicObject {
     public Vector3 GetCurrentVelocity() {
         return currentVelocity;
     }
+
 }

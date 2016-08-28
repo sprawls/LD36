@@ -14,4 +14,10 @@ public class PowerupController : Singleton<PowerupController>
 
     [SerializeField, InspectorReadOnly]
     private PowerupType m_leftHandPowerup;
+
+    public void ActivatePowerUP(PowerupType pType, HMDController.ControllerIndex idx)
+    {
+        if (idx == HMDController.ControllerIndex.Left) m_leftHandController.ActivatePowerUP(pType);
+        else m_rightHandController.ActivatePowerUP(pType);
+    }
 }

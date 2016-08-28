@@ -20,9 +20,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000014010703820}
   - 33: {fileID: 33000011961874634}
-  - 135: {fileID: 135000010223826948}
   - 23: {fileID: 23000013132559020}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Right_Black
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +38,7 @@ GameObject:
   - 4: {fileID: 4000013229207316}
   - 33: {fileID: 33000014113514634}
   - 23: {fileID: 23000013493701084}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pi.Mode.1_pingpongpaM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +55,7 @@ GameObject:
   - 4: {fileID: 4000011656496428}
   - 33: {fileID: 33000013192787702}
   - 23: {fileID: 23000011978379826}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pi.Mode.2_pingpongpaM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +71,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000012117272220}
   - 114: {fileID: 114000011612215756}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RotatingEmptyWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,9 +87,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000013924864228}
   - 33: {fileID: 33000012400894522}
-  - 135: {fileID: 135000012257792172}
   - 23: {fileID: 23000012365724192}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Left_Black
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +105,7 @@ GameObject:
   - 4: {fileID: 4000011857496138}
   - 33: {fileID: 33000013799378350}
   - 23: {fileID: 23000012473812724}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pi.Mode.10_pingpongpa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +122,7 @@ GameObject:
   - 4: {fileID: 4000011095795496}
   - 33: {fileID: 33000013159149438}
   - 23: {fileID: 23000013761306652}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pi.Mode.8_pingpongpaM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,7 +139,7 @@ GameObject:
   - 4: {fileID: 4000013361588024}
   - 33: {fileID: 33000010027507898}
   - 23: {fileID: 23000012715242834}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pi.Mode.4_pingpongpaM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,7 +154,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011858513460}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PaddleModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +169,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011375759900}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Lamp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,6 +186,7 @@ GameObject:
   - 4: {fileID: 4000013322406326}
   - 54: {fileID: 54000012706552654}
   - 114: {fileID: 114000012086179384}
+  - 114: {fileID: 114000011909741778}
   m_Layer: 9
   m_Name: PaddleLogic
   m_TagString: Paddle
@@ -205,7 +204,7 @@ GameObject:
   - 4: {fileID: 4000010824959924}
   - 33: {fileID: 33000014136192038}
   - 23: {fileID: 23000011446305204}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pi.Mode.9_pingpongpaM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +222,7 @@ GameObject:
   - 33: {fileID: 33000010682858312}
   - 23: {fileID: 23000012053298386}
   - 114: {fileID: 114000013084132692}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Left_white
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -240,7 +239,7 @@ GameObject:
   - 4: {fileID: 4000012426331920}
   - 33: {fileID: 33000010030823156}
   - 23: {fileID: 23000010224392424}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pi.Mode.7_pingpongpaM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -257,7 +256,7 @@ GameObject:
   - 4: {fileID: 4000012474963610}
   - 33: {fileID: 33000011249191550}
   - 23: {fileID: 23000012128507160}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pi.Mode.7_pingpon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -275,7 +274,7 @@ GameObject:
   - 33: {fileID: 33000011629376978}
   - 23: {fileID: 23000011775446608}
   - 114: {fileID: 114000010788088578}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Right_white
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,7 +289,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010174165560}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pingpong
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -307,7 +306,7 @@ GameObject:
   - 4: {fileID: 4000012815766792}
   - 33: {fileID: 33000011822995434}
   - 23: {fileID: 23000013961653514}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pi.Model6_pingpongpaM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -339,7 +338,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013629027076}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -354,7 +353,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012961700764}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -371,7 +370,7 @@ GameObject:
   - 4: {fileID: 4000013221437756}
   - 33: {fileID: 33000011614493024}
   - 23: {fileID: 23000011022868916}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pi.Mode.3_pingpongpaM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -404,7 +403,7 @@ GameObject:
   - 4: {fileID: 4000013825052884}
   - 33: {fileID: 33000011792007718}
   - 23: {fileID: 23000012527447076}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pi.Mode.6_pingpongpaM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -421,7 +420,7 @@ GameObject:
   - 4: {fileID: 4000012268870172}
   - 33: {fileID: 33000014063183314}
   - 23: {fileID: 23000011273218052}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pi.Mode.5_pingpongpaM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -437,7 +436,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010066716196}
   - 114: {fileID: 114000013182205300}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RotatingEmptyWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -466,7 +465,7 @@ Transform:
   m_GameObject: {fileID: 1000014004338624}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 0.225, y: 0.25, z: 0.2}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000011858513460}
@@ -1408,7 +1407,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.1, z: 0.1}
+  m_Size: {x: 1, y: 1.1, z: 0.05}
   m_Center: {x: -0.05, y: 0, z: 0.25}
 --- !u!65 &65000013884613342
 BoxCollider:
@@ -1457,6 +1456,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   paddle: {fileID: 1000012816311628}
+--- !u!114 &114000011909741778
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011678318430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 135619e7aa16f964393c1836036e5f94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sendTriggerMessage: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  skinWidth: 0.1
 --- !u!114 &114000012086179384
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1494,27 +1509,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   paddle: {fileID: 1000012816311628}
---- !u!135 &135000010223826948
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010110010510}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &135000012257792172
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010515791472}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}

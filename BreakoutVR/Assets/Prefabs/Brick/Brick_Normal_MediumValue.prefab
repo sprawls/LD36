@@ -268,3 +268,4 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 0
   m_pointsGiven: 2000
+  m_powerChanceUpPercent: 0.3

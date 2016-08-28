@@ -16,8 +16,9 @@ public class HandController : ExtendedMonoBehaviour
 
     //================================================================================================
 
-    [SerializeField]
+    [SerializeField] 
     private HMDController.ControllerIndex m_controller;
+    public HMDController.ControllerIndex controllerID { get { return m_controller; } private set { m_controller = value; } }
 
     [SerializeField]
     private Transform m_anchor;
@@ -117,6 +118,16 @@ public class HandController : ExtendedMonoBehaviour
     {
         yield return new WaitForSeconds(m_paddleCooldown);
         m_paddleInCooldown = false;
+    }
+
+    public void ActivatePowerUP(PowerupType pType)
+    {
+        switch(pType)
+        {
+            case PowerupType.TripleRacket:
+                FindObjectOfType<TripleRacket>().Activate(m_controller);
+                break;
+        }
     }
 
 #if false
