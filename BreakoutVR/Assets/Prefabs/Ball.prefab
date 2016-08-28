@@ -85,7 +85,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012369135270}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.56, y: 0.77, z: 1.085}
+  m_LocalPosition: {x: -0.077, y: 0.77, z: 1.085}
   m_LocalScale: {x: 0.13, y: 0.13, z: 0.13}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -220,6 +220,34 @@ MonoBehaviour:
   bouncinessFactor: 1
   startDirection: {x: 2, y: 5, z: 2}
   startSpeed: 0
+  zGravity: 0.2
+  deathAnimTime: 1
+  deathAnimAnimCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 0.11057517
+      value: 3.2524445
+      inSlope: -0.5413382
+      outSlope: -0.5413382
+      tangentMode: 0
+    - time: 0.30218446
+      value: 0.5406432
+      inSlope: -2.1829581
+      outSlope: -2.1829581
+      tangentMode: 0
+    - time: 1.002408
+      value: 0.0016696323
+      inSlope: -0.12145789
+      outSlope: -0.12145789
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
   paddleSpeedBounceFactor: 0.4
   paddleDirectionInfluenceFromPaddleSpeed: 0.5
   collisionRescaleTime: 1
