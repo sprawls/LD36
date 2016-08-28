@@ -85,7 +85,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012369135270}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.077, y: 0.77, z: 1.085}
+  m_LocalPosition: {x: -0.56, y: 0.77, z: 1.085}
   m_LocalScale: {x: 0.13, y: 0.13, z: 0.13}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -219,8 +219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bouncinessFactor: 1
   startDirection: {x: 2, y: 5, z: 2}
-  startSpeed: 6
-  angularSpeed: 0
+  startSpeed: 0
   paddleSpeedBounceFactor: 0.4
   paddleDirectionInfluenceFromPaddleSpeed: 0.5
   collisionRescaleTime: 1
@@ -292,7 +291,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 5888
-  skinWidth: 0.1
+  skinWidth: 0
 --- !u!135 &135000011825302792
 SphereCollider:
   m_ObjectHideFlags: 1

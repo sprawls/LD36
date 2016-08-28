@@ -6,8 +6,7 @@ public class Ball : BreakoutPhysicObject {
     [Header("Ball Properties :")]
     public Vector3 startDirection;
     public float startSpeed;
-
-    public float angularSpeed;
+    public float zGravity = 0.2f;
 
     private Vector3 _currentDirection;
     private float _currentSpeed;
@@ -59,11 +58,16 @@ public class Ball : BreakoutPhysicObject {
     }
 
     void Update() {
+        ApplyVelocityModification();
         CheckBallSpeed();
         OrientModel();
         StretchBall();
         RezizeModel();
         MoveBall();
+    }
+
+    private void ApplyVelocityModification() {
+        _currentDirection = (_currentDirection.normalized + new Vector3(0,0,-zGravity*Time.deltaTime)).normalized;
     }
 
     private void CheckBallSpeed() {
