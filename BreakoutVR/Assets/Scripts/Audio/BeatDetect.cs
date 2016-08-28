@@ -21,74 +21,52 @@ using System.Collections;
 /*
  * Make your class implement the interface AudioProcessor.AudioCallbaks
  */
-public class BeatDetect : MonoBehaviour, AudioProcessor.AudioCallbacks
+public abstract class BeatDetect : MonoBehaviour, AudioProcessor.AudioCallbacks
 {
     AudioProcessor processor;
-    Vector3 beatScale;
-    public float dropTime = 0.2f;
-
-    Vector3 initialScale;
-
-    protected void Awake() {
+    
+    // Initialize BeatDetect after AudioProcessor is initialized
+    protected virtual void Awake() {
         StartCoroutine(InitializeBeatDetector());
     }
 
-
-    private void SetupBeat(params object[] args) {
-        initialScale = transform.localScale;
-        float scaleRatio = Random.Range(0.05f, 0.25f);
-        beatScale = new Vector3(initialScale.x * scaleRatio, initialScale.y * scaleRatio, initialScale.z * scaleRatio);
-        //Select the instance of AudioProcessor and pass a reference
-        //to this object
-        processor = FindObjectOfType<AudioProcessor>();
-        processor.addAudioCallback(this);
-    }
-
-    //this event will be called every time a beat is detected.
-    //Change the threshold parameter in the inspector
-    //to adjust the sensitivity
-    public void onOnbeatDetected()
+    IEnumerator InitializeBeatDetector()
     {
-        transform.localScale = initialScale + beatScale;
-        StopCoroutine("beatScaleDrop");
-        StartCoroutine("beatScaleDrop");
-    }
-
-    //This event will be called every frame while music is playing
-    public void onSpectrum(float[] spectrum)
-    {
-        //The spectrum is logarithmically averaged
-        //to 12 bands
-       
-        for (int i = 0; i < spectrum.Length; ++i)
+        while (true)
         {
-            Vector3 start = new Vector3(i, 0, 0);
-            Vector3 end = new Vector3(i, spectrum[i], 0);
-            Debug.DrawLine(start, end);
-        }
-    }
-
-    IEnumerator beatScaleDrop()
-    {
-        for (float i = 0; i < 1.0f; i += Time.deltaTime / dropTime)
-        {
-            transform.localScale -= beatScale * Time.deltaTime / dropTime;
-            yield return null;
-        }
-    }
-
-    void OnDestroy()
-    {
-        if(processor != null) processor.removeAudioCallback(this);
-    }
-
-    IEnumerator InitializeBeatDetector() {
-        while (true) {
             if (AudioProcessor.initialized == false) yield return new WaitForSeconds(0.5f);
-            else {
+            else
+            {
                 SetupBeat();
                 break;
             }
         }
     }
+    
+    // link gameObject to audio processor
+    protected void SetupBeat() {
+        processor = FindObjectOfType<AudioProcessor>();
+        processor.addAudioCallback(this);
+    }
+
+    //this event will be called every time a beat is detected
+    public abstract void onOnbeatDetected();
+
+    //This event will be called every frame while music is playing
+    public abstract void onSpectrum(float[] spectrum);
+
+    // Unlink gameObject to audio processor
+    void OnDestroy()
+    {
+        if(processor != null) processor.removeAudioCallback(this);
+    }
+
+   
 }
+// this shows lines according to music beat
+/*for (int i = 0; i < spectrum.Length; ++i)
+    {
+        Vector3 start = new Vector3(i, 0, 0);
+        Vector3 end = new Vector3(i, spectrum[i], 0);
+        Debug.DrawLine(start, end);
+    }*/

@@ -6,17 +6,23 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Wall
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _EMISSION
-  m_LightmapFlags: 1
-  m_CustomRenderQueue: -1
+  m_Name: ColorChangingTrail
+  m_Shader: {fileID: 4800000, guid: 822f558166732ca46a0a68c1eb21bd4f, type: 3}
+  m_ShaderKeywords: _EMISSION _METALLICGLOSSMAP
+  m_LightmapFlags: 2
+  m_CustomRenderQueue: 2097
   stringTagMap: {}
   m_SavedProperties:
     serializedVersion: 2
     m_TexEnvs:
     - first:
         name: _BumpMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _Cube
       second:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -42,19 +48,19 @@ Material:
     - first:
         name: _EmissionMap
       second:
-        m_Texture: {fileID: 2800000, guid: 37063687e68f2b34a8a4927e79e1081a, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
         name: _MainTex
       second:
-        m_Texture: {fileID: 2800000, guid: 37063687e68f2b34a8a4927e79e1081a, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
         name: _MetallicGlossMap
       second:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -69,7 +75,25 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - first:
+        name: _SpecGlossMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _Spec_Gloss_Reflec_Masks
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
+    - first:
+        name: _AlphaValue
+      second: 0.5
+    - first:
+        name: _BaseValue
+      second: 0.2
     - first:
         name: _BumpScale
       second: 1
@@ -83,17 +107,38 @@ Material:
         name: _DstBlend
       second: 0
     - first:
+        name: _EdgeAlpha
+      second: 1
+    - first:
+        name: _FrezFalloff
+      second: 4
+    - first:
+        name: _FrezPow
+      second: 0.25
+    - first:
+        name: _Gloss
+      second: 0.5
+    - first:
         name: _GlossMapScale
       second: 1
     - first:
         name: _Glossiness
-      second: 0.5
+      second: 0
     - first:
         name: _GlossyReflections
       second: 1
     - first:
+        name: _InvFade
+      second: 1
+    - first:
+        name: _LineWidth
+      second: 0.075
+    - first:
+        name: _Metalics
+      second: 0.5
+    - first:
         name: _Metallic
-      second: 0
+      second: 0.617
     - first:
         name: _Mode
       second: 0
@@ -103,6 +148,21 @@ Material:
     - first:
         name: _Parallax
       second: 0.02
+    - first:
+        name: _PosLength
+      second: 40.8
+    - first:
+        name: _PositionColorImpact
+      second: 0.856
+    - first:
+        name: _Reflection
+      second: 0.5
+    - first:
+        name: _RepeatLength
+      second: 1
+    - first:
+        name: _Shininess
+      second: 0.6
     - first:
         name: _SmoothnessTextureChannel
       second: 0
@@ -121,7 +181,22 @@ Material:
     m_Colors:
     - first:
         name: _Color
-      second: {r: 1, g: 1, b: 1, a: 1}
+      second: {r: 0.6764706, g: 0.18901385, b: 0.18901385, a: 1}
     - first:
         name: _EmissionColor
-      second: {r: 1.1430411, g: 1.641, b: 0, a: 1}
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _LineColor
+      second: {r: 0, g: 0, b: 0, a: 1}
+    - first:
+        name: _MainColor
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _ReflectColor
+      second: {r: 0.022058845, g: 0.012164804, b: 0.012164804, a: 0.5}
+    - first:
+        name: _SpecColor
+      second: {r: 0.3529411, g: 0.2569203, b: 0.2569203, a: 0}
+    - first:
+        name: _TintColor
+      second: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}

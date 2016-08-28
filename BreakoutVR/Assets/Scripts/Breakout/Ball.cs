@@ -121,7 +121,7 @@ public class Ball : BreakoutPhysicObject {
     private float GetBouncinessFactor(Collider coll) {
         if (coll.tag == "Paddle") {
             Paddle paddleScript = coll.GetComponentInParent<Paddle>();
-            Debug.Log("Paddle Speed "  + paddleScript.GetCurrentVelocity());
+            //Debug.Log("Paddle Speed "  + paddleScript.GetCurrentVelocity());
             return (Mathf.Max(paddleScript.GetCurrentVelocity() * paddleSpeedBounceFactor, 1f));
         } else {
             BreakoutPhysicObject bho = coll.GetComponent<BreakoutPhysicObject>();
