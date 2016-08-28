@@ -10,7 +10,7 @@ public class Brick : BreakoutPhysicObject {
     private int m_pointsGiven = 1000;
 
     private AudioSource audioSource;
-    private AudioClip brickStompSound;
+    private AudioManager.AudioClipWithPitch brickStompSound;
     
 
     public int Health {get; private set;}
@@ -19,20 +19,22 @@ public class Brick : BreakoutPhysicObject {
     protected virtual void Internal_OnDestroy() {}
 
     override protected void Awake() {
+        audioSource = gameObject.GetComponentInChildren<AudioSource>();
         base.Awake();
     }
 
 	void Start () {
-        audioSource = gameObject.GetComponentInChildren<AudioSource>();
-        brickStompSound = AudioManager.Instance.getBrickStompSound();
+        
         Health = startingHP;
 	}
 
-    public void OnHit(int damage) {
+    public void OnHit(int damage) { 
         if (damage <= 0) Debug.LogWarning("Warning : negative damage number !");
         ModifyHealth(-damage);
         //FX HERE
-        audioSource.PlayOneShot(brickStompSound);
+        AudioManager.AudioClipWithPitch brickStompSound = AudioManager.Instance.getBrickStompSound();
+        audioSource.pitch = brickStompSound.pitch; //MAY CAUSE PROBLEMS WITH OTHER SOUNDS ON BRICK
+        audioSource.PlayOneShot(brickStompSound.audioClip);
         Internal_OnHit();
     }
 
@@ -47,7 +49,7 @@ public class Brick : BreakoutPhysicObject {
         //FX HERE
         Internal_OnDestroy();
         ScoreController.Instance.AddRawScore(m_pointsGiven, transform);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         Destroy(gameObject);
     }
 
