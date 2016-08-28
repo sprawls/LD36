@@ -13,5 +13,6 @@ public class ScriptFactory : MonoBehaviour
 		//Scripts to add
 		spawnedManagers.AddComponent<SaveGameController>();
         spawnedManagers.AddComponent<ColorManager>();
+	    spawnedManagers.AddComponent<PlayLoopController>();
 	}
 }

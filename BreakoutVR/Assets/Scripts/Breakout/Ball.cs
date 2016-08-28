@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using DG.Tweening;
 
@@ -48,9 +49,11 @@ public class Ball : BreakoutPhysicObject {
     private float currentXYScale;
     private float currentZScale;
 
+
     [Header("Ball Sound :")]
     private AudioSource audioSource;
     private AudioClip generalBallHitSound;
+    public event Action OnDestroy;
 
     override protected void Awake() {
         isDestroyed = false;
@@ -151,6 +154,9 @@ public class Ball : BreakoutPhysicObject {
     }
 
     public void OnKill() {
+        if (OnDestroy != null)
+            OnDestroy();
+
         isDestroyed = true;
         RemoveBeatDetectsChildren();
         RemovePhysicsComponents();

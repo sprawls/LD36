@@ -6,6 +6,7 @@ TagManager:
   tags:
   - KillZone
   - Paddle
+  - Spawner
   layers:
   - Default
   - TransparentFX
