@@ -146,6 +146,10 @@ public class Ball : BreakoutPhysicObject {
         isDestroyed = true;
         RemoveBeatDetectsChildren();
         RemovePhysicsComponents();
+
+        DontGoThroughThings dgtt = (DontGoThroughThings) GetComponentInChildren<DontGoThroughThings>();
+        if (dgtt != null) Destroy(dgtt);
+
         StartCoroutine(DestroyBall()); //anim fx
     }
 
