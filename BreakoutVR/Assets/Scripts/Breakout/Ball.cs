@@ -126,12 +126,17 @@ public class Ball : BreakoutPhysicObject {
         _transform.position += _currentDirection * _currentSpeed * Time.deltaTime;
     }
 
+    protected virtual void Internal_OnHit()
+    {
+    }
+
     void OnCollisionEnter(Collision collision) {
         //Check death
         if (collision.collider.tag == "KillZone") {
             OnKill();
         }
         else if (canHit == true) {
+            Internal_OnHit();
             StartCoroutine(OnHitCooldown());
             StopCoroutine("OnHitModelScale");
             StartCoroutine("OnHitModelScale");
