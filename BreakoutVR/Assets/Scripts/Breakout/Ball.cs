@@ -16,6 +16,7 @@ public class Ball : BreakoutPhysicObject {
     //Hit Conditions
     [Header("Ball Collision :")]
     public float paddleSpeedBounceFactor = 0.4f;
+    public float paddleDirectionInfluenceFromPaddleSpeed = 0.5f;
     public float collisionRescaleTime = 1f;
     public AnimationCurve collisionBounceAnimation;
 
@@ -29,7 +30,7 @@ public class Ball : BreakoutPhysicObject {
     public float maxSpeedWithoutRatioReduction = 5f;
 
     public float linearReductionSpeed = 1f;
-    public float clampSpeedRatio = 0.05f;
+    public float clampSpeedRatio = 0.2f;
 
     public float speedForMaxStretch = 6f;
     public float maxXYStretchRatio = 0.6f;
@@ -66,6 +67,7 @@ public class Ball : BreakoutPhysicObject {
     }
 
     private void CheckBallSpeed() {
+
         if (_currentSpeed < minSpeed) _currentSpeed = minSpeed;
         else if (_currentSpeed > maxSpeedWithoutRatioReduction) {
             _currentSpeed = Mathf.Lerp(_currentSpeed, maxSpeedWithoutLinearReduction, clampSpeedRatio);
@@ -96,6 +98,7 @@ public class Ball : BreakoutPhysicObject {
     }
 
     void OnCollisionEnter(Collision collision) {
+        if (canHit == false) return;
         StartCoroutine(OnHitCooldown());
         StopCoroutine("OnHitModelScale");
         StartCoroutine("OnHitModelScale");
@@ -132,12 +135,15 @@ public class Ball : BreakoutPhysicObject {
     }
 
     private Vector3 GetDirection(Collision collision) {
-        Vector3 reflectedDirection = Vector3.Reflect(_currentDirection, collision.contacts[0].normal);
+        Vector3 reflectedDirection;
         Collider collider = collision.collider;
         if (collider.tag == "Paddle") {
             Paddle paddleScript = collider.GetComponentInParent<Paddle>();
-            reflectedDirection += paddleScript.GetCurrentVelocity();
-        } 
+            reflectedDirection = collision.contacts[0].normal;
+            reflectedDirection += paddleScript.GetCurrentVelocity().normalized * paddleDirectionInfluenceFromPaddleSpeed;
+        } else {
+            reflectedDirection = Vector3.Reflect(_currentDirection, collision.contacts[0].normal);
+        }
         return reflectedDirection;
     }
 

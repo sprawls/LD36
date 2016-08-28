@@ -3,8 +3,8 @@ using System.Collections;
 
 public class BeatDetectScale : BeatDetect {
 
-    public float scaleRatioMin;
-    public float scaleRatioMax;
+    public float scaleRatioMin = 0.1f;
+    public float scaleRatioMax = 0.3f;
     public float dropTime = 0.2f;
 
     private Vector3 beatScale;
@@ -20,6 +20,8 @@ public class BeatDetectScale : BeatDetect {
 
     public override void onOnbeatDetected()
     {
+        float scaleRatio = Random.Range(scaleRatioMin, scaleRatioMax);
+        beatScale = new Vector3(initialScale.x * scaleRatio, initialScale.y * scaleRatio, initialScale.z * scaleRatio);
         transform.localScale = initialScale + beatScale;
         StopCoroutine("beatScaleDrop");
         StartCoroutine("beatScaleDrop");
