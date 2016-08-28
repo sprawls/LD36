@@ -80,6 +80,7 @@ public class HandController : ExtendedMonoBehaviour
         m_paddle.transform.DOScale(Vector3.one, 1f);
         m_paddlePresent = true;
         m_paddleState = PaddleState.Held;
+        m_paddle.SetHandController(m_controller);
     }
 
     //-------------------------------------------------------------------------
@@ -89,12 +90,14 @@ public class HandController : ExtendedMonoBehaviour
         Destroy(m_paddle.gameObject, 1.1f);
         m_paddle = null;
         m_paddleState = PaddleState.Idle;
+        m_paddle.RemoveHandController();
     }
 
     //-------------------------------------------------------------------------
     public void ThrowPaddle()
     {
         //TODO
+        //m_paddle.RemoveHandController(); // to add somewhere here
     }
 
     //-------------------------------------------------------------------------

@@ -105,12 +105,9 @@ public class Ball : BreakoutPhysicObject {
     }
 
     private void CheckBallSpeed() {
-        //Debug.Log("name : " + gameObject.name + "     speed:  " + _currentSpeed);
         if (_currentSpeed < minSpeed) _currentSpeed = minSpeed;
         else if (_currentSpeed > maxSpeedWithoutRatioReduction) {
-            //Debug.Log("name : " + gameObject.name + "     b4speed:  " + _currentSpeed);
             _currentSpeed = Mathf.Lerp(_currentSpeed, maxSpeedWithoutLinearReduction, clampSpeedRatio);
-            //Debug.Log("name : " + gameObject.name + "     afterspeed:  " + _currentSpeed);
         }   
         else if (_currentSpeed > maxSpeedWithoutLinearReduction) {
             _currentSpeed -= linearReductionSpeed * Time.deltaTime;
@@ -170,7 +167,10 @@ public class Ball : BreakoutPhysicObject {
             colorSequence.Append(_material.DOColor(Color.white, 0.1f));
 
             // play collision sounds 
-            playCollisionSound(collision.collider);
+            PlayCollisionSound(collision.collider);
+
+            //Shake Controller
+            ShakeController(collision.collider);
         }
 
     }
@@ -234,7 +234,6 @@ public class Ball : BreakoutPhysicObject {
             //Debug.Log("reflected: " + collision.contacts[0].normal + "    Dot Product: " + DotProduct + "       PaddleSpeed: " + reflectedDirection);        
 
         } else {
-            Debug.Log("not paddle collision");
             reflectedDirection = Vector3.Reflect(_currentDirection, collision.contacts[0].normal);
         }
         return reflectedDirection;
@@ -275,7 +274,7 @@ public class Ball : BreakoutPhysicObject {
         _collisionScaleFactor = 1f;
     }
 
-    private void playCollisionSound(Collider collider)
+    private void PlayCollisionSound(Collider collider)
     {
         if (collider.tag == "Paddle")
         {
@@ -302,6 +301,15 @@ public class Ball : BreakoutPhysicObject {
         {
             AudioClip generalBallHitSound = AudioManager.Instance.getGeneralBallHitSound();
             audioSource.PlayOneShot(generalBallHitSound);
+        }
+    }
+
+
+    private void ShakeController(Collider collider){
+        if (collider.tag == "Paddle") {
+            Paddle paddle = collider.GetComponentInParent<Paddle>();
+            paddle.Rumble(_currentSpeed);
+            
         }
     }
 

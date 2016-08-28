@@ -6,6 +6,8 @@ public class Paddle : BreakoutPhysicObject {
 
     public Vector3 currentVelocity;
     private Vector3 prevPosition;
+    private HMDController.ControllerIndex _handController;
+    private bool isGrabbed = false;
 
     override protected void Awake() {
         SteamVR_Utils.Event.Listen("render_model_loaded", OnModelLoaded);
@@ -37,6 +39,24 @@ public class Paddle : BreakoutPhysicObject {
 
     public Vector3 GetCurrentVelocity() {
         return currentVelocity;
+    }
+
+    public void SetHandController(HMDController.ControllerIndex handController) {
+        _handController = handController;
+        isGrabbed = true;
+    }
+
+    public void RemoveHandController() {
+        isGrabbed = false;
+    }
+
+    public void Rumble(float speed) {
+        if (isGrabbed) {
+            ushort duration = (ushort)(((int)speed + (int)GetCurrentVelocityMagnitude()) * 2500);
+            //Debug.Log("duration: " + duration);
+            //Debug.Log("_handController" + _handController);
+            HMDController.Instance.TriggerHapticPulse(_handController, duration);
+        }
     }
 
 }
