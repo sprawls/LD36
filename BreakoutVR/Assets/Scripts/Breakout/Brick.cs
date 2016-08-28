@@ -61,10 +61,8 @@ public class Brick : BreakoutPhysicObject {
             transform.localScale = Vector3.one * deathAnimAnimCurve.Evaluate(i) * startScale;
             yield return null;
         }
-        yield return new WaitForSeconds(2f);
-        Destroy(gameObject);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         Destroy(gameObject);
     }
 
