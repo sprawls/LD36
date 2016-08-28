@@ -23,6 +23,9 @@ public class GameController : Singleton<GameController>
     public static event Action<LevelName> OnLevelPreEnded;
     public static event Action<LevelName> OnLevelEnded;
 
+    public static event Action OnPlayStarted;
+    public static event Action OnPlayEnded;
+
     //=============================================================================================
 
     public bool IsGamePaused { get { return m_isPause; } }
@@ -36,6 +39,7 @@ public class GameController : Singleton<GameController>
     public bool IsInLevelTransition { get { return LevelManager.Instance.IsInTransition; } }
 
 	private bool m_isPause = false;
+    private bool m_isPlayingLevel = false;
 
     //=============================================================================================
     //---------------------------------------------------------------------------------------------
@@ -69,8 +73,52 @@ public class GameController : Singleton<GameController>
         LevelManager.OnLevelPreEnd -= Callback_OnLevelPreEnded;
         LevelManager.OnLevelEnd -= Callback_OnLevelEnded;
     }
+    
+    #region Play Level
+    //---------------------------------------------------------------------------------------------
+    public void RequestPlayLevelStart()
+    {
+        if (!IsInPlayLevel || m_isPlayingLevel)
+            return;
+
+        if (OnPlayStarted != null)
+        {
+            OnPlayStarted();
+        }
+    }
+
+    //---------------------------------------------------------------------------------------------
+    public void RequestPlayLevelEnd()
+    {
+        if (!IsInPlayLevel || !m_isPlayingLevel)
+            return;
+
+        if (OnPlayEnded != null)
+        {
+            OnPlayEnded();
+        }
+    }
+
+    #endregion
 
     #region Level
+    //---------------------------------------------------------------------------------------------
+    public void RequestMenuLoad()
+    {
+        LevelManager.Instance.RequestLoadLevel(LevelName.Menu);
+    }
+
+    //---------------------------------------------------------------------------------------------
+    public void RequestPlayLevelLoad(uint index)
+    {
+        switch (index)
+        {
+            default:
+                Debug.LogErrorFormat("Trying to load a level with index {0}. This play level doesn't exist");
+                break;
+        }
+    }
+
     //---------------------------------------------------------------------------------------------
     public bool IsLevelPlayLevel(LevelName level)
     {
@@ -96,6 +144,10 @@ public class GameController : Singleton<GameController>
     //---------------------------------------------------------------------------------------------
     private void Callback_OnLevelPreEnded(LevelLoadCallbackInfo info)
     {
+        //In case the player quits without finishing his level
+        if (OnPlayEnded != null && IsInPlayLevel)
+            OnPlayEnded();
+
         if (OnLevelPreEnded != null)
             OnLevelPreEnded(info.Next);
     }

@@ -24,8 +24,13 @@ public class ConfigHelper
 
     [Config("OverrideAlwaysPlayLevel", ConfigCategory.Level, SupportedConfigType.Bool)]
     [Description("Override the game to always be in play level")]
+#if UNITY_EDITOR
+    [DefaultValue(true)]
+    public static bool OverrideAlwaysPlayLevel = true;
+#else
     [DefaultValue(false)]
     public static bool OverrideAlwaysPlayLevel = false;
+#endif
 
     [Config("DebugStartingLevel", ConfigCategory.Level, SupportedConfigType.String)]
 	[Description("Go directly to a level after boot")]

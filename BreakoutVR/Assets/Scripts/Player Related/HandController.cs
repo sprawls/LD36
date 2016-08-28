@@ -1,17 +1,100 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using JetBrains.Annotations;
 
-public class HandController : MonoBehaviour
+public class HandController : ExtendedMonoBehaviour
 {
+    private enum PaddleState
+    {
+        Idle,
+        Respawning,
+        Held,
+        Thrown,
+    }
+
+    //================================================================================================
+
     [SerializeField]
     private HMDController.ControllerIndex m_controller;
 
     [SerializeField]
     private Transform m_anchor;
 
-    
+    [SerializeField]
+    private GameObject m_paddlePrefab;
+
+    //================================================================================================
+
+    private bool m_paddlePresent = false;
+    private Paddle m_paddle = null;
+    private PaddleState m_paddleState = PaddleState.Idle;
+
+    //================================================================================================
+    //-------------------------------------------------------------------------
+    protected override void RegisterCallbacks()
+    {
+        base.RegisterCallbacks();
+
+        GameController.OnPlayStarted += Callback_OnPlayStart;
+        GameController.OnPlayEnded += Callback_OnPlayEnded;
+    }
+
+    //-------------------------------------------------------------------------
+    protected override void UnregisterCallbacks()
+    {
+        base.UnregisterCallbacks();
+
+        GameController.OnPlayStarted -= Callback_OnPlayStart;
+        GameController.OnPlayEnded -= Callback_OnPlayEnded;
+    }
+
+    //-------------------------------------------------------------------------
+    private void Callback_OnPlayStart()
+    {
+        SpawnPaddle();
+    }
+
+    //-------------------------------------------------------------------------
+    private void Callback_OnPlayEnded()
+    {
+        DespawnPaddle();
+    }
+
+    //-------------------------------------------------------------------------
+    private void SpawnPaddle()
+    {
+        m_paddle = (Instantiate(m_paddlePrefab, m_anchor, false) as GameObject).GetComponentInChildren<Paddle>();
+        m_paddle.transform.localPosition = Vector3.zero;
+        m_paddle.transform.localRotation = Quaternion.identity;
+        m_paddle.transform.localScale = Vector3.zero;
+        m_paddle.transform.DOScale(Vector3.one, 1f);
+        m_paddlePresent = true;
+        m_paddleState = PaddleState.Held;
+    }
+
+    //-------------------------------------------------------------------------
+    private void DespawnPaddle()
+    {
+        m_paddle.transform.DOScale(Vector3.zero, 1f);
+        Destroy(m_paddle.gameObject, 1.1f);
+        m_paddle = null;
+        m_paddleState = PaddleState.Idle;
+    }
+
+    //-------------------------------------------------------------------------
+    public void ThrowPaddle()
+    {
+        //TODO
+    }
+
+    //-------------------------------------------------------------------------
+    private IEnumerator Coroutine_RespawnHandler()
+    {
+        //TODO
+        yield return null;
+    }
 
 #if false
     //=============================================================================================

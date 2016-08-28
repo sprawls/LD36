@@ -20,9 +20,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000012198547996}
   - 114: {fileID: 114000013979461088}
-  - 135: {fileID: 135000010475130448}
   - 114: {fileID: 114000014202968658}
-  - 54: {fileID: 54000013887452936}
   m_Layer: 0
   m_Name: Controller (left)
   m_TagString: Untagged
@@ -54,9 +52,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010395231142}
   - 114: {fileID: 114000012671065018}
-  - 135: {fileID: 135000012048807108}
   - 114: {fileID: 114000013380307354}
-  - 54: {fileID: 54000013659491354}
   m_Layer: 0
   m_Name: Controller (right)
   m_TagString: Untagged
@@ -144,6 +140,7 @@ GameObject:
   - 33: {fileID: 33000013916701938}
   - 114: {fileID: 114000014165066356}
   - 114: {fileID: 114000011087043770}
+  - 114: {fileID: 114000012613169050}
   m_Layer: 0
   m_Name: '[VRCameraRig]'
   m_TagString: Untagged
@@ -430,36 +427,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013134101902}
   m_Mesh: {fileID: 0}
---- !u!54 &54000013659491354
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011542705284}
-  serializedVersion: 2
-  m_Mass: 0.0000001
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!54 &54000013887452936
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010056518002}
-  serializedVersion: 2
-  m_Mass: 0.0000001
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!81 &81000011663268704
 AudioListener:
   m_ObjectHideFlags: 1
@@ -707,6 +674,21 @@ MonoBehaviour:
   verbose: 0
   createComponents: 1
   updateDynamically: 1
+--- !u!114 &114000012613169050
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013134101902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 104f0deba7c901f4aaebe582c34275f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_rightHandController: {fileID: 114000013380307354}
+  m_leftHandController: {fileID: 114000014202968658}
+  m_rightHandPowerup: 0
+  m_leftHandPowerup: 0
 --- !u!114 &114000012671065018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -734,6 +716,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_controller: 1
   m_anchor: {fileID: 4000013072810614}
+  m_paddlePrefab: {fileID: 0}
 --- !u!114 &114000013687538882
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -817,6 +800,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_controller: 0
   m_anchor: {fileID: 4000012329178986}
+  m_paddlePrefab: {fileID: 0}
 --- !u!124 &124000013800404562
 Behaviour:
   m_ObjectHideFlags: 1
@@ -824,27 +808,3 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013375108262}
   m_Enabled: 1
---- !u!135 &135000010475130448
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010056518002}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.015
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &135000012048807108
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011542705284}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.015
-  m_Center: {x: 0, y: 0, z: 0}
