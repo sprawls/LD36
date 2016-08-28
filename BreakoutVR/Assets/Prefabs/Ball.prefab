@@ -85,7 +85,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012369135270}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.077, y: 0.77, z: 1.085}
+  m_LocalPosition: {x: -0.56, y: 0.77, z: 1.085}
   m_LocalScale: {x: 0.16, y: 0.16, z: 0.16}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -218,8 +218,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bouncinessFactor: 1
-  startDirection: {x: 1, y: 0, z: -0.001}
-  startSpeed: 2.5
+  startDirection: {x: 2, y: 5, z: 2}
+  startSpeed: 0
   angularSpeed: 0
   paddleSpeedBounceFactor: 0.4
   collisionRescaleTime: 1
@@ -270,7 +270,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000012135523112}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27b14cb20d0314f40a32bcb79a5f7909, type: 3}
+  m_Script: {fileID: 11500000, guid: 7506ebd9b8b4eed458a59b7d7f46f8d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dropTime: 0.2
