@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using DG.Tweening;
 
@@ -47,6 +48,8 @@ public class Ball : BreakoutPhysicObject {
     private float endZScale;
     private float currentXYScale;
     private float currentZScale;
+
+    public event Action OnDestroy;
 
     override protected void Awake() {
         isDestroyed = false;
@@ -143,6 +146,9 @@ public class Ball : BreakoutPhysicObject {
     }
 
     public void OnKill() {
+        if (OnDestroy != null)
+            OnDestroy();
+
         isDestroyed = true;
         RemoveBeatDetectsChildren();
         RemovePhysicsComponents();

@@ -41,6 +41,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b526f3b6d1479784d9438d53961d4cc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_playLevelsData:
+  - ballCount: 5
+    delayBetweenSpawn: 2
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
