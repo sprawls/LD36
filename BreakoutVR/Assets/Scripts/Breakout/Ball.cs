@@ -53,6 +53,8 @@ public class Ball : BreakoutPhysicObject {
     [Header("Ball Sound :")]
     private AudioSource audioSource;
     private AudioClip generalBallHitSound;
+    private AudioClip paddleHitSound;
+
     public event Action OnDestroy;
 
     override protected void Awake() {
@@ -225,9 +227,25 @@ public class Ball : BreakoutPhysicObject {
 
     private void playCollisionSound(Collider collider)
     {
-        if (collider.tag == "paddle")
+        if (collider.tag == "Paddle")
         {
-            //play paddle collision sound
+            Paddle paddle = collider.GetComponentInParent<Paddle>();
+            float paddleVelocity = paddle.GetCurrentVelocityMagnitude();
+            // if paddle swung fast, bigger smashing sound
+            if (paddleVelocity >= 2.0f)
+            {
+                AudioClip paddleHitLouderSound = AudioManager.Instance.getPaddleHitLouderSound();
+                audioSource.PlayOneShot(paddleHitLouderSound);
+            }
+            else
+            {
+                // change pitch and volume of hit sound according to paddle velocity
+                AudioClip paddleHitSound = AudioManager.Instance.getPaddleHitSound();
+                audioSource.pitch = 1.0f + paddleVelocity  * 0.15f;
+                audioSource.volume = 1.0f + paddleVelocity * 0.8f;
+                audioSource.PlayOneShot(paddleHitSound);
+            }
+            
         }
         else
         {

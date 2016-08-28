@@ -51,6 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dd0b179907beaf4d8d8aab94fd803ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  paddleSmashSound: {fileID: 8300000, guid: 611bae0959cffd4489947d52f8e6c433, type: 3}
   brickStompSound: {fileID: 8300000, guid: c663f1cba232a2544b0980de6ceb15ec, type: 3}
   generalBallHitSound: {fileID: 8300000, guid: 5d97e1e51e33d374fa0db56d903f7bfd, type: 3}
+  paddleHitSound: {fileID: 8300000, guid: 8831c66a233f6824eb00e537e7e9d379, type: 3}
+  paddleHitLouderSound: {fileID: 8300000, guid: f372dd90a3be9b04da641124de98f1b4,
+    type: 3}
