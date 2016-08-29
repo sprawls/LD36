@@ -1484,6 +1484,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bouncinessFactor: 1
+  ImpactTorusPrefab: {fileID: 1000012642575204, guid: 216a02c2f0876d14d985c254b5bc8404,
+    type: 2}
   currentVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &114000013084132692
 MonoBehaviour:

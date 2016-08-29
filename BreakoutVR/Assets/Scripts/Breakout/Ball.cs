@@ -170,7 +170,7 @@ public class Ball : BreakoutPhysicObject {
             PlayCollisionSound(collision.collider);
 
             //Shake Controller
-            ShakeController(collision.collider);
+            AdditionalEffects(collision);
         }
 
     }
@@ -305,11 +305,10 @@ public class Ball : BreakoutPhysicObject {
     }
 
 
-    private void ShakeController(Collider collider){
-        if (collider.tag == "Paddle") {
-            Paddle paddle = collider.GetComponentInParent<Paddle>();
-            paddle.Rumble(_currentSpeed);
-            
+    private void AdditionalEffects(Collision coll){
+        if (coll.collider.tag == "Paddle") {
+            Paddle paddle = coll.collider.GetComponentInParent<Paddle>();
+            paddle.BallHit(_currentSpeed, coll);
         }
     }
 
