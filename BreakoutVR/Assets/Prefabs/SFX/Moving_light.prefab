@@ -86,8 +86,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58df9d3fe51825349b8b037805af8a29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.1
-  duration: 1
   gradient:
     key0:
       serializedVersion: 2
@@ -112,17 +110,17 @@ MonoBehaviour:
       rgba: 28671
     key7:
       serializedVersion: 2
-      rgba: 0
+      rgba: 28671
     ctime0: 0
-    ctime1: 9252
-    ctime2: 18504
-    ctime3: 28334
-    ctime4: 37394
-    ctime5: 47224
-    ctime6: 57440
-    ctime7: 0
+    ctime1: 11951
+    ctime2: 21588
+    ctime3: 31611
+    ctime4: 41634
+    ctime5: 51657
+    ctime6: 65535
+    ctime7: 57440
     atime0: 0
-    atime1: 60524
+    atime1: 65535
     atime2: 65535
     atime3: 0
     atime4: 0
@@ -130,4 +128,25 @@ MonoBehaviour:
     atime6: 0
     atime7: 0
     m_NumColorKeys: 7
-    m_NumAlphaKeys: 3
+    m_NumAlphaKeys: 2
+  intensityCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+    - time: 0.43370822
+      value: 1.0002983
+      inSlope: -0.00597058
+      outSlope: -0.00597058
+      tangentMode: 0
+    - time: 0.99897957
+      value: 0.0062500834
+      inSlope: -4.481698
+      outSlope: -4.481698
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
