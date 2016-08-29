@@ -366,6 +366,8 @@ MonoBehaviour:
   speedForMaxStretch: 6
   maxXYStretchRatio: 0.6
   maxZStretchRatio: 1.3
+  BallCollisionFX: {fileID: 1000012195154208, guid: d1b609b9d84414345bacf6e584e7d5c5,
+    type: 2}
 --- !u!114 &114000012675919078
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -51,11 +51,13 @@ public class Ball : BreakoutPhysicObject {
     private float currentXYScale;
     private float currentZScale;
 
-
     [Header("Ball Sound :")]
     private AudioSource audioSource;
     private AudioClip generalBallHitSound;
     private AudioClip paddleHitSound;
+
+    [Header("Ball FX :")]
+    public GameObject BallCollisionFX;
 
     public event Action OnDestroy;
 
@@ -76,12 +78,6 @@ public class Ball : BreakoutPhysicObject {
         startZScale = _ModelSpeedScaler.localScale.z;
         endXYScale = startXYScale * maxXYStretchRatio;
         endZScale = startZScale * maxZStretchRatio;
-    }
-
-    void Update() {
-        if (CanPlay()) {
-
-        }
     }
 
     void FixedUpdate() {
@@ -169,7 +165,7 @@ public class Ball : BreakoutPhysicObject {
             // play collision sounds 
             PlayCollisionSound(collision.collider);
 
-            //Shake Controller
+            //Other FX
             AdditionalEffects(collision);
         }
 
@@ -305,10 +301,17 @@ public class Ball : BreakoutPhysicObject {
 
 
     private void AdditionalEffects(Collision coll){
+        //Paddle Related
         if (coll.collider.tag == "Paddle") {
             Paddle paddle = coll.collider.GetComponentInParent<Paddle>();
             paddle.BallHit(_currentSpeed, coll);
+        } 
+        // Particles
+        else {
+            GameObject particles = (GameObject)Instantiate(BallCollisionFX, transform.position, Quaternion.identity);
+            particles.transform.LookAt(coll.contacts[0].normal);
         }
+        
     }
 
 }
