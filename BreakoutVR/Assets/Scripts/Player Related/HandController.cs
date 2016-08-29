@@ -90,6 +90,7 @@ public class HandController : ExtendedMonoBehaviour
             return;
 
         //paddle spawn sound
+        audioSource = gameObject.GetComponent<AudioSource>();
         audioSource.PlayOneShot(AudioManager.Instance.getPaddleGrowSound());
 
         m_paddle = (Instantiate(m_paddlePrefab, m_anchor, false) as GameObject).GetComponentInChildren<Paddle>();
