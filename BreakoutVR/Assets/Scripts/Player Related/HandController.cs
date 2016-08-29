@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using JetBrains.Annotations;
 
+
 public class HandController : ExtendedMonoBehaviour
 {
     private enum PaddleState

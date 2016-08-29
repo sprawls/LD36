@@ -36,7 +36,6 @@ public class TripleRacket : PowerUpAbstract
     private GameObject m_leftPaddle = null;
     private GameObject m_rightPaddle = null;
     private bool m_flash = false;
-    private List<Renderer> m_renderersToFlash;
 
 
 
@@ -48,6 +47,7 @@ public class TripleRacket : PowerUpAbstract
 
     protected override void Update()
     {
+        Debug.Log(m_currentPowerUPTime);
         if (m_isActivated)
         {
             m_currentPowerUPTime += Time.deltaTime;
@@ -105,14 +105,6 @@ public class TripleRacket : PowerUpAbstract
                 m_leftPaddle = Instantiate(m_padObjectPrefab, m_padRef.transform) as GameObject;
                 m_rightPaddle = Instantiate(m_padObjectPrefab, m_padRef.transform) as GameObject;
             }
-            foreach(Renderer r in m_leftPaddle.GetComponentsInChildren<Renderer>())
-            {
-                m_renderersToFlash.Add(r);
-            }
-            foreach(Renderer r in m_rightPaddle.GetComponentsInChildren<Renderer>())
-            {
-                m_renderersToFlash.Add(r);
-            }
         }
         else
         {
@@ -126,9 +118,13 @@ public class TripleRacket : PowerUpAbstract
         float delta = Mathf.Repeat(m_currentPowerUPTime, frequency) / frequency;
         if (m_flash)
         {
-            foreach(Renderer r in m_renderersToFlash)
+            foreach(Renderer r in m_leftPaddle.GetComponentsInChildren<Renderer>())
             {
-                r.material.color = Color.Lerp(Color.white, Color.red, delta);
+                if(r.material) r.material.color = Color.Lerp(Color.white, Color.red, delta);
+            }
+            foreach (Renderer r in m_rightPaddle.GetComponentsInChildren<Renderer>())
+            {
+                if (r.material) r.material.color = Color.Lerp(Color.white, Color.red, delta);
             }
             if (delta == 1.0)
             {
@@ -137,9 +133,13 @@ public class TripleRacket : PowerUpAbstract
         }
         else
         {
-            foreach (Renderer r in m_renderersToFlash)
+            foreach (Renderer r in m_leftPaddle.GetComponentsInChildren<Renderer>())
             {
-                r.material.color = Color.Lerp(Color.red, Color.white, delta);
+                if (r.material) r.material.color = Color.Lerp(Color.red, Color.white, delta);
+            }
+            foreach (Renderer r in m_rightPaddle.GetComponentsInChildren<Renderer>())
+            {
+                if (r.material) r.material.color = Color.Lerp(Color.red, Color.white, delta);
             }
             if (delta == 1.0)
             {

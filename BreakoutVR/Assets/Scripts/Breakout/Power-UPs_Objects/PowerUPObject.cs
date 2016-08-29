@@ -12,11 +12,11 @@ public class PowerUPObject : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        Debug.Log("TriggerEnter");
         HandController hController = col.gameObject.GetComponentInParent<HandController>();
          if(hController)
          {
              PowerupController.Instance.ActivatePowerUP(m_type, hController.controllerID);
+             Destroy(this.gameObject);
          }
     }
 
