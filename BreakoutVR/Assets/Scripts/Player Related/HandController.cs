@@ -30,6 +30,8 @@ public class HandController : ExtendedMonoBehaviour
     [SerializeField]
     private GameObject m_paddlePrefab;
 
+    AudioSource audioSource;
+
     //================================================================================================
 
     private bool m_paddlePresent = false;
@@ -86,6 +88,9 @@ public class HandController : ExtendedMonoBehaviour
 
         if (m_paddleInCooldown)
             return;
+
+        //paddle spawn sound
+        audioSource.PlayOneShot(AudioManager.Instance.getPaddleGrowSound());
 
         m_paddle = (Instantiate(m_paddlePrefab, m_anchor, false) as GameObject).GetComponentInChildren<Paddle>();
         m_paddle.transform.localPosition = Vector3.zero;
