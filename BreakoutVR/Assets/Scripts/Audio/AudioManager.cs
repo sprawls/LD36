@@ -9,6 +9,7 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField] private AudioClip paddleHitLouderSound;
     [SerializeField] private AudioClip paddleGrowSound;
     [SerializeField] private AudioClip powerUpSpawnSound;
+    [SerializeField] private AudioClip powerUpActivateSound;
 
     private float timeBetweenBrickHitBonus = 2.0f;
     private float pitch = 1.0f;
@@ -30,6 +31,7 @@ public class AudioManager : Singleton<AudioManager>
     public AudioClip getPaddleHitLouderSound() { return paddleHitLouderSound; }
     public AudioClip getPaddleGrowSound() { return paddleGrowSound; }
     public AudioClip getPowerUpSpawnSound() { return powerUpSpawnSound; }
+    public AudioClip getPowerUpActivateSound() { return powerUpActivateSound; }
     public AudioClipWithPitch getBrickStompSound() {
         float pitchToSend = pitch;
         pitch += pitchDiff;

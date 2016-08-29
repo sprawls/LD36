@@ -58,3 +58,5 @@ MonoBehaviour:
     type: 3}
   paddleGrowSound: {fileID: 8300000, guid: 704bae03d352aa544a71eee951bf2503, type: 3}
   powerUpSpawnSound: {fileID: 8300000, guid: 1062f242b014feb4794aae01f4147531, type: 3}
+  powerUpActivateSound: {fileID: 8300000, guid: 390122315e9bad241815cd7624c057cf,
+    type: 3}

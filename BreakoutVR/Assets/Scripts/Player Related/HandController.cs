@@ -144,6 +144,8 @@ public class HandController : ExtendedMonoBehaviour
 
     public void ActivatePowerUP(PowerupType pType)
     {
+        audioSource = gameObject.GetComponent<AudioSource>();
+        audioSource.PlayOneShot(AudioManager.Instance.getPowerUpActivateSound());
         switch(pType)
         {
             case PowerupType.TripleRacket:
