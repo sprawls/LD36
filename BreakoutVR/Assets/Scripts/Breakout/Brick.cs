@@ -20,6 +20,9 @@ public class Brick : BreakoutPhysicObject {
 
     private AudioSource audioSource;
     private AudioManager.AudioClipWithPitch brickStompSound;
+    private AudioClip powerUpSpawnSound;
+    private float brickSoundPitch;
+
     
 
     public int Health {get; private set;}
@@ -34,6 +37,7 @@ public class Brick : BreakoutPhysicObject {
 
     override protected void Awake() {
         audioSource = gameObject.GetComponentInChildren<AudioSource>();
+        powerUpSpawnSound = AudioManager.Instance.getPowerUpSpawnSound();
         base.Awake();
     }
 
@@ -51,7 +55,7 @@ public class Brick : BreakoutPhysicObject {
         ModifyHealth(-damage);
         //FX HERE
         AudioManager.AudioClipWithPitch brickStompSound = AudioManager.Instance.getBrickStompSound();
-        audioSource.pitch = brickStompSound.pitch; //MAY CAUSE PROBLEMS WITH OTHER SOUNDS ON BRICK
+        audioSource.pitch = brickSoundPitch = brickStompSound.pitch;
         audioSource.PlayOneShot(brickStompSound.audioClip);
         Internal_OnHit();
     }
@@ -81,6 +85,7 @@ public class Brick : BreakoutPhysicObject {
 
     private void ThrowPowerUP(PowerupType pType)
     {
+        audioSource.PlayOneShot(powerUpSpawnSound);
         switch (pType)
         {
             case PowerupType.TripleRacket:
