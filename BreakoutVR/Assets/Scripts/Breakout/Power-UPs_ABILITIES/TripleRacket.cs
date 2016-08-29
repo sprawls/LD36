@@ -47,7 +47,7 @@ public class TripleRacket : PowerUpAbstract
 
     protected override void Update()
     {
-        Debug.Log(m_currentPowerUPTime);
+        //Debug.Log(m_currentPowerUPTime);
         if (m_isActivated)
         {
             m_currentPowerUPTime += Time.deltaTime;
