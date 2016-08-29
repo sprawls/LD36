@@ -30,7 +30,9 @@ public class HandController : ExtendedMonoBehaviour
     [SerializeField]
     private GameObject m_paddlePrefab;
 
-    AudioSource audioSource;
+    private AudioSource audioSource;
+    [SerializeField]
+    private AnimationCurve paddleGrowAnimCurve;
 
     //================================================================================================
 
@@ -97,10 +99,20 @@ public class HandController : ExtendedMonoBehaviour
         m_paddle.transform.localPosition = Vector3.zero;
         m_paddle.transform.localRotation = Quaternion.identity;
         m_paddle.transform.localScale = Vector3.zero;
-        m_paddle.transform.DOScale(Vector3.one, 1f);
+        StartCoroutine(paddleGrowAnim());
+        //m_paddle.transform.DOScale(Vector3.one, 1f);
         m_paddlePresent = true;
         m_paddleState = PaddleState.Held;
         m_paddle.SetHandController(m_controller);
+    }
+
+    IEnumerator paddleGrowAnim()
+    {
+        for (float i = 0; i < 1f; i += Time.deltaTime / 1.0f)
+        {
+            m_paddle.transform.localScale = Vector3.one * paddleGrowAnimCurve.Evaluate(i);
+            yield return null;
+        }
     }
 
     //-------------------------------------------------------------------------

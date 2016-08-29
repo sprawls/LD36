@@ -916,6 +916,32 @@ MonoBehaviour:
   m_paddleCooldown: 5
   m_paddlePrefab: {fileID: 1000013276630196, guid: bec9986ad99565b4eb922d7ad83448b5,
     type: 2}
+  paddleGrowAnimCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 0.90891314
+      value: 0.61783856
+      inSlope: 2.256025
+      outSlope: 2.256025
+      tangentMode: 0
+    - time: 0.97913027
+      value: 1.1049583
+      inSlope: 1.9317865
+      outSlope: 1.9317865
+      tangentMode: 0
+    - time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114000013687538882
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1002,6 +1028,32 @@ MonoBehaviour:
   m_paddleCooldown: 5
   m_paddlePrefab: {fileID: 1000013276630196, guid: bec9986ad99565b4eb922d7ad83448b5,
     type: 2}
+  paddleGrowAnimCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 0.90891314
+      value: 0.61783856
+      inSlope: 2.256025
+      outSlope: 2.256025
+      tangentMode: 0
+    - time: 0.97913027
+      value: 1.1049583
+      inSlope: 1.9317865
+      outSlope: 1.9317865
+      tangentMode: 0
+    - time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!124 &124000013800404562
 Behaviour:
   m_ObjectHideFlags: 1
