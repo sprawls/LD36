@@ -54,6 +54,9 @@ public class PlayLoopController : Singleton<PlayLoopController>
     //--------------------------------------------------------------------
     private void Callback_OnLevelStarted(LevelName levelName)
     {
+        /*if (!GameController.Instance.IsLevelPlayLevel(levelName))
+            return;*/
+
         m_spawner = null;
         GameObject[] spawner = GameObject.FindGameObjectsWithTag("Spawner");
         foreach (var s in spawner)
@@ -128,6 +131,8 @@ public class PlayLoopController : Singleton<PlayLoopController>
                 }
                 else
                 {
+                    ResetBalls();
+
                     if (OnLifeLost != null)
                     {
                         OnLifeLost();

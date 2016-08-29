@@ -60,8 +60,8 @@ public class TripleRacket : PowerUpAbstract
                 m_rightPaddle.transform.localPosition = Vector3.Lerp(Vector3.zero, m_offsetRightPaddle, m_currentAnimTime / m_animTime);
 
                 //Rotations
-                m_leftPaddle.transform.eulerAngles = new Vector3(0.0f, -angle, 0.0f);
-                m_rightPaddle.transform.eulerAngles = new Vector3(0.0f, angle, 0.0f);
+                m_leftPaddle.transform.localEulerAngles = new Vector3(0.0f, -angle, 0.0f);
+                m_rightPaddle.transform.localEulerAngles = new Vector3(0.0f, angle, 0.0f);
             }
             if(m_currentPowerUPTime > m_powerupTime) //it's over
             {
@@ -100,8 +100,8 @@ public class TripleRacket : PowerUpAbstract
             m_padRef = this.gameObject.GetComponentInChildren<Paddle>(true).gameObject;
             if (m_padRef)
             {
-                m_leftPaddle = Instantiate(Resources.Load("Prefabs/PaddleObject"), m_padRef.transform) as GameObject;
-                m_rightPaddle = Instantiate(Resources.Load("Prefabs/PaddleObject"), m_padRef.transform) as GameObject;
+                m_leftPaddle = Instantiate(m_padObjectPrefab, m_padRef.transform) as GameObject;
+                m_rightPaddle = Instantiate(m_padObjectPrefab, m_padRef.transform) as GameObject;
             }
         }
         else
