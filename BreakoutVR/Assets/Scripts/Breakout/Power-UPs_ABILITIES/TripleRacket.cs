@@ -60,8 +60,8 @@ public class TripleRacket : PowerUpAbstract
                 m_rightPaddle.transform.localPosition = Vector3.Lerp(Vector3.zero, m_offsetRightPaddle, m_currentAnimTime / m_animTime);
 
                 //Rotations
-                m_leftPaddle.transform.eulerAngles = new Vector3(0.0f, -angle, 0.0f);
-                m_rightPaddle.transform.eulerAngles = new Vector3(0.0f, angle, 0.0f);
+                m_leftPaddle.transform.localEulerAngles = new Vector3(0.0f, -angle, 0.0f);
+                m_rightPaddle.transform.localEulerAngles = new Vector3(0.0f, angle, 0.0f);
             }
             if(m_currentPowerUPTime > m_powerupTime) //it's over
             {
