@@ -27,7 +27,8 @@ public class Ball : BreakoutPhysicObject {
     public float collisionRescaleTime = 1f;
     public AnimationCurve collisionBounceAnimation;
 
-    private float hitCooldown = 0.05f;
+    private float hitCooldown = 0.01f;
+    private float hitCooldownSameObject = 0.1f;
     private bool canHit = true;
     private float _collisionScaleFactor = 1f;
 
@@ -79,15 +80,16 @@ public class Ball : BreakoutPhysicObject {
 
     void Update() {
         if (CanPlay()) {
-            ApplyVelocityModification();
-            CheckBallSpeed();
-            StretchBall();
-            RezizeModel();          
+
         }
     }
 
     void FixedUpdate() {
         if (CanPlay()) {
+            ApplyVelocityModification();
+            CheckBallSpeed();
+            StretchBall();
+            RezizeModel();          
             OrientModel();
             MoveBall();
         }
@@ -103,7 +105,6 @@ public class Ball : BreakoutPhysicObject {
     }
 
     private void CheckBallSpeed() {
-
         if (_currentSpeed < minSpeed) _currentSpeed = minSpeed;
         else if (_currentSpeed > maxSpeedWithoutRatioReduction) {
             _currentSpeed = Mathf.Lerp(_currentSpeed, maxSpeedWithoutLinearReduction, clampSpeedRatio);
@@ -131,8 +132,8 @@ public class Ball : BreakoutPhysicObject {
     }
 
     private void MoveBall() {
-        //_transform.position += _currentDirection * _currentSpeed * Time.deltaTime;
-        _rigidBody.MovePosition(_transform.position + (_currentDirection * _currentSpeed * Time.fixedDeltaTime));
+        _transform.position += _currentDirection * _currentSpeed * Time.deltaTime;
+        //_rigidBody.MovePosition(_transform.position + (_currentDirection * _currentSpeed * Time.fixedDeltaTime));
     }
 
     protected virtual void Internal_OnHit()
@@ -145,7 +146,8 @@ public class Ball : BreakoutPhysicObject {
             OnKill();
         }
         else if (canHit == true) {
-            StartCoroutine(OnHitCooldown(collision.collider));
+            StartCoroutine(OnHitCooldownSameObject(collision.collider));
+            StartCoroutine(OnHitCooldown());
             Internal_OnHit();
 
             StopCoroutine("OnHitModelScale");
@@ -165,7 +167,10 @@ public class Ball : BreakoutPhysicObject {
             colorSequence.Append(_material.DOColor(Color.white, 0.1f));
 
             // play collision sounds 
-            playCollisionSound(collision.collider);
+            PlayCollisionSound(collision.collider);
+
+            //Shake Controller
+            ShakeController(collision.collider);
         }
 
     }
@@ -226,10 +231,9 @@ public class Ball : BreakoutPhysicObject {
             Debug.DrawLine(sPos, sPos + (paddleScript.transform.up).normalized, Color.blue, 10f);
             Debug.DrawLine(sPos, sPos + (reflectedDirection).normalized, Color.red, 10f);
             */
-            Debug.Log("reflected: " + collision.contacts[0].normal + "    Dot Product: " + DotProduct + "       PaddleSpeed: " + reflectedDirection);        
+            //Debug.Log("reflected: " + collision.contacts[0].normal + "    Dot Product: " + DotProduct + "       PaddleSpeed: " + reflectedDirection);        
 
         } else {
-            Debug.Log("not paddle collision");
             reflectedDirection = Vector3.Reflect(_currentDirection, collision.contacts[0].normal);
         }
         return reflectedDirection;
@@ -246,19 +250,20 @@ public class Ball : BreakoutPhysicObject {
         Destroy(gameObject);
     }
 
-    IEnumerator OnHitCooldown(Collider otherCollider) {
+    IEnumerator OnHitCooldownSameObject(Collider otherCollider) {
         Physics.IgnoreCollision(_ballCollider, otherCollider, true);
-        yield return new WaitForSeconds(hitCooldown);
+        yield return new WaitForSeconds(hitCooldownSameObject);
         // Check if null or destroyed
-        if (otherCollider != null && !otherCollider.Equals(null)) {
+        if (otherCollider != null && !otherCollider.Equals(null) &&
+            _ballCollider != null && !_ballCollider.Equals(null)) {
             Physics.IgnoreCollision(_ballCollider, otherCollider, false);
         }
+    }
 
-        /*
+    IEnumerator OnHitCooldown() {
         canHit = false;
         yield return new WaitForSeconds(hitCooldown);
         canHit = true;
-        */
     }
 
     IEnumerator OnHitModelScale() {
@@ -269,7 +274,7 @@ public class Ball : BreakoutPhysicObject {
         _collisionScaleFactor = 1f;
     }
 
-    private void playCollisionSound(Collider collider)
+    private void PlayCollisionSound(Collider collider)
     {
         if (collider.tag == "Paddle")
         {
@@ -295,6 +300,15 @@ public class Ball : BreakoutPhysicObject {
         {
             AudioClip generalBallHitSound = AudioManager.Instance.getGeneralBallHitSound();
             audioSource.PlayOneShot(generalBallHitSound);
+        }
+    }
+
+
+    private void ShakeController(Collider collider){
+        if (collider.tag == "Paddle") {
+            Paddle paddle = collider.GetComponentInParent<Paddle>();
+            paddle.Rumble(_currentSpeed);
+            
         }
     }
 

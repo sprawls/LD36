@@ -129,10 +129,12 @@ public class HMDController : Singleton<HMDController>
 
         if (m_vrRoomEnterRequested && !m_isInVrRoom)
         {
+            m_vrRoomEnterRequested = false;
             EnterVrRoom();
         }
         else if (m_vrRoomExitRequested && m_isInVrRoom)
         {
+            m_vrRoomExitRequested = false;
             ExitVrRoom();    
         }
     }

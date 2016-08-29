@@ -117,7 +117,12 @@ namespace GamejamToolset.LevelLoading
 				yield return null;
 			}
 
-			CustomLogger.LevelLog(string.Format("Switching to level |{0}| - State: ended", name.ToString()));
+            GC.Collect();
+            Shader.WarmupAllShaders();
+
+            HMDController.Instance.RequestVrRoomExit();
+
+            CustomLogger.LevelLog(string.Format("Switching to level |{0}| - State: ended", name.ToString()));
 			if (OnLevelStart != null)
 				OnLevelStart(info);
 
@@ -130,6 +135,7 @@ namespace GamejamToolset.LevelLoading
 			if (OnLevelPreEnd != null)
 				OnLevelPreEnd(info);
 
+            HMDController.Instance.RequestVrRoomEnter();
 			CustomLogger.LevelLog(string.Format("Unloading scene |{0}|", name.ToString()));
 			SceneManager.UnloadScene(name.ToString());
 

@@ -7,7 +7,9 @@ using UnityEngine.SceneManagement;
 using GamejamToolset.Saving;
 using GamejamToolset.LevelLoading;
 using JetBrains.Annotations;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 public class GameController : Singleton<GameController>
 {
@@ -152,9 +154,20 @@ public class GameController : Singleton<GameController>
 
     #region Level
     //---------------------------------------------------------------------------------------------
+    public void RequestIntroLoad()
+    {
+        LevelManager.Instance.RequestLoadLevel(LevelName.Intro);
+    }
+
+    //---------------------------------------------------------------------------------------------
     public void RequestNextPlayLevelLoad()
     {
-        
+        ++m_currentPlayLevelIndex;
+
+        if (m_currentPlayLevelIndex < m_playLevelsData.Count)
+        {
+            RequestPlayLevelLoad((uint)m_currentPlayLevelIndex);
+        }
     }
 
     //---------------------------------------------------------------------------------------------

@@ -9,9 +9,14 @@ public class Brick : BreakoutPhysicObject {
     [Header("Death")]
     public float deathAnimTime = 0.5f;
     public AnimationCurve deathAnimAnimCurve;
-
+ 
     [SerializeField]
     private int m_pointsGiven = 1000;
+
+    [SerializeField, Range(0.0f,1.0f)]
+    private float m_powerChanceUpPercent;
+    private bool m_hasPowerUp;
+    private PowerupType m_powerUpType;
 
     private AudioSource audioSource;
     private AudioManager.AudioClipWithPitch brickStompSound;
@@ -21,6 +26,7 @@ public class Brick : BreakoutPhysicObject {
 
     protected virtual void Internal_OnHit() {}
     protected virtual void Internal_OnDestroy() {
+        if (m_hasPowerUp) ThrowPowerUP(m_powerUpType);
         isDestroyed = true;
         RemoveBeatDetectsChildren();
         RemovePhysicsComponents();
@@ -32,8 +38,12 @@ public class Brick : BreakoutPhysicObject {
     }
 
 	void Start () {
-        
         Health = startingHP;
+        m_hasPowerUp = Random.Range(0.0f, 1.0f) < m_powerChanceUpPercent;
+        if(m_hasPowerUp)
+        {
+            m_powerUpType = (PowerupType)Random.Range(1, 1); //TODO INCREMENT WITH THE NUMBER OF POWERUPS
+        }
 	}
 
     public void OnHit(int damage) { 
@@ -62,9 +72,22 @@ public class Brick : BreakoutPhysicObject {
             transform.localScale = Vector3.one * deathAnimAnimCurve.Evaluate(i) * startScale;
             yield return null;
         }
-
         yield return new WaitForSeconds(2f);
+
+        
+
         Destroy(gameObject);
+    }
+
+    private void ThrowPowerUP(PowerupType pType)
+    {
+        switch (pType)
+        {
+            case PowerupType.TripleRacket:
+                GameObject powerUp = GameObject.Instantiate(Resources.Load("PowerUPs/TriplePOWUP")) as GameObject;
+                powerUp.transform.position = this.transform.position;
+                break;
+        }
     }
 
 

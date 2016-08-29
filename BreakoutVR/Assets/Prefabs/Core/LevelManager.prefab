@@ -57,6 +57,12 @@ MonoBehaviour:
         m_loadState: 1
       - m_scene: {fileID: 102900000, guid: 4a80cb41ff8536948bd6a4ea7b0bbbbe, type: 3}
         m_loadState: 1
+    - levelName: Intro
+      scenes:
+      - m_scene: {fileID: 102900000, guid: b2105d1ac7999af4e88e30b6025bb09a, type: 3}
+        m_loadState: 0
+      - m_scene: {fileID: 102900000, guid: e924b44d656049c418c93c994f7c9411, type: 3}
+        m_loadState: 0
     - levelName: Level1
       scenes:
       - m_scene: {fileID: 102900000, guid: 95f937be8aaa1454f80478cc2774bdb1, type: 3}
