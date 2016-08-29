@@ -4,6 +4,8 @@ using Valve.VR;
 
 public class Paddle : BreakoutPhysicObject {
 
+    public GameObject ImpactTorusPrefab;
+
     public Vector3 currentVelocity;
     private Vector3 prevPosition;
     private HMDController.ControllerIndex _handController;
@@ -50,12 +52,30 @@ public class Paddle : BreakoutPhysicObject {
         isGrabbed = false;
     }
 
-    public void Rumble(float speed) {
+    public void BallHit(float speed, Collision coll) {
+        Rumble(speed);
+        SpawnImpactTorus(speed, coll);
+    }
+
+    private void Rumble(float speed) {
         if (isGrabbed) {
             ushort duration = (ushort)(((int)speed + (int)GetCurrentVelocityMagnitude()) * 2500);
             //Debug.Log("duration: " + duration);
             //Debug.Log("_handController" + _handController);
             HMDController.Instance.TriggerHapticPulse(_handController, duration);
+        }
+    }
+
+    private void SpawnImpactTorus(float speed, Collision coll) {
+        if (GetCurrentVelocityMagnitude() > 3f) { 
+            GameObject torus = (GameObject)Instantiate(ImpactTorusPrefab, transform.position, Quaternion.identity);
+            if (torus != null) {
+                ImpactTorus impactTorus = torus.GetComponent<ImpactTorus>();
+                if (impactTorus != null) {
+                    torus.transform.LookAt(currentVelocity);
+                    impactTorus.ActivateTorus(0.8f, (speed + GetCurrentVelocityMagnitude()-3f) / 3f);
+                } else Debug.Log("No torus script");
+            } else Debug.Log("No torus prefab");
         }
     }
 
