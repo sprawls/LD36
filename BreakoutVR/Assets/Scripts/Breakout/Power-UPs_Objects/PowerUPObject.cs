@@ -13,11 +13,15 @@ public class PowerUPObject : MonoBehaviour {
     void OnTriggerEnter(Collider col)
     {
         HandController hController = col.gameObject.GetComponentInParent<HandController>();
-         if(hController)
-         {
-             PowerupController.Instance.ActivatePowerUP(m_type, hController.controllerID);
-             Destroy(this.gameObject);
-         }
+        if(hController)
+        {
+            PowerupController.Instance.ActivatePowerUP(m_type, hController.controllerID);
+            Destroy(this.gameObject);
+        }
+        else if(col.tag == "KillZone")
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     void Update()
