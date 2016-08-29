@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class TripleRacket : PowerUpAbstract
 {
@@ -10,7 +11,7 @@ public class TripleRacket : PowerUpAbstract
     [SerializeField]
     private float m_animTime = 0.5f;
     [SerializeField]
-    private float m_powerupTime = 10.0f;
+    private float m_powerupTime = 5.0f;
     [SerializeField]
     private float m_floatBlinkTimeSlow = 0.75f;
     [SerializeField]
@@ -34,7 +35,8 @@ public class TripleRacket : PowerUpAbstract
     private GameObject m_padRef = null;
     private GameObject m_leftPaddle = null;
     private GameObject m_rightPaddle = null;
-    private bool flash = false;
+    private bool m_flash = false;
+    private List<Renderer> m_renderersToFlash;
 
 
 
@@ -60,8 +62,8 @@ public class TripleRacket : PowerUpAbstract
                 m_rightPaddle.transform.localPosition = Vector3.Lerp(Vector3.zero, m_offsetRightPaddle, m_currentAnimTime / m_animTime);
 
                 //Rotations
-                m_leftPaddle.transform.eulerAngles = new Vector3(0.0f, -angle, 0.0f);
-                m_rightPaddle.transform.eulerAngles = new Vector3(0.0f, angle, 0.0f);
+                m_leftPaddle.transform.localEulerAngles = new Vector3(0.0f, -angle, 0.0f);
+                m_rightPaddle.transform.localEulerAngles = new Vector3(0.0f, angle, 0.0f);
             }
             if(m_currentPowerUPTime > m_powerupTime) //it's over
             {
@@ -71,7 +73,7 @@ public class TripleRacket : PowerUpAbstract
                 m_currentAnimTime = 0.0f;
                 m_currentPowerUPTime = 0.0f;
             }
-            else if (m_currentPowerUPTime > m_powerupTime - m_powerupTime / 8.0f) //it's 3/4 over
+            else if (m_currentPowerUPTime > m_powerupTime - m_powerupTime / 8.0f) //it's 7/8 over
             {
                 Flash(m_floatBlinkTimeVeryFast);
             }
@@ -100,8 +102,16 @@ public class TripleRacket : PowerUpAbstract
             m_padRef = this.gameObject.GetComponentInChildren<Paddle>(true).gameObject;
             if (m_padRef)
             {
-                m_leftPaddle = Instantiate(Resources.Load("Prefabs/PaddleObject"), m_padRef.transform) as GameObject;
-                m_rightPaddle = Instantiate(Resources.Load("Prefabs/PaddleObject"), m_padRef.transform) as GameObject;
+                m_leftPaddle = Instantiate(m_padObjectPrefab, m_padRef.transform) as GameObject;
+                m_rightPaddle = Instantiate(m_padObjectPrefab, m_padRef.transform) as GameObject;
+            }
+            foreach(Renderer r in m_leftPaddle.GetComponentsInChildren<Renderer>())
+            {
+                m_renderersToFlash.Add(r);
+            }
+            foreach(Renderer r in m_rightPaddle.GetComponentsInChildren<Renderer>())
+            {
+                m_renderersToFlash.Add(r);
             }
         }
         else
@@ -114,23 +124,26 @@ public class TripleRacket : PowerUpAbstract
     private void Flash(float frequency)
     {
         float delta = Mathf.Repeat(m_currentPowerUPTime, frequency) / frequency;
-        if (flash)
+        if (m_flash)
         {
-            m_leftPaddle.GetComponentInChildren<Renderer>().material.color = Color.Lerp(Color.white, Color.red, delta);
-            m_rightPaddle.GetComponentInChildren<Renderer>().material.color = Color.Lerp(Color.white, Color.red, delta);
+            foreach(Renderer r in m_renderersToFlash)
+            {
+                r.material.color = Color.Lerp(Color.white, Color.red, delta);
+            }
             if (delta == 1.0)
             {
-                flash = false;
+                m_flash = false;
             }
         }
         else
         {
-            m_leftPaddle.GetComponentInChildren<Renderer>().material.color = Color.Lerp(Color.red, Color.white, delta);
-            m_rightPaddle.GetComponentInChildren<Renderer>().material.color = Color.Lerp(Color.red, Color.white, delta);
-
+            foreach (Renderer r in m_renderersToFlash)
+            {
+                r.material.color = Color.Lerp(Color.red, Color.white, delta);
+            }
             if (delta == 1.0)
             {
-                flash = true;
+                m_flash = true;
             }
         }
     }

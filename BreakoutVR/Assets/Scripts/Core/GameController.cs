@@ -221,6 +221,9 @@ public class GameController : Singleton<GameController>
     {
         if (OnLevelStarted != null)
             OnLevelStarted(info.Next);
+
+        if (OnPlayStarted != null)
+            OnPlayStarted();
     }
 
     //---------------------------------------------------------------------------------------------
