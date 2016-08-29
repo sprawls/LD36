@@ -128,7 +128,8 @@ public class HandController : ExtendedMonoBehaviour
         switch(pType)
         {
             case PowerupType.TripleRacket:
-                FindObjectOfType<TripleRacket>().Activate(m_controller);
+                TripleRacket script = GetComponent<TripleRacket>();
+                script.Activate(m_controller);
                 break;
         }
     }

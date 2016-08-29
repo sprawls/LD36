@@ -100,8 +100,8 @@ public class TripleRacket : PowerUpAbstract
             m_padRef = this.gameObject.GetComponentInChildren<Paddle>(true).gameObject;
             if (m_padRef)
             {
-                m_leftPaddle = Instantiate(Resources.Load("Prefabs/PaddleObject"), m_padRef.transform) as GameObject;
-                m_rightPaddle = Instantiate(Resources.Load("Prefabs/PaddleObject"), m_padRef.transform) as GameObject;
+                m_leftPaddle = Instantiate(m_padObjectPrefab, m_padRef.transform) as GameObject;
+                m_rightPaddle = Instantiate(m_padObjectPrefab, m_padRef.transform) as GameObject;
             }
         }
         else
