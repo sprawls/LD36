@@ -4,8 +4,8 @@ using System.Collections;
 public class MovingLight : MonoBehaviour
 {
 
-    private float speed = 7.0f;
-    private float duration = 1.35f;
+    private float speed = 15.0f;
+    private float duration = 0.6f;
     private float intensityMin = 0f;
     private float intensityMax = 1.5f;
     public Gradient gradient;

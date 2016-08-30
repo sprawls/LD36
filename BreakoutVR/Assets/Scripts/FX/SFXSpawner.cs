@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SFXSpawner : MonoBehaviour {
+public class SFXSpawner : Singleton<SFXSpawner> {
 
     //Moving Light settings
     public GameObject movingLightPrefab;
@@ -10,7 +10,12 @@ public class SFXSpawner : MonoBehaviour {
 
     void Start()
     {
-        StartCoroutine(SpawnMovingLightPeriodically());
+        spawnPosition = new Vector3(0, 1f, -2f);
+    }
+
+    public void spawnMovingLight()
+    {
+        movingLight = (GameObject)Instantiate(movingLightPrefab, spawnPosition, Quaternion.identity);
     }
 
     IEnumerator SpawnMovingLightPeriodically()
@@ -18,7 +23,6 @@ public class SFXSpawner : MonoBehaviour {
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(3.0f, 8.0f));
-            spawnPosition = new Vector3(0, 1f, -2f);
             movingLight = (GameObject)Instantiate(movingLightPrefab, spawnPosition, Quaternion.identity);
         }
 

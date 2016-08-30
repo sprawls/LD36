@@ -132,18 +132,18 @@ MonoBehaviour:
   intensityCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
+    - time: 0.0020470545
+      value: 1.5365857
+      inSlope: -0.12611622
+      outSlope: -0.12611622
       tangentMode: 0
-    - time: 0.43370822
-      value: 1.0002983
-      inSlope: -0.00597058
-      outSlope: -0.00597058
+    - time: 0.69640434
+      value: 1.154434
+      inSlope: -1.3340648
+      outSlope: -1.3340648
       tangentMode: 0
     - time: 0.99897957
-      value: 0.0062500834
+      value: -0.0000017881393
       inSlope: -4.481698
       outSlope: -4.481698
       tangentMode: 0
