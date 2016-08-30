@@ -23,7 +23,7 @@ public class ImpactTorus : MonoBehaviour {
 
     IEnumerator FadeAnimation() {
         for (float i = 0f; i < 1f; i += Time.deltaTime / _time) {
-            _material.color = new Color(1f, 1f, 1f, 1f-i);
+            _material.color = new Color(1f, 1f, 1f, (1f-i) * 0.3f);
             _transform.localScale = animCurve.Evaluate(i) * Vector3.one * _scale;
             yield return null;
         }

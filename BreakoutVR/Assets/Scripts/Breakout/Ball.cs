@@ -204,13 +204,15 @@ public class Ball : BreakoutPhysicObject {
         if (collider.tag == "Paddle") {
             Paddle paddleScript = collider.GetComponentInParent<Paddle>();
             float DotProduct = -100;
-
+            Vector3 reflectedDirectiondebug = Vector3.zero;
             //If paddle is fast enough, use the paddle's orientation instead of the normal since the paddle could have gone through the ball.
             if (paddleScript.GetCurrentVelocityMagnitude() > 1f) {
                 reflectedDirection = paddleScript.GetCurrentVelocity();
                 DotProduct = Vector3.Dot(reflectedDirection, paddleScript.transform.up);
                 reflectedDirection = paddleScript.transform.up * Mathf.Sign(DotProduct);
-                reflectedDirection = (reflectedDirection.normalized + paddleScript.currentVelocity.normalized).normalized;
+                reflectedDirectiondebug = reflectedDirection;
+                
+                reflectedDirection = (reflectedDirection.normalized + paddleScript.GetCurrentVelocity().normalized).normalized;
             } else {
                 reflectedDirection = collision.contacts[0].normal;
                 DotProduct = Vector3.Dot(reflectedDirection, paddleScript.transform.up);
@@ -220,6 +222,7 @@ public class Ball : BreakoutPhysicObject {
                 reflectedDirection += paddleScript.GetCurrentVelocity().normalized * paddleDirectionInfluenceFromPaddleSpeed;
             }
 
+            Debug.Log("paddle Speed: " + paddleScript.GetCurrentVelocity().normalized + "    paddle up : " + reflectedDirectiondebug + "    result: " + reflectedDirection + "     normal " + collision.contacts[0].normal);  
 
             /*
             Vector3 sPos = collision.contacts[0].point;
