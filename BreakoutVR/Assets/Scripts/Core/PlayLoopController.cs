@@ -89,7 +89,8 @@ public class PlayLoopController : Singleton<PlayLoopController>
         --m_ballCount;
         if (m_ballCount <= 0)
         {
-            m_playState = PlayState.LifeLost;            
+            m_playState = PlayState.LifeLost;
+            SpawnBall(); //HARDCODED for ludumdare
         }
     }
 
@@ -185,7 +186,8 @@ public class PlayLoopController : Singleton<PlayLoopController>
             ball.OnDestroy += Callback_OnBallDestroyed;
         }
 
-        m_timeToNextBall = m_delayBetweenBall;
+        //m_timeToNextBall = m_delayBetweenBall;
+        m_timeToNextBall = 15f; //HARDCODED for ludumdare
         ++m_ballSpawned;
     }
 }
