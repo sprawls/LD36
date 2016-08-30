@@ -20,11 +20,13 @@ public class BeatDetectScale : BeatDetect {
 
     public override void onOnbeatDetected()
     {
-        float scaleRatio = Random.Range(scaleRatioMin, scaleRatioMax);
-        beatScale = new Vector3(initialScale.x * scaleRatio, initialScale.y * scaleRatio, initialScale.z * scaleRatio);
-        transform.localScale = initialScale + beatScale;
-        StopCoroutine("beatScaleDrop");
-        StartCoroutine("beatScaleDrop");
+        if (gameObject.activeInHierarchy) {
+            float scaleRatio = Random.Range(scaleRatioMin, scaleRatioMax);
+            beatScale = new Vector3(initialScale.x * scaleRatio, initialScale.y * scaleRatio, initialScale.z * scaleRatio);
+            transform.localScale = initialScale + beatScale;
+            StopCoroutine("beatScaleDrop");
+            StartCoroutine("beatScaleDrop");
+        }
     }
 
     IEnumerator beatScaleDrop()

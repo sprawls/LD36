@@ -81,6 +81,8 @@ public class Ball : BreakoutPhysicObject {
     }
 
     void FixedUpdate() {
+        if ((_transform.position - Vector3.zero).magnitude > 200f) OnKill(); //FAILSAFE LUDUM DARE
+
         if (CanPlay()) {
             ApplyVelocityModification();
             CheckBallSpeed();
@@ -222,7 +224,7 @@ public class Ball : BreakoutPhysicObject {
                 reflectedDirection += paddleScript.GetCurrentVelocity().normalized * paddleDirectionInfluenceFromPaddleSpeed;
             }
 
-            Debug.Log("paddle Speed: " + paddleScript.GetCurrentVelocity().normalized + "    paddle up : " + reflectedDirectiondebug + "    result: " + reflectedDirection + "     normal " + collision.contacts[0].normal);  
+            //Debug.Log("paddle Speed: " + paddleScript.GetCurrentVelocity().normalized + "    paddle up : " + reflectedDirectiondebug + "    result: " + reflectedDirection + "     normal " + collision.contacts[0].normal);  
 
             /*
             Vector3 sPos = collision.contacts[0].point;
@@ -282,16 +284,20 @@ public class Ball : BreakoutPhysicObject {
             // if paddle swung fast, bigger smashing sound
             if (paddleVelocity >= 6.0f)
             {
-                AudioClip paddleHitLouderSound = AudioManager.Instance.getPaddleHitLouderSound();
-                audioSource.PlayOneShot(paddleHitLouderSound);
+                if (AudioManager.Instance != null) {
+                    AudioClip paddleHitLouderSound = AudioManager.Instance.getPaddleHitLouderSound();
+                    audioSource.PlayOneShot(paddleHitLouderSound);
+                }
             }
             else
             {
                 // change pitch and volume of hit sound according to paddle velocity
-                AudioClip paddleHitSound = AudioManager.Instance.getPaddleHitSound();
-                audioSource.pitch = 1.0f + paddleVelocity  * 0.15f;
-                audioSource.volume = 1.0f + paddleVelocity * 0.8f;
-                audioSource.PlayOneShot(paddleHitSound);
+                if (AudioManager.Instance != null) {
+                    AudioClip paddleHitSound = AudioManager.Instance.getPaddleHitSound();
+                    audioSource.pitch = 1.0f + paddleVelocity * 0.15f;
+                    audioSource.volume = 1.0f + paddleVelocity * 0.8f;
+                    audioSource.PlayOneShot(paddleHitSound);
+                }
             }
             
         }
