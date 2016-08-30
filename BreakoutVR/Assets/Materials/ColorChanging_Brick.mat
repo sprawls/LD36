@@ -156,7 +156,7 @@ Material:
       second: 40.8
     - first:
         name: _PositionColorImpact
-      second: 1
+      second: 0.55
     - first:
         name: _Reflection
       second: 0.5
@@ -165,7 +165,7 @@ Material:
       second: 1
     - first:
         name: _Shininess
-      second: 0.52
+      second: 0.162
     - first:
         name: _SmoothnessTextureChannel
       second: 0
@@ -199,7 +199,7 @@ Material:
       second: {r: 0.022058845, g: 0.012164804, b: 0.012164804, a: 0.5}
     - first:
         name: _SpecColor
-      second: {r: 0.35294116, g: 0.2569204, b: 0.2569204, a: 1}
+      second: {r: 0.5294118, g: 0.42430797, b: 0.42430797, a: 1}
     - first:
         name: _TintColor
       second: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
