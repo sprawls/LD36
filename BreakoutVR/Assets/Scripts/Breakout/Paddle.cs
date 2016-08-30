@@ -55,6 +55,7 @@ public class Paddle : BreakoutPhysicObject {
     public void BallHit(float speed, Collision coll) {
         Rumble(speed);
         SpawnImpactTorus(speed, coll);
+        SpawnMovingLight(speed);
     }
 
     private void Rumble(float speed) {
@@ -76,6 +77,14 @@ public class Paddle : BreakoutPhysicObject {
                     impactTorus.ActivateTorus(0.8f, (speed + GetCurrentVelocityMagnitude()-3f) / 3f);
                 } else Debug.Log("No torus script");
             } else Debug.Log("No torus prefab");
+        }
+    }
+
+    private void SpawnMovingLight(float speed)
+    {
+        if (speed > 6.0f)
+        {
+            SFXSpawner.Instance.spawnMovingLight();
         }
     }
 

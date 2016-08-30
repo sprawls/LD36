@@ -55,6 +55,7 @@ public class Ball : BreakoutPhysicObject {
     private AudioSource audioSource;
     private AudioClip generalBallHitSound;
     private AudioClip paddleHitSound;
+    private float pitchMax = 1.3f;
 
     [Header("Ball FX :")]
     public GameObject BallCollisionFX;
@@ -286,6 +287,7 @@ public class Ball : BreakoutPhysicObject {
             {
                 if (AudioManager.Instance != null) {
                     AudioClip paddleHitLouderSound = AudioManager.Instance.getPaddleHitLouderSound();
+                    audioSource.pitch = pitchMax;
                     audioSource.PlayOneShot(paddleHitLouderSound);
                 }
             }
@@ -295,6 +297,7 @@ public class Ball : BreakoutPhysicObject {
                 if (AudioManager.Instance != null) {
                     AudioClip paddleHitSound = AudioManager.Instance.getPaddleHitSound();
                     audioSource.pitch = 1.0f + paddleVelocity * 0.15f;
+                    if (audioSource.pitch > pitchMax) audioSource.pitch = pitchMax;
                     audioSource.volume = 1.0f + paddleVelocity * 0.8f;
                     audioSource.PlayOneShot(paddleHitSound);
                 }
