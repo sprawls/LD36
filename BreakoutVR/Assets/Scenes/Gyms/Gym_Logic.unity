@@ -107,7 +107,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010501574526, guid: 5d6b7d1b159efcc468187dc5802b4ad8, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0.461
+      value: 4.66
       objectReference: {fileID: 0}
     - target: {fileID: 4000010501574526, guid: 5d6b7d1b159efcc468187dc5802b4ad8, type: 2}
       propertyPath: m_LocalRotation.x
@@ -137,6 +137,51 @@ Prefab:
     - {fileID: 114000013581470738, guid: 5d6b7d1b159efcc468187dc5802b4ad8, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 5d6b7d1b159efcc468187dc5802b4ad8, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1090582401
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1090582402}
+  - 114: {fileID: 1090582403}
+  m_Layer: 0
+  m_Name: BrickGenerator (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1090582402
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1090582401}
+  m_LocalRotation: {x: -0.22826587, y: 0, z: 0, w: 0.97359884}
+  m_LocalPosition: {x: -1.2, y: 0.84, z: 5.79}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: -26.39, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1559976469}
+  m_RootOrder: 1
+--- !u!114 &1090582403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1090582401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30ce4826b0b60c744af4d4fe3b1a78ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BrickGameObject: {fileID: 1000013749850938, guid: 09b833c5630fce84d8e0a5ba79063f3e,
+    type: 2}
+  rowsToSpawn: 5
+  bricksPerRows: 7
+  brickScale: 0.2
 --- !u!1 &1131107097 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1000012636728720, guid: 5d6b7d1b159efcc468187dc5802b4ad8,
@@ -155,3 +200,78 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BallPrefab: {fileID: 1000012369135270, guid: 4081c1c69110deb4999a73f9f9fc9639, type: 2}
   spawnInterval: 5
+--- !u!1 &1559976468
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1559976469}
+  m_Layer: 0
+  m_Name: Bricks (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1559976469
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1559976468}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children:
+  - {fileID: 1818668219}
+  - {fileID: 1090582402}
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+--- !u!1 &1818668218
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1818668219}
+  - 114: {fileID: 1818668220}
+  m_Layer: 0
+  m_Name: BrickGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1818668219
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1818668218}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.2, y: 0, z: 4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1559976469}
+  m_RootOrder: 0
+--- !u!114 &1818668220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1818668218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30ce4826b0b60c744af4d4fe3b1a78ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BrickGameObject: {fileID: 1000013749850938, guid: 09b833c5630fce84d8e0a5ba79063f3e,
+    type: 2}
+  rowsToSpawn: 5
+  bricksPerRows: 7
+  brickScale: 0.2
