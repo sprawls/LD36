@@ -187,7 +187,7 @@ GameObject:
   m_PrefabParentObject: {fileID: 1000012636728720, guid: 5d6b7d1b159efcc468187dc5802b4ad8,
     type: 2}
   m_PrefabInternal: {fileID: 697038043}
---- !u!114 &1131107100
+--- !u!114 &1131107099
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -195,11 +195,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1131107097}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40cb089139f362645b303ff83d03af5c, type: 3}
+  m_Script: {fileID: 11500000, guid: a893277100eb70b4da9abf8c6cddca5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BallPrefab: {fileID: 1000012369135270, guid: 4081c1c69110deb4999a73f9f9fc9639, type: 2}
-  spawnInterval: 5
+  m_objectToSpawn: {fileID: 1000012369135270, guid: 4081c1c69110deb4999a73f9f9fc9639,
+    type: 2}
+  m_spawnType: 0
 --- !u!1 &1559976468
 GameObject:
   m_ObjectHideFlags: 0
