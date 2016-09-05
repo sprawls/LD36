@@ -97,25 +97,20 @@ namespace GamejamToolset.LevelLoading
 			StartCoroutine(Coroutine_LoadingLevel(name, info));
 		}
 
-		//------------------------------------------------------------------------------------
-		private IEnumerator Coroutine_LoadingLevel(LevelName name, LevelLoadCallbackInfo info)
+        //------------------------------------------------------------------------------------
+        private IEnumerator Coroutine_LoadingLevel(LevelName name, LevelLoadCallbackInfo info)
 		{
 			CustomLogger.LevelLog(string.Format("Switching to level |{0}| - State: started", name.ToString()));
 			yield return new WaitForSeconds(m_defaultMinimumLoadingTime);
 			AsyncOperation loading = SceneManager.LoadSceneAsync(name.ToString(), LoadSceneMode.Single);
-
-			bool preload = true;
+            
 			while (!loading.isDone)
 			{
-				if (preload && loading.progress > 0.9f)
-				{
-					preload = false;
-					if (OnLevelPreStart != null)
-						OnLevelPreStart(info);
-				}
-
 				yield return null;
 			}
+
+            if (OnLevelPreStart != null)
+                OnLevelPreStart(info);
 
             GC.Collect();
             Shader.WarmupAllShaders();

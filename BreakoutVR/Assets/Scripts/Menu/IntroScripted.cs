@@ -38,9 +38,4 @@ public class IntroScripted : MonoBehaviour
             m_start.SetActive(true);
         }
     }
-
-    public void GotoFirstLevel()
-    {
-        GameController.Instance.RequestPlayLevelLoad(0);
-    }
 }

@@ -1,7 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
+using Random = UnityEngine.Random;
 
-public class Brick : BreakoutPhysicObject {
+public class Brick : BreakoutPhysicObject
+{
+    public Action OnDestroy;
 
     [LargeHeader("Brick Properties :")]
     public int startingHP = 1;
@@ -69,6 +73,12 @@ public class Brick : BreakoutPhysicObject {
 
     private IEnumerator DestroyBrick() {
         Internal_OnDestroy();
+
+        if (OnDestroy != null)
+        {
+            OnDestroy();
+        }
+
         ScoreController.Instance.AddRawScore(m_pointsGiven, transform);
         //FX
         float startScale = _transform.localScale.x;
