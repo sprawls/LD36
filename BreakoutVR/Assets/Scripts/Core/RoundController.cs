@@ -13,7 +13,7 @@ public class RoundController : MonoBehaviour
     public enum RoundEndReason
     {
         Success,
-        GameOver,
+        Failure,
     }
 
     //============================================================================================
@@ -98,7 +98,7 @@ public class RoundController : MonoBehaviour
     //-------------------------------------------------------------------------
     public void RequestStop()
     {
-        TriggerEndingEvents(RoundEndReason.GameOver);
+        TriggerEndingEvents(RoundEndReason.Failure);
         m_currentStep = RoundStep.NotStarted;
     }
 

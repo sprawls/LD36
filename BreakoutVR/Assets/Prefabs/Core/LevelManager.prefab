@@ -43,10 +43,6 @@ MonoBehaviour:
   m_defaultMinimumLoadingTime: 3
   m_scenesData:
     m_levels:
-    - levelName: Menu
-      scenes:
-      - m_scene: {fileID: 102900000, guid: ae1420f96aa3cf14789750f93800e591, type: 3}
-        m_loadState: 1
     - levelName: Gym
       scenes:
       - m_scene: {fileID: 102900000, guid: ed5e49fc35b5144408332b82955c8697, type: 3}
@@ -59,8 +55,14 @@ MonoBehaviour:
         m_loadState: 1
     - levelName: Main
       scenes:
-      - m_scene: {fileID: 102900000, guid: 4a80cb41ff8536948bd6a4ea7b0bbbbe, type: 3}
-        m_loadState: 1
+      - m_scene: {fileID: 102900000, guid: 372a4b22ad22f2b4386da0cd1ce1d0db, type: 3}
+        m_loadState: 0
+      - m_scene: {fileID: 102900000, guid: 31e1b030e2e3ad540bb9f8edc99e347b, type: 3}
+        m_loadState: 0
+      - m_scene: {fileID: 102900000, guid: e672a2b8794ab0a4dac3ae6e0bb4d238, type: 3}
+        m_loadState: 0
+    - levelName: Menu
+      scenes: []
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

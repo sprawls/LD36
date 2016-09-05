@@ -61,6 +61,8 @@ public class Ball : BreakoutPhysicObject {
     public GameObject BallCollisionFX;
 
     public event Action OnDestroy;
+    public static Action<Ball> OnGlobalBallHit;
+    public static Action<Ball> OnGlobalBallDestroy;
 
     override protected void Awake() {
         isDestroyed = false;
@@ -148,6 +150,10 @@ public class Ball : BreakoutPhysicObject {
             StartCoroutine(OnHitCooldownSameObject(collision.collider));
             StartCoroutine(OnHitCooldown());
             Internal_OnHit();
+            if (OnGlobalBallHit != null)
+            {
+                OnGlobalBallHit(this);
+            }
 
             StopCoroutine("OnHitModelScale");
             StartCoroutine("OnHitModelScale");
@@ -177,6 +183,9 @@ public class Ball : BreakoutPhysicObject {
     public void OnKill() {
         if (OnDestroy != null)
             OnDestroy();
+
+        if (OnGlobalBallDestroy != null)
+            OnGlobalBallDestroy(this);
 
         isDestroyed = true;
         RemoveBeatDetectsChildren();

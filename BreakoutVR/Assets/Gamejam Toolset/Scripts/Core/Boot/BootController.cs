@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using GamejamToolset.Configs;
+using GamejamToolset.LevelLoading;
 
 public class BootController : MonoBehaviour 
 {
@@ -80,7 +81,7 @@ public class BootController : MonoBehaviour
 #if !SUBMISSION_BUILD && false
 		Access_LevelManager.RequestLoadLevel(ConfigHelper.StartingLevel);
 #else
-		GameController.Instance.RequestIntroLoad();
+		LevelManager.Instance.RequestLoadLevel(LevelName.Main);
 #endif
 	}
 }

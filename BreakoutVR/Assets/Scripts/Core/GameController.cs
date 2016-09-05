@@ -38,8 +38,6 @@ public class GameController : Singleton<GameController>
     public bool IsInLevelTransition { get { return LevelManager.Instance.IsInTransition; } }
 
 	private bool m_isPause = false;
-    private bool m_isPlayingLevel = false;
-    private int m_currentPlayLevelIndex = -1;
 
     //=============================================================================================
     //---------------------------------------------------------------------------------------------
@@ -59,15 +57,13 @@ public class GameController : Singleton<GameController>
     //---------------------------------------------------------------------------------------------
     private IEnumerator DebugStart()
     {
-        m_currentPlayLevelIndex = 0;
-
         if (OnLevelPreStarted != null)
-            OnLevelPreStarted(LevelName.Level1);
+            OnLevelPreStarted(LevelName.Main);
 
         yield return null;
 
         if (OnLevelStarted != null)
-            OnLevelStarted(LevelName.Level1);
+            OnLevelStarted(LevelName.Main);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -76,6 +72,8 @@ public class GameController : Singleton<GameController>
         base.RegisterCallbacks();
 
         LevelManager.OnLevelPreStart += Callback_OnLevelPreStarted;
+        LevelManager.OnLevelStart += Callback_OnLevelStarted;
+        LevelManager.OnLevelPreEnd += Callback_OnLevelPreEnded;
         LevelManager.OnLevelEnd += Callback_OnLevelEnded;
     }
 
@@ -85,21 +83,16 @@ public class GameController : Singleton<GameController>
         base.UnregisterCallbacks();
 
         LevelManager.OnLevelPreStart -= Callback_OnLevelPreStarted;
+        LevelManager.OnLevelStart -= Callback_OnLevelStarted;
+        LevelManager.OnLevelPreEnd -= Callback_OnLevelPreEnded;
         LevelManager.OnLevelEnd -= Callback_OnLevelEnded;
     }
 
     #region Level
     //---------------------------------------------------------------------------------------------
-    public void RequestIntroLoad()
+    public void RequestLoadMain()
     {
-        LevelManager.Instance.RequestLoadLevel(LevelName.Intro);
-    }
-
-    //---------------------------------------------------------------------------------------------
-    public void RequestMenuLoad()
-    {
-        m_currentPlayLevelIndex = -1;
-        LevelManager.Instance.RequestLoadLevel(LevelName.Menu);
+        LevelManager.Instance.RequestLoadLevel(LevelName.Main);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -115,6 +108,20 @@ public class GameController : Singleton<GameController>
     {
         if (OnLevelPreStarted != null)
             OnLevelPreStarted(info.Next);
+    }
+
+    //---------------------------------------------------------------------------------------------
+    private void Callback_OnLevelStarted(LevelLoadCallbackInfo info)
+    {
+        if (OnLevelStarted != null)
+            OnLevelStarted(info.Next);
+    }
+
+    //---------------------------------------------------------------------------------------------
+    private void Callback_OnLevelPreEnded(LevelLoadCallbackInfo info)
+    {
+        if (OnLevelPreEnded != null)
+            OnLevelPreEnded(info.Next);
     }
 
     //---------------------------------------------------------------------------------------------
